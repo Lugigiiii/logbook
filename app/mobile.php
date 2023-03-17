@@ -30,15 +30,15 @@
             <div id="buttons">
                 <div id="left">
                     <button id="btn-start" onclick="checkInput();">Start</button>
-                    <button id="btn-resume" style="display: none;">Weiter</button>
+                    <button id="btn-resume">Weiter</button>
                 </div>
                 <div id="right">
-                    <button id="btn-manual" style="display: block;">Manuell</button>
-                    <button id="btn-stop" style="display: none;">Beenden</button>
+                    <button id="btn-manual">Manuell</button>
+                    <button id="btn-stop">Beenden</button>
                 </div>
                 <div id="stretch">
                     <button id="btn-pause">Pause</button>
-                    <button id="btn-save" style="display: none;">Speichern</button>
+                    <button id="btn-save">Speichern</button>
                 </div>
             </div>
         </div>
