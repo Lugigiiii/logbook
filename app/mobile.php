@@ -20,10 +20,10 @@
             <div id="timer">
                 <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
             </div>
-            <div id="form-start">
-                <form name="meta-start" method="post">
-                    <input class="inp-fw" name="loc-start" type="text" placeholder="Startort..." value=""/>
-                    <input id="numeric" class="inp-fw" name="km-start" type="text" placeholder="KM Stand..." value=""/>
+            <div id="form">
+                <form name="meta" method="post">
+                    <input class="inp-fw" name="loc" type="text" placeholder="Startort..." value=""/>
+                    <input id="numeric" class="inp-fw" name="km" type="text" placeholder="KM Stand..." value=""/>
                 </form>
             </div>
             <div id="pause-view">
@@ -31,7 +31,7 @@
                 <i id="pause" class="fa-solid fa-circle-pause"></i>
                 <div id="form-pause">
                     <form name="meta-pause" method="post">
-                        <input class="inp-fw" name="loc-pause" type="text" placeholder="Standort..." value=""/>
+                        <input class="inp-fw" name="loc-pause" type="text" placeholder="Zwischenhalt..." value=""/>
                     </form>
                 </div>
             </div>
@@ -39,16 +39,17 @@
         <div id="bottom">
             <div id="buttons">
                 <div id="left">
-                    <button id="btn-start" onclick="startFunc();">Start</button>
-                    <button id="btn-resume" onclick="resumeFunc();">Weiter</button>
+                    <button id="btn-start" onclick="startFunc()">Start</button>
+                    <button id="btn-resume" onclick="resumeFunc()">Weiter</button>
                 </div>
                 <div id="right">
                     <button id="btn-manual">Manuell</button>
-                    <button id="btn-stop">Beenden</button>
+                    <button id="btn-stop" onclick="stopFunc()">Beenden</button>
                 </div>
                 <div id="stretch">
-                    <button id="btn-pause" onclick="pauseFunc();">Pause</button>
-                    <button id="btn-save">Speichern</button>
+                    <button id="btn-pause" onclick="pauseFunc()">Pause</button>
+                    <button id="btn-save" onclick="saveFunc()">Speichern</button>
+                    <button id="btn-back" onclick="loadDefault()">Zurück zum Anfang</button>
                 </div>
             </div>
         </div>
@@ -57,6 +58,9 @@
 <script src="../resources/js/timer.js"></script>
 <script src="../resources/js/main-functions.js"></script>
 <script>
+    if(localStorage.getItem("savedComplete")){
+        loadDefault();
+    }
     loadView();
     $(function() {
         new AutoNumeric('#numeric', {currencySymbol :' km', allowDecimalPadding:'false',currencySymbolPlacement:'s',digitGroupSeparator:"'"});
