@@ -13,12 +13,13 @@
     <div id="main">
         <div id="top">
             <h2 class="top-left">Hallo, Luigi!</h2>
+            <h2 id="title-top"></h2>
         </div>
         <div id="center">
-            <div id="desc-center">
-            </div>
             <div id="timer">
-                <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
+                <div id="timer-live">
+                    <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label>
+                </div>
             </div>
             <div id="form">
                 <form name="meta" method="post">
@@ -27,7 +28,6 @@
                 </form>
             </div>
             <div id="pause-view">
-                <label for="#pause">Pausiert</label>
                 <i id="pause" class="fa-solid fa-circle-pause"></i>
                 <div id="form-pause">
                     <form name="meta-pause" method="post">

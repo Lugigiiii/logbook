@@ -9,7 +9,9 @@ var totalSeconds = 0;
 //start intervall for counter function
 ar_startTS = JSON.parse(localStorage.getItem("timestamp_start"));
 ar_stopTS = JSON.parse(localStorage.getItem("timestamp_stop"));
-setInterval(setTime, 500);
+if(ar_startTS){ // only start after ts is set
+  setInterval(setTime, 500);
+}
 
 // calc total time
 function totalTime() {

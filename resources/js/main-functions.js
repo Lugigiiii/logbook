@@ -5,7 +5,7 @@ function loadView(){
     var stopVar = localStorage.getItem('stopVar');
     var end = localStorage.getItem('end');
     if(end && locStart && kmStart) {
-        // display new window
+        // ending view where user adds last information
         document.forms["meta"]["loc"].placeholder = "Aktueller Standort...";
         document.forms["meta"]["km"].placeholder = "Aktueller KM Stand...";
         $("#timer").hide();
@@ -39,10 +39,14 @@ function loadView(){
         $("#pause-view").hide();
         $("#right").hide();
         $("#btn-save").hide();
+        $("#btn-back").hide();
         $("#form").hide();
         $("#timer").show();
         $("#stretch").show();
         $("#pause").show();
+
+        // add new title
+        document.getElementById("title-top").textContent= 'Unterwegs';
         return;
     }
     /*show default view */
@@ -59,6 +63,10 @@ function loadView(){
     $("#btn-start").show();
     $("#btn-manual").show();
     $("#form").show();
+
+    // add default title
+    document.getElementById("title-top").textContent= 'Start';
+    return;
 }
 
 
@@ -95,6 +103,9 @@ function startFunc(){
 function pauseFunc() {
     /* stop timer */
     localStorage.setItem("stopVar", 1);
+
+    // add new title
+    document.getElementById("title-top").textContent= 'Pausiert';
 
     /* set current ts as cookie */
     var ts = parseInt(new Date().getTime() / 1000); /* gets current ts */
@@ -139,12 +150,6 @@ function resumeFunc(){
 
 // function to stop recording
 function stopFunc() {
-    /*
-    if(!confirm("Fahrt beenden?")){
-        return;
-    }
-    */
-
     // store loc-pause if set
     var locPause = document.forms["meta-pause"]["loc-pause"].value;
     if(locPause){
@@ -167,9 +172,6 @@ function saveFunc() {
     var ar_tsStart = JSON.parse(localStorage.getItem("timestamp_start"));
     var ar_locStart = JSON.parse(localStorage.getItem("locStart"));
 
-    // get timestamp
-    var ts = parseInt(new Date().getTime() / 1000);
-
     // get form data
     var locStop = document.forms["meta"]["loc"].value;
     var locPause = document.forms["meta-pause"]["loc-pause"].value;
@@ -182,8 +184,8 @@ function saveFunc() {
         return false;
     }
     // check if stopover equals current stop
-    if(locStop === locPause){
-        ar_tsStop.pop(); // removes last element since it is the same as the current one
+    if(locStop == locPause){
+        ar_locStart.pop(); // removes last element since it is the same as the current one
     }
     if(kmStop == ""){
         alert('Bitte aktuellen Kilometerstand eingeben');
@@ -194,11 +196,8 @@ function saveFunc() {
         return false;
     }
 
-    // add new timestamp for stop
-    if(!ar_tsStop) {
-        var ar_tsStop = [];
-    }
-    ar_tsStop.push(ts); /* adds current ts to array */
+    // add new location for array
+    ar_locStart.push(locStop); /* adds current ts to array */
     
 
 
@@ -213,18 +212,18 @@ function saveFunc() {
     ar_tsStop.forEach(function callback(value, index) {
       sumTS += ar_tsStop[index] - ar_tsStart[index];
     });
-    totalHours = sumTS / 3600 % 60;
-    totalMinutes = sumTS / 60 % 60;
-    totalSeconds = sumTS % 60;
+    totalHours = parseInt(sumTS / 3600 % 60);
+    totalMinutes = parseInt(sumTS / 60 % 60);
+    totalSeconds = parseInt(sumTS % 60);
 
     // starting time
-    hr = ar_tsStart[0] / 3600 % 60;
-    min = ar_tsStart[0] / 60 % 60;
+    hr = parseInt(ar_tsStart[0] / 3600 % 60 + 1); // get hours and parse as int to remove fractions. increase by 1 to get utc+1
+    min = parseInt(ar_tsStart[0] / 60 % 60);
     strStart = `${hr}:${min}`;
 
     // end time
-    hr = ts / 3600 % 60;
-    min = ts / 60 % 60;
+    hr = parseInt(ar_tsStop.at(-1) / 3600 % 60 + 1);
+    min = parseInt(ar_tsStop.at(-1) / 60 % 60);
     strStop = `${hr}:${min}`;
 
     // loc string
@@ -239,18 +238,20 @@ function saveFunc() {
     // generate dashboard -> add button that restart everything
     document.getElementById("center").innerHTML = `
         <div id="stats">
-            <ul>
-                <li>${locStr}</li>
-                <li>Start: ${strStart}</li>
-                <li>Ende: ${strStop}</li>
-                <li>Total: ${totalHours} h ${totalMinutes} min</li>
-                <li>KM: ${kmDiff}</li>
+            <ul id="stats-ul" class="fa-ul">
+                <li><span class="fa-li"><i class="fa-solid fa-route"></i></span>${locStr}</li>
+                <li><span class="fa-li"><i class="fa-solid fa-play"></i></span>${strStart}</li>
+                <li><span class="fa-li"><i class="fa-solid fa-flag-checkered"></i></span>${strStop}</li>
+                <li><span class="fa-li"><i class="fa-solid fa-clock"></i></span>${totalHours} Stunden ${totalMinutes} Minuten</li>
+                <li><span class="fa-li"><i class="fa-solid fa-car"></i></span>${kmDiff} km</li>
             </ul>
         </div>
     `;
 
     $("#btn-save").hide();
     $("#btn-back").show();
+    // add new title
+    document.getElementById("title-top").textContent= 'Letzte Fahrt';
     // end dashboard stuff
 
 
