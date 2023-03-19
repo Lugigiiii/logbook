@@ -265,7 +265,7 @@ function saveFunc() {
 
 // function to return to home screen
 function loadDefault(){
-    localStorage.clear;
+    localStorage.clear();
     location.reload();
     return;
 }
