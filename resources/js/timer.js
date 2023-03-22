@@ -38,11 +38,11 @@ function setTime() {
   if(!stopVar){
     if(ar_startTS !== 0){
       var referenceTS = ar_startTS.at(-1);
-      totalSeconds = totalTime() + parseInt(new Date().getTime() / 1000) - referenceTS;
+      totalSeconds = totalTime() + parseInt(new Date().getTime()) - referenceTS;
     } 
-    totalHours = totalSeconds / 3600 % 60;
-    totalMinutes = totalSeconds / 60 % 60;
-    secondsLabel.innerHTML = pad(totalSeconds % 60);
+    totalHours = Math.floor((totalSeconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    totalMinutes = Math.floor((totalSeconds % (1000 * 60 * 60)) / (1000 * 60));
+    secondsLabel.innerHTML = pad(Math.floor((totalSeconds % (1000 * 60)) / 1000));
     minutesLabel.innerHTML = pad(parseInt(totalMinutes));
     hoursLabel.innerHTML = pad(parseInt(totalHours));
   }

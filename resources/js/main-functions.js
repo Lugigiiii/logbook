@@ -1,3 +1,17 @@
+// loading items from browser
+if(localStorage.getItem("savedComplete")){
+    loadDefault();
+}
+
+// start main function
+loadView();
+
+// jQuery to adjust input format
+$(function() {
+    new AutoNumeric('#numeric', {currencySymbol :' km', allowDecimalPadding:'false',currencySymbolPlacement:'s',digitGroupSeparator:"'"});
+});
+
+
 /* load saved cookies equals user is currently driving */
 function loadView(){
     var locStart = localStorage.getItem('locStart');
@@ -8,6 +22,7 @@ function loadView(){
         // ending view where user adds last information
         document.forms["meta"]["loc"].placeholder = "Aktueller Standort...";
         document.forms["meta"]["km"].placeholder = "Aktueller KM Stand...";
+        $("#car-selector").hide();
         $("#timer").hide();
         $("#pause-view").hide();
         $("#btn-back").hide();
@@ -17,10 +32,14 @@ function loadView(){
         $("#stretch").show();
         $("#btn-save").show();
         $("#form").show();
+
+        // show title
+        document.getElementById("title-top").textContent= 'Fahrt beendet';
         return;
     }
     if(stopVar && locStart && kmStart){
         /* hide some stuff */
+        $("#car-selector").hide();
         $("#stretch").hide();
         $("#btn-start").hide();
         $("#btn-manual").hide();
@@ -44,6 +63,8 @@ function loadView(){
         $("#timer").show();
         $("#stretch").show();
         $("#pause").show();
+        $("#car-selector").show();
+        getLocation();
 
         // add new title
         document.getElementById("title-top").textContent= 'Unterwegs';
@@ -72,8 +93,13 @@ function loadView(){
 
 /* run this function when start button is pressed. used to check input and then start everything */
 function startFunc(){
+    var car = document.forms["meta"]["car"].value;
     var locStart = document.forms["meta"]["loc"].value;
     var kmStart = document.forms["meta"]["km"].value;
+    if (car == "") {
+        alert("Bitte Fahrzeug wählen");
+        return false;
+    }
     if (locStart == "") {
         alert("Bitte Startort eingeben");
         return false;
@@ -83,13 +109,14 @@ function startFunc(){
         return false;
     }
 
-    var ts = parseInt(new Date().getTime() / 1000);
+    var ts = parseInt(new Date().getTime());
     var ar_tsStart = [];
     var ar_locStart = [];
     ar_tsStart[0] = ts;
     ar_locStart[0] = locStart;
     var fKmStart = kmStart.replace(/\D/g, "");
     localStorage.setItem("timestamp_start", JSON.stringify(ar_tsStart));
+    localStorage.setItem("car", car);
     localStorage.setItem("locStart", JSON.stringify(ar_locStart));
     localStorage.setItem('kmStart', fKmStart);
     location.reload();
@@ -108,7 +135,7 @@ function pauseFunc() {
     document.getElementById("title-top").textContent= 'Pausiert';
 
     /* set current ts as cookie */
-    var ts = parseInt(new Date().getTime() / 1000); /* gets current ts */
+    var ts = parseInt(new Date().getTime()); /* gets current ts */
     if(localStorage.getItem("timestamp_stop")) {
         var ar_tsStop = JSON.parse(localStorage.getItem("timestamp_stop")); /* parses array of ts stop */
     }else {
@@ -137,7 +164,7 @@ function resumeFunc(){
         localStorage.setItem("locStart", JSON.stringify(ar_locStart));
     }
 
-    var ts = parseInt(new Date().getTime() / 1000);
+    var ts = parseInt(new Date().getTime());
 
     var ar_tsStart = JSON.parse(localStorage.getItem("timestamp_start")); /* parses array of ts start */
     ar_tsStart.push(ts);
@@ -167,6 +194,7 @@ function stopFunc() {
 function saveFunc() {
 
     // get browser data
+    var car = localStorage.getItem('car');
     var kmStart = localStorage.getItem('kmStart');
     var ar_tsStop = JSON.parse(localStorage.getItem("timestamp_stop"));
     var ar_tsStart = JSON.parse(localStorage.getItem("timestamp_start"));
@@ -212,18 +240,18 @@ function saveFunc() {
     ar_tsStop.forEach(function callback(value, index) {
       sumTS += ar_tsStop[index] - ar_tsStart[index];
     });
-    totalHours = parseInt(sumTS / 3600 % 60);
-    totalMinutes = parseInt(sumTS / 60 % 60);
-    totalSeconds = parseInt(sumTS % 60);
+    totalHours = parseInt(Math.floor((sumTS % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    totalMinutes = parseInt(Math.floor((sumTS % (1000 * 60 * 60)) / (1000 * 60)));
+    totalSeconds = parseInt(Math.floor((sumTS % (1000 * 60)) / 1000));
 
     // starting time
-    hr = parseInt(ar_tsStart[0] / 3600 % 60 + 1); // get hours and parse as int to remove fractions. increase by 1 to get utc+1
-    min = parseInt(ar_tsStart[0] / 60 % 60);
+    hr = parseInt(Math.floor((ar_tsStart[0] % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1); // get hours and parse as int to remove fractions. increase by 1 to get utc+1
+    min = parseInt(Math.floor((ar_tsStart[0] % (1000 * 60 * 60)) / (1000 * 60)));
     strStart = `${hr}:${min}`;
 
     // end time
-    hr = parseInt(ar_tsStop.at(-1) / 3600 % 60 + 1);
-    min = parseInt(ar_tsStop.at(-1) / 60 % 60);
+    hr = parseInt(Math.floor((ar_tsStop.at(-1) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1); // get hours and parse as int to remove fractions. increase by 1 to get utc+1
+    min = parseInt(Math.floor((ar_tsStop.at(-1) % (1000 * 60 * 60)) / (1000 * 60)));
     strStop = `${hr}:${min}`;
 
     // loc string
@@ -239,10 +267,11 @@ function saveFunc() {
     document.getElementById("center").innerHTML = `
         <div id="stats">
             <ul id="stats-ul" class="fa-ul">
+                <li><span class="fa-li"><i class="fa-solid fa-car"></i></span>${car}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-route"></i></span>${locStr}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-play"></i></span>${strStart}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-flag-checkered"></i></span>${strStop}</li>
-                <li><span class="fa-li"><i class="fa-solid fa-clock"></i></span>${totalHours} Stunden ${totalMinutes} Minuten</li>
+                <li><span class="fa-li"><i class="fa-solid fa-clock"></i></span>${totalHours}h ${totalMinutes}min ${totalSeconds}s</li>
                 <li><span class="fa-li"><i class="fa-solid fa-car"></i></span>${kmDiff} km</li>
             </ul>
         </div>
@@ -272,15 +301,26 @@ function loadDefault(){
 }
 
 
-// functions to check browser
-function mobile(){
-    window.mobileCheck = function() {
-        let check = false;
-        (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
-        return check;
-      };
-    if(window.mobileCheck()){
-        alert("Bitte verwende hierzu dein Smartphone");
-        return;
+
+// get user location for spots
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(parsePosition);
+  } else {
+    return
+  }
+}
+
+function parsePosition(position) {
+  var lat = position.coords.latitude;
+  var lon = position.coords.longitude;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        console.log(xmlhttp.responseText);
     }
+  }
+  xmlhttp.open("POST", "resources/php/functions/parseLocation.php?lat=" + lat + "&lon=" + lon, true);
+  xmlhttp.send();
+
 }
