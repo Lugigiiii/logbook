@@ -12,7 +12,7 @@
             <div id="form">
                 <form name="meta" method="post">
                     {$selector}
-                    <input class="inp-fw" name="loc" type="text" placeholder="Startort..." value=""/>
+                    <input id="input-loc" class="inp-fw" name="loc" type="text" placeholder="Startort..." value=""/>
                     <input id="numeric" class="inp-fw" name="km" type="text" placeholder="KM Stand..." value=""/>
                 </form>
             </div>
@@ -20,7 +20,7 @@
                 <i id="pause" class="fa-solid fa-circle-pause"></i>
                 <div id="form-pause">
                     <form name="meta-pause" method="post">
-                        <input class="inp-fw" name="loc-pause" type="text" placeholder="Zwischenhalt..." value=""/>
+                        <input id="input-loc-pause" class="inp-fw" name="loc-pause" type="text" placeholder="Zwischenhalt..." value=""/>
                     </form>
                 </div>
             </div>

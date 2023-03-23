@@ -29,6 +29,7 @@ body{
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 10px;
     justify-items: center;
     align-items: center;
     height: 100%;
@@ -92,6 +93,10 @@ form {
     background: transparent;
 }
 
+#input-loc {
+    font-style: italic;
+}
+
 option {
     color: #121212;
 }
@@ -107,6 +112,7 @@ input::-webkit-inner-spin-button {
     height: 100%;  
     font-size: 1.5em;
     text-align: center; 
+    padding-top: 30px;
 }
 
 #pause {

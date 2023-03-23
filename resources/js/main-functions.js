@@ -35,9 +35,18 @@ function loadView(){
 
         // show title
         document.getElementById("title-top").textContent= 'Fahrt beendet';
+
+        // get location and write to input and localStorage. Get from Storage if already set
+        if(!localStorage.getItem("apiRequest")){     
+            window.onpaint = getLocation();
+        } else {
+            document.getElementById("input-loc").value = localStorage.getItem("apiRequest");
+        }
+
         return;
     }
     if(stopVar && locStart && kmStart){
+        // pause interface
         /* hide some stuff */
         $("#car-selector").hide();
         $("#stretch").hide();
@@ -50,9 +59,12 @@ function loadView(){
         $("#btn-resume").show();
         $("#btn-stop").show();
         $("#pause-view").show();
+            
+
         return;
     }
     if(locStart && kmStart) {
+        // counting interface
         /* hide and show some stuff */
         $("#left").hide();
         $("#pause-view").hide();
@@ -64,12 +76,12 @@ function loadView(){
         $("#stretch").show();
         $("#pause").show();
         $("#car-selector").show();
-        getLocation();
 
         // add new title
         document.getElementById("title-top").textContent= 'Unterwegs';
         return;
     }
+    // starting screen
     /*show default view */
     $("#left").show();
     $("#right").show();
@@ -87,6 +99,15 @@ function loadView(){
 
     // add default title
     document.getElementById("title-top").textContent= 'Start';
+
+    // get location and write to input and localStorage. Get from Storage if already set
+    if(!localStorage.getItem("apiRequest")){     
+        window.onpaint = getLocation();
+    } else {
+        document.getElementById("input-loc").value = localStorage.getItem("apiRequest");
+    }
+    
+
     return;
 }
 
@@ -119,6 +140,10 @@ function startFunc(){
     localStorage.setItem("car", car);
     localStorage.setItem("locStart", JSON.stringify(ar_locStart));
     localStorage.setItem('kmStart', fKmStart);
+
+    // remove api pause
+    localStorage.removeItem("apiRequest");
+
     location.reload();
     return true;
 }
@@ -170,6 +195,8 @@ function resumeFunc(){
     ar_tsStart.push(ts);
 
     localStorage.setItem("timestamp_start", JSON.stringify(ar_tsStart));
+
+
     location.reload();
     loadView();
 }
@@ -226,6 +253,9 @@ function saveFunc() {
 
     // add new location for array
     ar_locStart.push(locStop); /* adds current ts to array */
+
+    // remove api pause
+    localStorage.removeItem("apiRequest");
     
 
 
@@ -267,7 +297,7 @@ function saveFunc() {
     document.getElementById("center").innerHTML = `
         <div id="stats">
             <ul id="stats-ul" class="fa-ul">
-                <li><span class="fa-li"><i class="fa-solid fa-car"></i></span>${car}</li>
+                <li><span class="fa-li"><i class="fa-solid fa-steering-wheel"></i></span>${car}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-route"></i></span>${locStr}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-play"></i></span>${strStart}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-flag-checkered"></i></span>${strStop}</li>
@@ -314,13 +344,27 @@ function getLocation() {
 function parsePosition(position) {
   var lat = position.coords.latitude;
   var lon = position.coords.longitude;
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-        console.log(xmlhttp.responseText);
-    }
-  }
-  xmlhttp.open("POST", "resources/php/functions/parseLocation.php?lat=" + lat + "&lon=" + lon, true);
-  xmlhttp.send();
+
+    $.ajax({
+        type: 'POST',
+        url: 'resources/php/functions/parseLocation.php',      
+        data: "lat=" + lat+ "&lon=" +  lon,  
+        success: function (response) {
+            var response = JSON.parse(response);
+            var village = response.address.village;
+            document.getElementById("input-loc").value = village;
+
+            // set item to not repeat request
+            localStorage.setItem("apiRequest", village);
+
+            return village;
+        },
+        error: function () {
+            //$("#loader").show();
+            console.log("error in parsePosition()");
+            return;
+
+        }
+    });
 
 }

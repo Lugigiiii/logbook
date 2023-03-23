@@ -21,6 +21,10 @@ $smarty->template_dir = 'tpl/';
 $smarty->compile_dir = 'tpl/cache/'; 
 $smarty->cache_dir = 'cache';
 
+if(empty($_GET['view'])){
+    $_GET['view'] = 'login';
+}
+
 
 if ($_GET['view']==='mobile') {
     // include mobile functions
@@ -29,9 +33,15 @@ if ($_GET['view']==='mobile') {
 
     // display tpl
     $smarty->display('header-mobile.tpl'); 
-    $smarty->assign('selector',loadCar($cars));
+    $smarty->assign('selector',loadCar($CARS));
     $smarty->display('mobile.tpl'); 
     $smarty->display('footer-mobile.tpl'); 
+}
+
+
+if ($_GET['view']==='login') {
+    // display tpl
+    $smarty->display('login.tpl'); 
 }
 
 ?>

@@ -11,7 +11,7 @@ if(empty($lat) && empty($lon)) {
 
 
 $ch = curl_init();
-$url = "https://eu1.locationiq.com/v1/reverse?key=".$location_api_token."&lat=".$lat."&lon=".$lon."&format=json";
+$url = "https://eu1.locationiq.com/v1/reverse?key=".$LOCATION_API_TOKEN."&lat=".$lat."&lon=".$lon."&format=json";
 
 $curl = curl_init($url);
 
