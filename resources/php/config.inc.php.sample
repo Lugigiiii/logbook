@@ -1,0 +1,5 @@
+<?php
+
+$CARS = ['BMW','Mercedes'];
+
+$LOCATION_API_TOKEN = 'YOUR-TOKEN-HERE';
