@@ -28,7 +28,7 @@ if(empty($_GET['view'])){
 
 if ($_GET['view']==='mobile') {
     // include mobile functions
-    include('resources/php/functions/mobile-functions.php');
+    include('resources/php/functions/main-functions.php');
     
 
     // display tpl

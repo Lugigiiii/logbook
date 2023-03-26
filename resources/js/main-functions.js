@@ -297,7 +297,7 @@ function saveFunc() {
     document.getElementById("center").innerHTML = `
         <div id="stats">
             <ul id="stats-ul" class="fa-ul">
-                <li><span class="fa-li"><i class="fa-solid fa-steering-wheel"></i></span>${car}</li>
+                <li><span class="fa-li"><i class="fa-sharp fa-solid fa-steering-wheel"></i></span>${car}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-route"></i></span>${locStr}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-play"></i></span>${strStart}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-flag-checkered"></i></span>${strStop}</li>
@@ -353,6 +353,9 @@ function parsePosition(position) {
             var response = JSON.parse(response);
             var village = response.address.village;
             document.getElementById("input-loc").value = village;
+
+            // debugging stuff
+            console.log(response);
 
             // set item to not repeat request
             localStorage.setItem("apiRequest", village);
