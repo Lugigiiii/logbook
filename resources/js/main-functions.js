@@ -360,7 +360,10 @@ function parsePosition(position) {
             // set item to not repeat request
             localStorage.setItem("apiRequest", village);
 
-            return village;
+            if(village != 'undefined'){
+                return village;
+            }
+            
         },
         error: function () {
             //$("#loader").show();
