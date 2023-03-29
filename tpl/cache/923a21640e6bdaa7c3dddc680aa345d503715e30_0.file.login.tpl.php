@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-03-23 23:09:40
+/* Smarty version 4.2.1, created on 2023-03-29 22:41:23
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_641cce246ae472_64842370',
+  'unifunc' => 'content_6424a273014900_65505562',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1679609342,
+      1 => 1680121835,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_641cce246ae472_64842370 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6424a273014900_65505562 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -64,40 +64,21 @@ function content_641cce246ae472_64842370 (Smarty_Internal_Template $_smarty_tpl)
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="post" action="../resources/php/functions/main-functions.php">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="" aria-describedby="username"
+                                                placeholder="Benutzername" name="inpUsername">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="exampleInputPassword" placeholder="Passwort" name="inpPassword">
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
-                                        <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
-                                        </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a>
+                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

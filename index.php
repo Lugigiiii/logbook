@@ -25,6 +25,10 @@ if(empty($_GET['view'])){
     $_GET['view'] = 'login';
 }
 
+// redirect
+if(!isset($_SESSION)){
+    $_GET['view'] = 'login';
+}
 
 if ($_GET['view']==='mobile') {
     // include mobile functions
@@ -34,6 +38,7 @@ if ($_GET['view']==='mobile') {
     // display tpl
     $smarty->display('header-mobile.tpl'); 
     $smarty->assign('selector',loadCar($CARS));
+    $smarty->assign('first_name',$_SESSION['first']);
     $smarty->display('mobile.tpl'); 
     $smarty->display('footer-mobile.tpl'); 
 }
@@ -41,7 +46,7 @@ if ($_GET['view']==='mobile') {
 
 if ($_GET['view']==='login') {
     // display tpl
-    $smarty->display('login.tpl'); 
+    $smarty->display('login.tpl');
 }
 
 ?>

@@ -1,6 +1,6 @@
     <div id="main">
         <div id="top">
-            <h2 class="top-left">Hallo, Luigi!</h2>
+            <h2 class="top-left">Hallo, {$first}!</h2>
             <h2 id="title-top"></h2>
         </div>
         <div id="center">

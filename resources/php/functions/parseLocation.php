@@ -2,8 +2,8 @@
 
 include('../config.inc.php');
 
-$lat = $_POST['lat'];
-$lon = $_POST['lon'];
+$lat = addslashes($_POST['lat']);
+$lon = addslashes($_POST['lon']);
 
 if(empty($lat) && empty($lon)) {
     exit;
