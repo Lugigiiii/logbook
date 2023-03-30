@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 26. Mrz 2023 um 22:20
+-- Erstellungszeit: 30. Mrz 2023 um 19:18
 -- Server-Version: 10.4.27-MariaDB
 -- PHP-Version: 8.2.0
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `db_logbook`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `car`
+--
+
+CREATE TABLE `car` (
+  `pk_id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `numberplate` varchar(20) DEFAULT NULL,
+  `year` year(4) DEFAULT NULL,
+  `active` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -42,7 +56,7 @@ CREATE TABLE `locstart` (
 CREATE TABLE `ride` (
   `pk_id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `car` varchar(30) NOT NULL,
+  `car` int(11) NOT NULL,
   `kmStart` int(11) NOT NULL,
   `kmEnd` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -93,6 +107,12 @@ CREATE TABLE `user` (
 --
 
 --
+-- Indizes für die Tabelle `car`
+--
+ALTER TABLE `car`
+  ADD PRIMARY KEY (`pk_id`);
+
+--
 -- Indizes für die Tabelle `locstart`
 --
 ALTER TABLE `locstart`
@@ -104,7 +124,8 @@ ALTER TABLE `locstart`
 --
 ALTER TABLE `ride`
   ADD PRIMARY KEY (`pk_id`),
-  ADD KEY `user` (`user`);
+  ADD KEY `user` (`user`),
+  ADD KEY `car` (`car`);
 
 --
 -- Indizes für die Tabelle `tsstart`
@@ -129,6 +150,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT für exportierte Tabellen
 --
+
+--
+-- AUTO_INCREMENT für Tabelle `car`
+--
+ALTER TABLE `car`
+  MODIFY `pk_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `locstart`
@@ -174,6 +201,7 @@ ALTER TABLE `locstart`
 -- Constraints der Tabelle `ride`
 --
 ALTER TABLE `ride`
+  ADD CONSTRAINT `car` FOREIGN KEY (`car`) REFERENCES `car` (`pk_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `user` FOREIGN KEY (`user`) REFERENCES `user` (`pk_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

@@ -7,6 +7,8 @@
  * Version: 1.0
  */
 
+
+
 // define smarty lib directory
 define('SMARTY_DIR', 'resources/php/smarty-4.2.1/libs/');
 // include the setup script
@@ -21,24 +23,29 @@ $smarty->template_dir = 'tpl/';
 $smarty->compile_dir = 'tpl/cache/'; 
 $smarty->cache_dir = 'cache';
 
-if(empty($_GET['view'])){
+
+
+
+// check where to forward to
+session_start(); // starts the session
+if(empty($_GET['view']) || !isset($_SESSION)){
     $_GET['view'] = 'login';
 }
 
-// redirect
-if(!isset($_SESSION)){
-    $_GET['view'] = 'login';
-}
+
+
 
 if ($_GET['view']==='mobile') {
     // include mobile functions
     include('resources/php/functions/main-functions.php');
-    
+
+    // get first name
+    $first = $_SESSION['first'];
 
     // display tpl
     $smarty->display('header-mobile.tpl'); 
-    $smarty->assign('selector',loadCar($CARS));
-    $smarty->assign('first_name',$_SESSION['first']);
+    $smarty->assign('selector',loadCar());
+    $smarty->assign('first',$first);
     $smarty->display('mobile.tpl'); 
     $smarty->display('footer-mobile.tpl'); 
 }
@@ -49,4 +56,3 @@ if ($_GET['view']==='login') {
     $smarty->display('login.tpl');
 }
 
-?>

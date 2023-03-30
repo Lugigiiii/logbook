@@ -8,8 +8,17 @@ loadView();
 
 // jQuery to adjust input format
 $(function() {
-    new AutoNumeric('#numeric', {currencySymbol :' km', allowDecimalPadding:'false',currencySymbolPlacement:'s',digitGroupSeparator:"'"});
+    an = new AutoNumeric('#numeric', {currencySymbol :' km', allowDecimalPadding:"false",currencySymbolPlacement:'s',digitGroupSeparator:"'"});
 });
+
+// get km after car ist selected
+$('#car-selector').change(function(){
+    aj_getKM();
+})
+
+
+
+
 
 
 /* load saved cookies equals user is currently driving */
@@ -297,12 +306,12 @@ function saveFunc() {
     document.getElementById("center").innerHTML = `
         <div id="stats">
             <ul id="stats-ul" class="fa-ul">
-                <li><span class="fa-li"><i class="fa-sharp fa-solid fa-steering-wheel"></i></span>${car}</li>
+                <li><span class="fa-li"><i class="fa-solid fa-car"></i></span>${car}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-route"></i></span>${locStr}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-play"></i></span>${strStart}</li>
                 <li><span class="fa-li"><i class="fa-solid fa-flag-checkered"></i></span>${strStop}</li>
-                <li><span class="fa-li"><i class="fa-solid fa-clock"></i></span>${totalHours}h ${totalMinutes}min ${totalSeconds}s</li>
-                <li><span class="fa-li"><i class="fa-solid fa-car"></i></span>${kmDiff} km</li>
+                <!--<li><span class="fa-li"><i class="fa-solid fa-clock"></i></span>${totalHours}h ${totalMinutes}min ${totalSeconds}s</li>-->
+                <li><span class="fa-li"><i class="fa-solid fa-road"></i></span>${kmDiff} km</li>
             </ul>
         </div>
     `;
@@ -315,7 +324,31 @@ function saveFunc() {
 
 
 
-    // call php to upload -> here
+    /*  call php to upload data
+        including:
+            car
+            locStart
+            ar_tsStart
+            ar_tsStop
+            kmStart
+            kmEnd
+    
+    $.ajax({
+        type: 'POST',
+        url: 'resources/php/functions/main-functions.php?',      
+        data: "carSelected=" + car,  
+        success: function (response) {
+          //document.forms["meta"]["km"].value = response;
+          an.set(response);
+          return;
+        },
+        error: function () {
+            return;
+
+        }
+    });
+
+    */
 
     // restart everything
     localStorage.setItem("savedComplete", 1);
@@ -374,3 +407,24 @@ function parsePosition(position) {
     });
 
 }
+
+
+
+function aj_getKM() {
+      var car = document.forms["meta"]["car"].value;
+      $.ajax({
+          type: 'POST',
+          url: 'resources/php/functions/main-functions.php?',      
+          data: "carSelected=" + car,  
+          success: function (response) {
+            //document.forms["meta"]["km"].value = response;
+            an.set(response);
+            return;
+          },
+          error: function () {
+              return;
+  
+          }
+      });
+  
+  }

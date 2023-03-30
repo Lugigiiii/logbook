@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-03-23 22:16:07
+/* Smarty version 4.2.1, created on 2023-03-30 18:57:46
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_641cc1971de780_88084634',
+  'unifunc' => 'content_6425bf8a180d13_52570368',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '397edd5be03166c46a08604e7a6321a52e7ad874' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\mobile.tpl',
-      1 => 1679606165,
+      1 => 1680195375,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_641cc1971de780_88084634 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6425bf8a180d13_52570368 (Smarty_Internal_Template $_smarty_tpl) {
 ?>    <div id="main">
         <div id="top">
-            <h2 class="top-left">Hallo, Luigi!</h2>
+            <h2 class="top-left">Hallo, <?php echo $_smarty_tpl->tpl_vars['first']->value;?>
+!</h2>
             <h2 id="title-top"></h2>
         </div>
         <div id="center">
