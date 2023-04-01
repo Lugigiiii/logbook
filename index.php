@@ -28,8 +28,17 @@ $smarty->cache_dir = 'cache';
 
 // check where to forward to
 session_start(); // starts the session
-if(empty($_GET['view']) || !isset($_SESSION)){
+if(empty($_GET['view']) || !isset($_SESSION['loggedin'])){
     $_GET['view'] = 'login';
+}
+
+
+// if user has permission for admin backend, display selector where he can choose the interface
+if($_GET['view'] === 'loggedin' && $_SESSION['admin']){
+    //$smarty->display('pick-view.tpl');  
+    $_GET['view'] = 'mobile';
+} elseif ($_GET['view'] === 'loggedin' && !$_SESSION['admin']) {
+    $_GET['view'] = 'mobile';
 }
 
 
@@ -53,6 +62,9 @@ if ($_GET['view']==='mobile') {
 
 if ($_GET['view']==='login') {
     // display tpl
+    if (isset($CLIENT_LOGO)){ // display logo if set
+        $smarty->assign('logo',$CLIENT_LOGO);
+    }
     $smarty->display('login.tpl');
 }
 

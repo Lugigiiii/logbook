@@ -1,6 +1,16 @@
 <?php
-
+// include config
 include('../config.inc.php');
+
+
+// check if user is authenticated for the following part
+if(session_id() === "") session_start();
+if($_SESSION['loggedin'] !== True){
+    header('Location: /index.php?view=login');
+    die();
+}
+
+
 
 $lat = addslashes($_POST['lat']);
 $lon = addslashes($_POST['lon']);

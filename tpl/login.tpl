@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Logbook - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="../resources/css/sb-admin-2.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -39,9 +40,10 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Hey! Bitte anmelden</h1>
+                                        {if isset($logo)}<img src="{$logo}" alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;">{/if}
                                     </div>
-                                    <form class="user" method="post" action="../resources/php/functions/main-functions.php">
+                                    <form class="user" id="loginForm" method="post" action="../resources/php/functions/main-functions.php">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="" aria-describedby="username"
@@ -51,7 +53,7 @@
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Passwort" name="inpPassword">
                                         </div>
-                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
+                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block" onsubmit="logIn()">Login</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -70,14 +72,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../resources/vendor/jquery/jquery.min.js"></script>
+    <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="../resources/js/sb-admin-2.min.js"></script>
 
 </body>
 

@@ -47,8 +47,26 @@ body{
     font-size: 1.5em;
 }
 
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px 10px 0 0;
+    font-size: 1.5em;
+}
+
+
 #title-top {
     font-size: 2em;
+}
+
+#logout {
+    text-decoration: none;
+    background: #361919;
+    color: #ffb7b7;
+    font-size: 1em;
+    padding: 0.5em;
+    border: none;
 }
 
 

@@ -327,28 +327,37 @@ function saveFunc() {
     /*  call php to upload data
         including:
             car
-            locStart
+            ar_locStart
             ar_tsStart
             ar_tsStop
             kmStart
-            kmEnd
+            kmStop
+    */
     
+    // send as json string
+    ar_locStartUP = JSON.stringify(ar_locStart);
+    ar_tsStartUP = JSON.stringify(ar_tsStart);
+    ar_tsStopUP = JSON.stringify(ar_tsStop);
+    
+
+    // perform ajax call
     $.ajax({
         type: 'POST',
         url: 'resources/php/functions/main-functions.php?',      
-        data: "carSelected=" + car,  
+        data: "carUP=" + car + "&ar_locStartUP=" + ar_locStartUP + "&ar_tsStartUP=" + ar_tsStartUP + "&ar_tsStopUP=" + ar_tsStopUP + "&kmStartUP=" + kmStart + "&kmStopUP=" + kmStop,  
         success: function (response) {
-          //document.forms["meta"]["km"].value = response;
-          an.set(response);
+          alert(response);
           return;
         },
         error: function () {
+            alert("Fehler: Ajax Fehler. Bitte Screenshot machen und manuell nachtragen.");
             return;
 
         }
     });
 
-    */
+    
+    
 
     // restart everything
     localStorage.setItem("savedComplete", 1);
@@ -427,4 +436,26 @@ function aj_getKM() {
           }
       });
   
+  }
+
+
+
+  // log out function after button press
+  function logOut(){
+    if(confirm("Wirklich abmelden?")){
+        $.ajax({
+            type: 'POST',
+            url: 'resources/php/functions/main-functions.php?',      
+            data: "logout=True",  
+            success: function (response) {
+                location.reload(); // reload to get to login page
+                return;
+            },
+            error: function () {
+                location.reload(); // reload to get to login page
+                return;
+
+            }
+        });
+    }
   }

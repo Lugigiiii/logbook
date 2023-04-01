@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-03-29 22:41:23
+/* Smarty version 4.2.1, created on 2023-04-01 17:57:29
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6424a273014900_65505562',
+  'unifunc' => 'content_6428546977c626_26503026',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1680121835,
+      1 => 1680364648,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6424a273014900_65505562 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6428546977c626_26503026 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +32,7 @@ function content_6424a273014900_65505562 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Logbook - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,6 +42,7 @@ function content_6424a273014900_65505562 (Smarty_Internal_Template $_smarty_tpl)
 
     <!-- Custom styles for this template-->
     <link href="../resources/css/sb-admin-2.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -62,9 +63,11 @@ function content_6424a273014900_65505562 (Smarty_Internal_Template $_smarty_tpl)
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Hey! Bitte anmelden</h1>
+                                        <?php if ((isset($_smarty_tpl->tpl_vars['logo']->value))) {?><img src="<?php echo $_smarty_tpl->tpl_vars['logo']->value;?>
+" alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;"><?php }?>
                                     </div>
-                                    <form class="user" method="post" action="../resources/php/functions/main-functions.php">
+                                    <form class="user" id="loginForm" method="post" action="../resources/php/functions/main-functions.php">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="" aria-describedby="username"
@@ -74,7 +77,7 @@ function content_6424a273014900_65505562 (Smarty_Internal_Template $_smarty_tpl)
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Passwort" name="inpPassword">
                                         </div>
-                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
+                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block" onsubmit="logIn()">Login</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -94,20 +97,20 @@ function content_6424a273014900_65505562 (Smarty_Internal_Template $_smarty_tpl)
 
     <!-- Bootstrap core JavaScript-->
     <?php echo '<script'; ?>
- src="vendor/jquery/jquery.min.js"><?php echo '</script'; ?>
+ src="../resources/vendor/jquery/jquery.min.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
- src="vendor/bootstrap/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+ src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
 >
 
     <!-- Core plugin JavaScript-->
     <?php echo '<script'; ?>
- src="vendor/jquery-easing/jquery.easing.min.js"><?php echo '</script'; ?>
+ src="../resources/vendor/jquery-easing/jquery.easing.min.js"><?php echo '</script'; ?>
 >
 
     <!-- Custom scripts for all pages-->
     <?php echo '<script'; ?>
- src="js/sb-admin-2.min.js"><?php echo '</script'; ?>
+ src="../resources/js/sb-admin-2.min.js"><?php echo '</script'; ?>
 >
 
 </body>

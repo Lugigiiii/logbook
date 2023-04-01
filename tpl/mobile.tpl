@@ -1,6 +1,7 @@
     <div id="main">
         <div id="top">
             <h2 class="top-left">Hallo, {$first}!</h2>
+            <button class="top-right" id="logout" onclick="logOut()">Abmelden</button>
             <h2 id="title-top"></h2>
         </div>
         <div id="center">
