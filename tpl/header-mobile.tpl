@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Logbook</title>
+    <title>{$sitename}</title>
     <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/svgs/solid/car.svg>
     <link rel="stylesheet" href="../resources/css/app-mobile-1.css">
     <script src="../resources/js/autonumeric.js"></script>

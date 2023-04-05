@@ -253,3 +253,34 @@ input::-webkit-inner-spin-button {
     background: #2b4753;
     color: #5aabda;
 }
+
+
+
+/* for view picker page */
+#view-list {
+    text-decoration: none;
+    list-style: none;
+}
+
+#view-list>li {
+    margin: 20px 0 20px 0;
+}
+.view-picker {
+    color: white;
+    font-size: 2em;
+    width: 10em;
+    text-decoration: none;
+    display: block;
+    padding: 5px;
+    background-color: #969696;
+}
+
+.view-picker:hover {
+    background-color: #cccccc;
+    color: white;
+}
+
+.view-picker:active {
+    background-color: #cccccc;
+    color: white;
+}

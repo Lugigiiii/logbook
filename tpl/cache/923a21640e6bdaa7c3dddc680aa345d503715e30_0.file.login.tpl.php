@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-01 17:57:29
+/* Smarty version 4.2.1, created on 2023-04-05 22:09:38
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6428546977c626_26503026',
+  'unifunc' => 'content_642dd582e74e83_53804200',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1680364648,
+      1 => 1680725343,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,9 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6428546977c626_26503026 (Smarty_Internal_Template $_smarty_tpl) {
+function content_642dd582e74e83_53804200 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
 
@@ -32,7 +32,9 @@ function content_6428546977c626_26503026 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Logbook - Login</title>
+    <title><?php echo $_smarty_tpl->tpl_vars['sitename']->value;?>
+</title>
+    <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/svgs/solid/car.svg>
 
     <!-- Custom fonts for this template-->
     <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

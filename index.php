@@ -9,25 +9,29 @@
 
 
 
-// define smarty lib directory
+// define smarty lib directorysmarty
 define('SMARTY_DIR', 'resources/php/smarty-4.2.1/libs/');
 // include the setup script
 require_once('resources/php/config.inc.php');
 // include smarty
 require(SMARTY_DIR.'Smarty.class.php');
+// include main functions
+include('resources/php/functions/main-functions.php');
 
 
 // load smarty
-$smarty = new Smarty();
-$smarty->template_dir = 'tpl/';
-$smarty->compile_dir = 'tpl/cache/'; 
-$smarty->cache_dir = 'cache';
+$tpl = new Smarty();
+$tpl->compile_check = true;
+$tpl->caching = false;
+$tpl->debugging = false;
+$tpl->template_dir = 'tpl/';
+$tpl->compile_dir = 'tpl/cache/'; 
 
 
 
 
 // check where to forward to
-session_start(); // starts the session
+if(session_id() === "") session_start(); // starts the session
 if(empty($_GET['view']) || !isset($_SESSION['loggedin'])){
     $_GET['view'] = 'login';
 }
@@ -35,36 +39,48 @@ if(empty($_GET['view']) || !isset($_SESSION['loggedin'])){
 
 // if user has permission for admin backend, display selector where he can choose the interface
 if($_GET['view'] === 'loggedin' && $_SESSION['admin']){
-    //$smarty->display('pick-view.tpl');  
+    $tpl->display('header-mobile.tpl');
+    $tpl->display('pick-view.tpl'); 
+    $tpl->display('footer-mobile.tpl'); 
     $_GET['view'] = 'mobile';
 } elseif ($_GET['view'] === 'loggedin' && !$_SESSION['admin']) {
-    $_GET['view'] = 'mobile';
+    header("Location: /index.php?view=mobile");
 }
 
 
 
 
 if ($_GET['view']==='mobile') {
-    // include mobile functions
-    include('resources/php/functions/main-functions.php');
-
     // get first name
     $first = $_SESSION['first'];
 
     // display tpl
-    $smarty->display('header-mobile.tpl'); 
-    $smarty->assign('selector',loadCar());
-    $smarty->assign('first',$first);
-    $smarty->display('mobile.tpl'); 
-    $smarty->display('footer-mobile.tpl'); 
+    $tpl->assign('sitename', $SITE_NAME);
+    $tpl->display('header-mobile.tpl'); 
+    $tpl->assign('selector',loadCar());
+    $tpl->assign('first',$first);
+    $tpl->display('mobile.tpl'); 
+    $tpl->display('footer-mobile.tpl'); 
 }
 
 
 if ($_GET['view']==='login') {
     // display tpl
+    $tpl->assign('sitename', $SITE_NAME);
     if (isset($CLIENT_LOGO)){ // display logo if set
-        $smarty->assign('logo',$CLIENT_LOGO);
+        $tpl->assign('logo',$COMPANY_LOGO);
     }
-    $smarty->display('login.tpl');
+    $tpl->display('login.tpl');
+}
+
+
+if ($_GET['view']==='admin') {
+    $tpl->assign('username', $_SESSION['username']);
+    $tpl->assign('sitename', $SITE_NAME);
+    $tpl->assign('companyname',$COMPANY_NAME);
+    $tpl->assign('data',getRides());
+    $tpl->display('admin-header.tpl');
+    $tpl->display('admin-main.tpl');
+    $tpl->display('admin-footer.tpl');
 }
 
