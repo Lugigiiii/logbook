@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-05 23:07:37
+/* Smarty version 4.2.1, created on 2023-04-06 21:55:36
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-main.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_642de3190d97d8_57577346',
+  'unifunc' => 'content_642f23b8eb99a9_22907133',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e4c11e686f08630bedc33753d20024fd7411b9a7' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-main.tpl',
-      1 => 1680727917,
+      1 => 1680810933,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_642de3190d97d8_57577346 (Smarty_Internal_Template $_smarty_tpl) {
+function content_642f23b8eb99a9_22907133 (Smarty_Internal_Template $_smarty_tpl) {
 ?><body id="page-top">
 
     <!-- Page Wrapper -->
@@ -45,7 +45,7 @@ function content_642de3190d97d8_57577346 (Smarty_Internal_Template $_smarty_tpl)
                     <h1 class="h3 mb-2 text-gray-800">Fahrtenbuch <?php echo $_smarty_tpl->tpl_vars['companyname']->value;?>
 </h1>
 
-                    <!-- DataTales Example -->
+                    <!-- DataTable -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Eingetragene Fahrten</h6>
@@ -65,19 +65,6 @@ function content_642de3190d97d8_57577346 (Smarty_Internal_Template $_smarty_tpl)
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>05.04.2023</td>
-                                            <td>18:00 Uhr</td>
-                                            <td>20:00 Uhr</td>
-                                            <td>Smart</td>
-                                            <td>20km</td>
-                                            <td>Tecknau-MUT-Tecknau</td>
-                                            <td>Lukas Ledergerber</td>
-                                        </tr>
-                                        <tr>
-                                            <?php echo $_smarty_tpl->tpl_vars['data']->value;?>
-
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -147,10 +134,15 @@ function content_642de3190d97d8_57577346 (Smarty_Internal_Template $_smarty_tpl)
  src="../resources/vendor/datatables/dataTables.bootstrap4.min.js"><?php echo '</script'; ?>
 >
 
-    <!-- Page level custom scripts -->
     <?php echo '<script'; ?>
- src="../resources/js/demo/datatables-demo.js"><?php echo '</script'; ?>
 >
+        $(document).ready( function () {
+            $('#dataTable').DataTable({
+                data:<?php echo $_smarty_tpl->tpl_vars['data']->value;?>
 
+            });
+        } );
+    <?php echo '</script'; ?>
+>
 </body><?php }
 }

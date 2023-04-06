@@ -13,7 +13,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link" href="/index.php?view=admin">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Fahrtenbuch</span></a>
@@ -28,7 +28,7 @@
     </div>
 
     <!-- Nav Item - Users -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
             <span>Benutzer</span></a>

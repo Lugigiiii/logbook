@@ -27,6 +27,10 @@ function authUser(){
                 $dbFirst = $user['first_name'];
                 $dbAdmin = $user['admin'];
 
+                // close connection
+                $stmt->close();
+                $conn->close();
+
 
                 // now compare
                 if(password_verify($inpPassword,$dbPassword)){
@@ -82,12 +86,15 @@ function loadCar() {
             $html .= "<option value='{$value}'>{$value}</option>";
         }
         $html .= '</select>';
+
+        $stmt->close();
+        $conn->close();
+
         return $html;
     } else {
         echo 'unable to connect to database';
         die();
     }
-
     $conn->close();
 }
 
@@ -109,6 +116,9 @@ function getKM($car){
     if($stmt->execute()){
         $result = $stmt->get_result(); // get the mysqli result
         $row = $result->fetch_assoc();
+
+        $stmt->close();
+        $conn->close();
 
         if(!empty($row['lastKM'])){ // check if data present
             return intval($row['lastKM']);
@@ -203,8 +213,10 @@ function uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop
 }
 
 
-// function for admin backend
+// functions for admin backend
 
+
+// gets startts or stopts
 function getTS($ride_id,$table, $order){
     // include the setup script
     include('resources/php/config.inc.php');
@@ -218,17 +230,20 @@ function getTS($ride_id,$table, $order){
     }
 
     // get starting timestamp
-    $stmt = $conn->prepare("SELECT timestamp FROM ".$table." WHERE fk_ride_id = ? ORDER BY timestamp ".$order." LIMIT 1");
-    $stmt->bind_param("i", $ride_id);
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $ts = $row['timestamp'];
-    $stmt->close();
+    $stmt = $conn->query("SELECT timestamp FROM ".$table." WHERE fk_ride_id = {$ride_id} ORDER BY timestamp ".$order." LIMIT 1");
+    if($result = $stmt->fetch_assoc()){
+        $ts = $result['timestamp'];
+    } else {
+        $ts = 0;
+    }
+    $stmt->free_result();
     $conn->close();
+
 
     return $ts;
 }
 
+// gets location string from db
 function getLocation($ride_id){
     // include the setup script
     include('resources/php/config.inc.php');
@@ -242,25 +257,24 @@ function getLocation($ride_id){
     }
 
     // get locations
-    $stmt = $conn->prepare("SELECT location FROM locstart WHERE ride_id = ?");
-    $stmt->bind_param("i", $ride_id);
-    $result = $stmt->get_result();
+    $stmt = $conn->query("SELECT location FROM locstart WHERE ride_id = {$ride_id}");
+    $result = $stmt->fetch_all();
+    $stmt->free_result();
     $locations = ''; // locations string
     $i = 0;
-    while($row = $result->fetch_assoc()){
-        $locations .= $row['location'];
-        if(count($row['location'])-1 != $i){
+    foreach($result as $row){
+        $locations .= $row[0];
+        if(count($result)-1 != $i){
             $locations .= ' - ';
         }
         $i++;
     }
-    $stmt->close();
     $conn->close();
 
-    return $ts;
+    return $locations;
 }
 
-
+// gets data of all rides in db
 function getRides(){
     // include the setup script
     include('resources/php/config.inc.php');
@@ -273,68 +287,42 @@ function getRides(){
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // get id of car selected
-    $stmt = $conn->prepare("SELECT ride.pk_id, user.first_name, user.last_name, car.name, ride.kmStart, ride.kmEnd, ride.ts FROM ride INNER JOIN user ON ride.user = user.pk_id INNER JOIN car ON ride.car = car.pk_id ORDER BY ride.ts DESC LIMIT 25");
-    if(!$stmt->execute()){
-        return "Error at function getRides()";
-    }
-    $result = $stmt->get_result(); // get the mysqli result
-
-    // data array for all
     $data = array();
 
-    // first result
-    $ride_res = array();
-
-    while($row = $result->fetch_assoc()){
-        // loop through all rides
-        // get id of current ride
-        $ride_id = $row['pk_id'];
-
+    $result = $conn->query("SELECT ride.pk_id, user.first_name, user.last_name, car.name, ride.kmStart, ride.kmEnd, ride.ts FROM ride INNER JOIN user ON ride.user = user.pk_id INNER JOIN car ON ride.car = car.pk_id ORDER BY ride.ts DESC");
+    $rows = $result->fetch_all();
+    $result->free_result();
+    $conn->close();
+    foreach($rows as $row){
         // store current data
-        $name = $row['first_name']." ".$row['last_name'];
-        $km = $row['kmEnd']-$row['kmStart']." km";
-        $car = $row['name'];
+        $ride_id = $row[0];
+        $name = $row[1]." ".$row[2];
+        $km = $row[5]-$row[4]." km";
+        $car = $row[3];
+
+        // query for further data
+        $tsstart = getTS($ride_id,'tsstart','ASC');
+        $tsstop = getTS($ride_id,'tsstop','DESC');
+        $locations = getLocation($ride_id);
+
 
         $res = array(
-            'id' => $ride_id,
-            'name' => $name,
-            'km' => $km,
-            'car' => $car
-        );
-
-        array_push($ride_res, $res);
-    }
-
-    $stmt->close();
-    $conn->close();
-
-    foreach ($ride_res as $subarr) {
-        // cannot load this here, store previous part in array and 
-        //$tsstart = getTS($subarr['id'],'tsstart','ASC');
-        //$tsstop = getTS($subarr['id'],'tsstop','DESC');
-        //$locations = getLocation($subarr['id']);
-        
-        
-
-
-        // store all data of this ride to array
-        $ride = array(
             $tsstart,
             $tsstart,
             $tsstop,
-            $subarr['car'],
-            $subarr['km'],
+            $car,
+            $km,
             $locations, 
-            $subarr['name'],
+            $name
         );
 
-        // add to main data array
-        array_push($data, $ride);
+        array_push($data, $res);
     }
 
-    return var_dump($data);
+    // return as json array
+    $data = json_encode($data);
 
+    return $data;
 }
 
 

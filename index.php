@@ -15,8 +15,7 @@ define('SMARTY_DIR', 'resources/php/smarty-4.2.1/libs/');
 require_once('resources/php/config.inc.php');
 // include smarty
 require(SMARTY_DIR.'Smarty.class.php');
-// include main functions
-include('resources/php/functions/main-functions.php');
+
 
 
 // load smarty
@@ -37,6 +36,8 @@ if(empty($_GET['view']) || !isset($_SESSION['loggedin'])){
 }
 
 
+
+
 // if user has permission for admin backend, display selector where he can choose the interface
 if($_GET['view'] === 'loggedin' && $_SESSION['admin']){
     $tpl->display('header-mobile.tpl');
@@ -51,6 +52,9 @@ if($_GET['view'] === 'loggedin' && $_SESSION['admin']){
 
 
 if ($_GET['view']==='mobile') {
+    // include main functions
+    include_once('resources/php/functions/main-functions.php');
+
     // get first name
     $first = $_SESSION['first'];
 
@@ -75,6 +79,9 @@ if ($_GET['view']==='login') {
 
 
 if ($_GET['view']==='admin') {
+    // include main functions
+    include_once('resources/php/functions/main-functions.php');
+
     $tpl->assign('username', $_SESSION['username']);
     $tpl->assign('sitename', $SITE_NAME);
     $tpl->assign('companyname',$COMPANY_NAME);

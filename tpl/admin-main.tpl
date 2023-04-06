@@ -17,7 +17,7 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Fahrtenbuch {$companyname}</h1>
 
-                    <!-- DataTales Example -->
+                    <!-- DataTable -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Eingetragene Fahrten</h6>
@@ -37,18 +37,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>05.04.2023</td>
-                                            <td>18:00 Uhr</td>
-                                            <td>20:00 Uhr</td>
-                                            <td>Smart</td>
-                                            <td>20km</td>
-                                            <td>Tecknau-MUT-Tecknau</td>
-                                            <td>Lukas Ledergerber</td>
-                                        </tr>
-                                        <tr>
-                                            {$data}
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -106,7 +94,11 @@
     <script src="../resources/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="../resources/js/demo/datatables-demo.js"></script>
-
+    <script>
+        $(document).ready( function () {
+            $('#dataTable').DataTable({
+                data:{$data}
+            });
+        } );
+    </script>
 </body>
