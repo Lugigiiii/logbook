@@ -1,51 +1,21 @@
-<?php
-/* Smarty version 4.2.1, created on 2023-04-09 14:30:21
-  from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-main.tpl' */
-
-/* @var Smarty_Internal_Template $_smarty_tpl */
-if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '4.2.1',
-  'unifunc' => 'content_6432afdd565b55_57687220',
-  'has_nocache_code' => false,
-  'file_dependency' => 
-  array (
-    'e4c11e686f08630bedc33753d20024fd7411b9a7' => 
-    array (
-      0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-main.tpl',
-      1 => 1681043392,
-      2 => 'file',
-    ),
-  ),
-  'includes' => 
-  array (
-    'file:admin-sidebar.tpl' => 1,
-    'file:admin-topbar.tpl' => 1,
-  ),
-),false)) {
-function content_6432afdd565b55_57687220 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
-?>
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <?php $_smarty_tpl->_subTemplateRender("file:admin-sidebar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
+        {include file="admin-sidebar.tpl"}
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
             <div id="content">
 
-                <?php $_smarty_tpl->_subTemplateRender("file:admin-topbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
+                {include file="admin-topbar.tpl"}
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Fahrtenbuch <?php echo $_smarty_tpl->tpl_vars['companyname']->value;?>
-</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Autos verwalten</h1>
 
                     <!-- DataTable -->
                     <div class="card shadow mb-4">
@@ -67,31 +37,17 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['data']->value, 'element');
-$_smarty_tpl->tpl_vars['element']->do_else = true;
-if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['element']->value) {
-$_smarty_tpl->tpl_vars['element']->do_else = false;
-?>
+                                        {foreach from=$data item=element}
                                         <tr>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[0],"%d.%m.%Y");?>
-</td>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[1],"%H:%M Uhr");?>
-</td>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[2],"%H:%M Uhr");?>
-</td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[3];?>
-</td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[4];?>
-</td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[5];?>
-</td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[6];?>
-</td>
+                                            <td>{$element[0]|date_format:"%d.%m.%Y"}</td>
+                                            <td>{$element[1]|date_format:"%H:%M Uhr"}</td>
+                                            <td>{$element[2]|date_format:"%H:%M Uhr"}</td>
+                                            <td>{$element[3]}</td>
+                                            <td>{$element[4]}</td>
+                                            <td>{$element[5]}</td>
+                                            <td>{$element[6]}</td>
                                         </tr>
-                                        <?php
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                                        {/foreach}
                                     </tbody>
                                 </table>
                             </div>
@@ -135,43 +91,24 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <?php echo '<script'; ?>
- src="../resources/vendor/jquery/jquery.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
->
+    <script src="../resources/vendor/jquery/jquery.min.js"></script>
+    <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <?php echo '<script'; ?>
- src="../resources/vendor/jquery-easing/jquery.easing.min.js"><?php echo '</script'; ?>
->
+    <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <?php echo '<script'; ?>
- src="../resources/js/sb-admin-2.min.js"><?php echo '</script'; ?>
->
+    <script src="../resources/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <?php echo '<script'; ?>
- src="../resources/vendor/datatables/jquery.dataTables.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="../resources/vendor/datatables/dataTables.bootstrap4.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://cdn.datatables.net/datetime/1.4.0/js/dataTables.dateTime.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="../resources/js/main-functions.js"><?php echo '</script'; ?>
->
+    <script src="../resources/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.4.0/js/dataTables.dateTime.min.js"></script>
+    <script src="../resources/js/main-functions.js"></script>
 
-    
-    <?php echo '<script'; ?>
->
+    {literal}
+    <script>
         
         $(document).ready( function () {
             $('#dataTable').DataTable({
@@ -420,14 +357,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 }
             });
         } );
-        
 
         // change active nav to intended element
-        var element = document.getElementById("element1");
+        var element = document.getElementById("element3");
         element.classList.add("active");
+        
 
-    <?php echo '</script'; ?>
->
-    
-</body><?php }
-}
+    </script>
+    {/literal}
+</body>

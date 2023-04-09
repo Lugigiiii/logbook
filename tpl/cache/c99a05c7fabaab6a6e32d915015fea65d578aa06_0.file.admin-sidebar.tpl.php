@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-06 19:32:01
+/* Smarty version 4.2.1, created on 2023-04-09 14:29:30
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_642f02118632f4_38001208',
+  'unifunc' => 'content_6432afaacf50a9_38065096',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c99a05c7fabaab6a6e32d915015fea65d578aa06' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-sidebar.tpl',
-      1 => 1680802319,
+      1 => 1681043355,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_642f02118632f4_38001208 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6432afaacf50a9_38065096 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -37,7 +37,7 @@ function content_642f02118632f4_38001208 (Smarty_Internal_Template $_smarty_tpl)
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item" id="element1">
         <a class="nav-link" href="/index.php?view=admin">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Fahrtenbuch</span></a>
@@ -52,14 +52,31 @@ function content_642f02118632f4_38001208 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 
     <!-- Nav Item - Users -->
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+    <li class="nav-item" id="element2">
+        <a class="nav-link" href="index.php?view=admin-users">
             <i class="fas fa-fw fa-table"></i>
             <span>Benutzer</span></a>
     </li>
 
+    <!-- Nav Item - Cars -->
+    <li class="nav-item" id="element3">
+        <a class="nav-link" href="index.php?view=admin-cars">
+            <i class="fas fa-fw fa-car"></i>
+            <span>Autos</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Nav Item - Get Back -->
+    <div class="sidebar-heading">
+        Menu
+    </div>
+    <li class="nav-item">
+        <a class="nav-link" href="index.php?view=loggedin">
+            <i class="fas fa-solid fa-rotate-left"></i>
+            <span>Zurück zur Auswahl</span></a>
+    </li>
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

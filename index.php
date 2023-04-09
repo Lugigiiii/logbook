@@ -91,3 +91,29 @@ if ($_GET['view']==='admin') {
     $tpl->display('admin-footer.tpl');
 }
 
+if ($_GET['view']==='admin-cars') {
+    // include main functions
+    include_once('resources/php/functions/main-functions.php');
+
+    $tpl->assign('username', $_SESSION['username']);
+    $tpl->assign('sitename', $SITE_NAME);
+    $tpl->assign('companyname',$COMPANY_NAME);
+    $tpl->display('admin-header.tpl');
+    $tpl->display('admin-cars.tpl');
+    $tpl->display('admin-footer.tpl');
+}
+
+if ($_GET['view']==='admin-users') {
+    // include main functions
+    include_once('resources/php/functions/main-functions.php');
+
+    $tpl->assign('username', $_SESSION['username']);
+    $tpl->assign('sitename', $SITE_NAME);
+    $tpl->assign('companyname',$COMPANY_NAME);
+    $tpl->display('admin-header.tpl');
+    $tpl->display('admin-users.tpl');
+    $tpl->display('admin-footer.tpl');
+}
+
+
+

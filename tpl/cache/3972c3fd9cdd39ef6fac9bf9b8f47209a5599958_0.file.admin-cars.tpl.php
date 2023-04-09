@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-09 14:30:21
-  from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-main.tpl' */
+/* Smarty version 4.2.1, created on 2023-04-09 14:30:49
+  from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-cars.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6432afdd565b55_57687220',
+  'unifunc' => 'content_6432aff9211dc1_92476859',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'e4c11e686f08630bedc33753d20024fd7411b9a7' => 
+    '3972c3fd9cdd39ef6fac9bf9b8f47209a5599958' => 
     array (
-      0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-main.tpl',
-      1 => 1681043392,
+      0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-cars.tpl',
+      1 => 1681043447,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_6432afdd565b55_57687220 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6432aff9211dc1_92476859 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 ?>
 <body id="page-top">
@@ -44,8 +44,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Fahrtenbuch <?php echo $_smarty_tpl->tpl_vars['companyname']->value;?>
-</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Autos verwalten</h1>
 
                     <!-- DataTable -->
                     <div class="card shadow mb-4">
@@ -420,11 +419,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 }
             });
         } );
-        
 
         // change active nav to intended element
-        var element = document.getElementById("element1");
+        var element = document.getElementById("element3");
         element.classList.add("active");
+        
 
     <?php echo '</script'; ?>
 >

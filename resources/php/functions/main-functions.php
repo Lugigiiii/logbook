@@ -301,8 +301,8 @@ function getRides(){
         $car = $row[3];
 
         // query for further data
-        $tsstart = getTS($ride_id,'tsstart','ASC');
-        $tsstop = getTS($ride_id,'tsstop','DESC');
+        $tsstart = intval(getTS($ride_id,'tsstart','ASC') / 1000);
+        $tsstop = intval(getTS($ride_id,'tsstop','DESC') / 1000);
         $locations = getLocation($ride_id);
 
 
@@ -318,9 +318,6 @@ function getRides(){
 
         array_push($data, $res);
     }
-
-    // return as json array
-    $data = json_encode($data);
 
     return $data;
 }

@@ -1,26 +1,3 @@
-// loading items from browser
-if(localStorage.getItem("savedComplete")){
-    loadDefault();
-}
-
-// start main function
-loadView();
-
-// jQuery to adjust input format
-$(function() {
-    an = new AutoNumeric('#numeric', {currencySymbol :' km', allowDecimalPadding:"false",currencySymbolPlacement:'s',digitGroupSeparator:"'"});
-});
-
-// get km after car ist selected
-$('#car-selector').change(function(){
-    aj_getKM();
-})
-
-
-
-
-
-
 /* load saved cookies equals user is currently driving */
 function loadView(){
     var locStart = localStorage.getItem('locStart');
@@ -283,15 +260,22 @@ function saveFunc() {
     totalMinutes = parseInt(Math.floor((sumTS % (1000 * 60 * 60)) / (1000 * 60)));
     totalSeconds = parseInt(Math.floor((sumTS % (1000 * 60)) / 1000));
 
-    // starting time
-    hr = parseInt(Math.floor((ar_tsStart[0] % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1); // get hours and parse as int to remove fractions. increase by 1 to get utc+1
-    min = parseInt(Math.floor((ar_tsStart[0] % (1000 * 60 * 60)) / (1000 * 60)));
-    strStart = `${hr}:${min}`;
+
+    // get starting time
+    var timeStart = new Date(ar_tsStart[0]);
+    var options = {
+        hour: "2-digit",
+        minute: "2-digit",
+    };
+    strStart = timeStart.toLocaleString("de-DE",options)+" Uhr";
 
     // end time
-    hr = parseInt(Math.floor((ar_tsStop.at(-1) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1); // get hours and parse as int to remove fractions. increase by 1 to get utc+1
-    min = parseInt(Math.floor((ar_tsStop.at(-1) % (1000 * 60 * 60)) / (1000 * 60)));
-    strStop = `${hr}:${min}`;
+    var timeStop = new Date(ar_tsStop.at(-1));
+    var options = {
+        hour: "2-digit",
+        minute: "2-digit",
+    };
+    strStop = timeStop.toLocaleTimeString("de-DE",options)+" Uhr";
 
     // loc string
     var locStr = '';
@@ -320,6 +304,7 @@ function saveFunc() {
     $("#btn-back").show();
     // add new title
     document.getElementById("title-top").textContent= 'Letzte Fahrt';
+    document.getElementById("subtitle-top").innerHTML= 'Wird gespeichert <span><i class="fa-solid fa-loader"></i></span>';
     // end dashboard stuff
 
 
@@ -346,7 +331,7 @@ function saveFunc() {
         url: 'resources/php/functions/main-functions.php?',      
         data: "carUP=" + car + "&ar_locStartUP=" + ar_locStartUP + "&ar_tsStartUP=" + ar_tsStartUP + "&ar_tsStopUP=" + ar_tsStopUP + "&kmStartUP=" + kmStart + "&kmStopUP=" + kmStop,  
         success: function (response) {
-          alert(response);
+          document.getElementById("subtitle-top").innerHTML= 'Gespeichert <span><i class="fa-solid fa-check"></i></span>';
           return;
         },
         error: function () {
@@ -448,7 +433,7 @@ function aj_getKM() {
             url: 'resources/php/functions/main-functions.php?',      
             data: "logout=True",  
             success: function (response) {
-                location.reload(); // reload to get to login page
+                loadDefault(); // delete all cookies
                 return;
             },
             error: function () {

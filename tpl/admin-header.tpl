@@ -20,8 +20,9 @@
 
     <!-- Custom styles for this template-->
     <link href="../resources/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../resources/css/admin-1.css">
 
     <!-- custom fontawesome -->
     <script src="https://kit.fontawesome.com/4cc784d7e8.js" crossorigin="anonymous"></script>
-
+    
 </head>
