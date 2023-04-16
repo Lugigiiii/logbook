@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-09 14:30:22
+/* Smarty version 4.2.1, created on 2023-04-16 22:05:49
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-users.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6432afde87bec9_82706995',
+  'unifunc' => 'content_643c551d0801a6_33472315',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09584e69dde19caf4f34b9fca6a907896c52f6cb' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-users.tpl',
-      1 => 1681043406,
+      1 => 1681675547,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_6432afde87bec9_82706995 (Smarty_Internal_Template $_smarty_tpl) {
+function content_643c551d0801a6_33472315 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 ?>
 <body id="page-top">
@@ -49,20 +49,19 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\
                     <!-- DataTable -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Eingetragene Fahrten</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Benutzer</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Datum</th>
-                                            <th>Start</th>
-                                            <th>Ende</th>
-                                            <th>Fahrzeug</th>
-                                            <th>Kilometer</th>
-                                            <th>Strecke</th>
-                                            <th>Mitarbeiter</th>
+                                            <th>Name</th>
+                                            <th>Benutzername</th>
+                                            <th>E-Mail</th>
+                                            <th>Erstellt</th>
+                                            <th>Admin</th>
+                                            <th>Aktiviert</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,20 +72,29 @@ if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['element']->value
 $_smarty_tpl->tpl_vars['element']->do_else = false;
 ?>
                                         <tr>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[0],"%d.%m.%Y");?>
-</td>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[1],"%H:%M Uhr");?>
-</td>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[2],"%H:%M Uhr");?>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[1];?>
+ <?php echo $_smarty_tpl->tpl_vars['element']->value[2];?>
 </td>
                                             <td><?php echo $_smarty_tpl->tpl_vars['element']->value[3];?>
 </td>
                                             <td><?php echo $_smarty_tpl->tpl_vars['element']->value[4];?>
 </td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[5];?>
+                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[5],"%d.%m.%Y");?>
 </td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[6];?>
-</td>
+                                            <?php if ($_smarty_tpl->tpl_vars['element']->value[6] == 1) {?>
+                                                <td class="td-true"><a href="/resources/php/functions/main-functions.php?edit=true&user=<?php echo $_smarty_tpl->tpl_vars['element']->value[0];?>
+&admin=0">Ja</a></td>
+                                            <?php } else { ?>
+                                                <td class="td-false"><a href="/resources/php/functions/main-functions.php?edit=true&user=<?php echo $_smarty_tpl->tpl_vars['element']->value[0];?>
+&admin=1">Nein</a></td>
+                                            <?php }?>
+                                            <?php if ($_smarty_tpl->tpl_vars['element']->value[7] == 1) {?>
+                                                <td class="td-true"><a href="/resources/php/functions/main-functions.php?edit=true&user=<?php echo $_smarty_tpl->tpl_vars['element']->value[0];?>
+&active=0">Ja</a></td>
+                                            <?php } else { ?>
+                                                <td class="td-false"><a href="/resources/php/functions/main-functions.php?edit=true&user=<?php echo $_smarty_tpl->tpl_vars['element']->value[0];?>
+&active=1">Nein</a></td>
+                                            <?php }?>
                                         </tr>
                                         <?php
 }
@@ -94,6 +102,39 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+
+
+                    <!-- add new car -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Benutzer erfassen</h6>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="/resources/php/functions/main-functions.php">
+                                <div class="form-group">
+                                  <label for="newUserFirst">Vorname</label>
+                                  <input type="text" class="form-control" name="newUserFirst" id="newUserFirst" placeholder="Vorname eingeben" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newUserLast">Nachname</label>
+                                    <input type="text" class="form-control" name="newUserLast" id="newUserLast" placeholder="Nachname eingeben" required>
+                                  </div>
+                                <div class="form-group">
+                                  <label for="newUserName">Benutzername</label>
+                                  <input type="text" class="form-control" name="newUserName" id="newUserName" placeholder="Benutzername eingeben" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newUserMail">E-Mail</label>
+                                    <input type="email" class="form-control" name="newUserMail" id="newUserMail" placeholder="E-Mail eingeben" required>
+                                  </div>
+                                <div class="form-check">
+                                  <input type="checkbox" class="form-check-input" name="newUserAdmin" id="newUserAdmin">
+                                  <label class="form-check-label" for="newUserAdmin">Benutzer zur Gruppe Admin hinzufügen <br />(Erhält Zugriff zum Backend)<br /><br /></label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Erfassen</button>
+                              </form>
                         </div>
                     </div>
 
@@ -174,6 +215,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         
         $(document).ready( function () {
             $('#dataTable').DataTable({
+                order: [[3, 'asc']],
                 "language":{
                     "emptyTable": "Keine Daten in der Tabelle vorhanden",
                     "info": "_START_ bis _END_ von _TOTAL_ Einträgen",
@@ -419,7 +461,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 }
             });
         } );
-
 
         // change active nav to intended element
         var element = document.getElementById("element2");

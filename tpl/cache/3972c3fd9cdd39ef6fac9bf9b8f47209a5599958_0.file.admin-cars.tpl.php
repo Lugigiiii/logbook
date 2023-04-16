@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-09 14:30:49
+/* Smarty version 4.2.1, created on 2023-04-16 22:06:19
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-cars.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6432aff9211dc1_92476859',
+  'unifunc' => 'content_643c553bbd7c93_37815549',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3972c3fd9cdd39ef6fac9bf9b8f47209a5599958' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-cars.tpl',
-      1 => 1681043447,
+      1 => 1681673510,
       2 => 'file',
     ),
   ),
@@ -22,10 +22,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_6432aff9211dc1_92476859 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
-?>
-<body id="page-top">
+function content_643c553bbd7c93_37815549 (Smarty_Internal_Template $_smarty_tpl) {
+?><body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -44,25 +42,22 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Autos verwalten</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Fahrzeugverwaltung</h1>
 
                     <!-- DataTable -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Eingetragene Fahrten</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Fahrzeugflotte</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Datum</th>
-                                            <th>Start</th>
-                                            <th>Ende</th>
-                                            <th>Fahrzeug</th>
-                                            <th>Kilometer</th>
-                                            <th>Strecke</th>
-                                            <th>Mitarbeiter</th>
+                                            <th>Bezeichnung</th>
+                                            <th>Kontrollschild</th>
+                                            <th>Erstzulassung</th>
+                                            <th>Aktiv</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,20 +68,19 @@ if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['element']->value
 $_smarty_tpl->tpl_vars['element']->do_else = false;
 ?>
                                         <tr>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[0],"%d.%m.%Y");?>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[1];?>
 </td>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[1],"%H:%M Uhr");?>
-</td>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[2],"%H:%M Uhr");?>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[2];?>
 </td>
                                             <td><?php echo $_smarty_tpl->tpl_vars['element']->value[3];?>
 </td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[4];?>
-</td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[5];?>
-</td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[6];?>
-</td>
+                                            <?php if ($_smarty_tpl->tpl_vars['element']->value[4] == 1) {?>
+                                                <td class="td-true"><a href="/resources/php/functions/main-functions.php?edit=true&car=<?php echo $_smarty_tpl->tpl_vars['element']->value[0];?>
+&active=0">Ja</a></td>
+                                            <?php } else { ?>
+                                                <td class="td-false"><a href="/resources/php/functions/main-functions.php?edit=true&car=<?php echo $_smarty_tpl->tpl_vars['element']->value[0];?>
+&active=1">Nein</a></td>
+                                            <?php }?>
                                         </tr>
                                         <?php
 }
@@ -94,6 +88,35 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+
+
+                    <!-- add new car -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Fahrzeug erfassen</h6>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="/resources/php/functions/main-functions.php">
+                                <div class="form-group">
+                                  <label for="carName">Bezeichnung</label>
+                                  <input type="text" class="form-control" name="carName" id="carName" placeholder="Fahrzeugname eingeben" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="carNumberplate">Kontrollschild</label>
+                                  <input type="text" class="form-control" name="carNumberplate" id="carNumberplate" placeholder="Kontrollschild eingeben" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="carYear">Erstzulassung</label>
+                                    <input type="number" class="form-control" name="carYear" id="carYear" placeholder="Erstzulassung (Jahr) eingeben" required>
+                                  </div>
+                                <div class="form-check">
+                                  <input type="checkbox" class="form-check-input" name="carActive" id="carActive" checked>
+                                  <label class="form-check-label" for="carActive">Fahrzeug ist aktiv</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Erfassen</button>
+                              </form>
                         </div>
                     </div>
 
@@ -174,6 +197,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         
         $(document).ready( function () {
             $('#dataTable').DataTable({
+                order: [[3, 'asc']],
                 "language":{
                     "emptyTable": "Keine Daten in der Tabelle vorhanden",
                     "info": "_START_ bis _END_ von _TOTAL_ Einträgen",

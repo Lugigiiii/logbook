@@ -20,37 +20,76 @@
                     <!-- DataTable -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Eingetragene Fahrten</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Benutzer</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Datum</th>
-                                            <th>Start</th>
-                                            <th>Ende</th>
-                                            <th>Fahrzeug</th>
-                                            <th>Kilometer</th>
-                                            <th>Strecke</th>
-                                            <th>Mitarbeiter</th>
+                                            <th>Name</th>
+                                            <th>Benutzername</th>
+                                            <th>E-Mail</th>
+                                            <th>Erstellt</th>
+                                            <th>Admin</th>
+                                            <th>Aktiviert</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {foreach from=$data item=element}
                                         <tr>
-                                            <td>{$element[0]|date_format:"%d.%m.%Y"}</td>
-                                            <td>{$element[1]|date_format:"%H:%M Uhr"}</td>
-                                            <td>{$element[2]|date_format:"%H:%M Uhr"}</td>
+                                            <td>{$element[1]} {$element[2]}</td>
                                             <td>{$element[3]}</td>
                                             <td>{$element[4]}</td>
-                                            <td>{$element[5]}</td>
-                                            <td>{$element[6]}</td>
+                                            <td>{$element[5]|date_format:"%d.%m.%Y"}</td>
+                                            {if $element[6] == 1}
+                                                <td class="td-true"><a href="/resources/php/functions/main-functions.php?edit=true&user={$element[0]}&admin=0">Ja</a></td>
+                                            {else}
+                                                <td class="td-false"><a href="/resources/php/functions/main-functions.php?edit=true&user={$element[0]}&admin=1">Nein</a></td>
+                                            {/if}
+                                            {if $element[7] == 1}
+                                                <td class="td-true"><a href="/resources/php/functions/main-functions.php?edit=true&user={$element[0]}&active=0">Ja</a></td>
+                                            {else}
+                                                <td class="td-false"><a href="/resources/php/functions/main-functions.php?edit=true&user={$element[0]}&active=1">Nein</a></td>
+                                            {/if}
                                         </tr>
                                         {/foreach}
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+
+
+                    <!-- add new car -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Benutzer erfassen</h6>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="/resources/php/functions/main-functions.php">
+                                <div class="form-group">
+                                  <label for="newUserFirst">Vorname</label>
+                                  <input type="text" class="form-control" name="newUserFirst" id="newUserFirst" placeholder="Vorname eingeben" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newUserLast">Nachname</label>
+                                    <input type="text" class="form-control" name="newUserLast" id="newUserLast" placeholder="Nachname eingeben" required>
+                                  </div>
+                                <div class="form-group">
+                                  <label for="newUserName">Benutzername</label>
+                                  <input type="text" class="form-control" name="newUserName" id="newUserName" placeholder="Benutzername eingeben" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newUserMail">E-Mail</label>
+                                    <input type="email" class="form-control" name="newUserMail" id="newUserMail" placeholder="E-Mail eingeben" required>
+                                  </div>
+                                <div class="form-check">
+                                  <input type="checkbox" class="form-check-input" name="newUserAdmin" id="newUserAdmin">
+                                  <label class="form-check-label" for="newUserAdmin">Benutzer zur Gruppe Admin hinzufügen <br />(Erhält Zugriff zum Backend)<br /><br /></label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Erfassen</button>
+                              </form>
                         </div>
                     </div>
 
@@ -112,6 +151,7 @@
         
         $(document).ready( function () {
             $('#dataTable').DataTable({
+                order: [[3, 'asc']],
                 "language":{
                     "emptyTable": "Keine Daten in der Tabelle vorhanden",
                     "info": "_START_ bis _END_ von _TOTAL_ Einträgen",
@@ -357,7 +397,6 @@
                 }
             });
         } );
-
 
         // change active nav to intended element
         var element = document.getElementById("element2");

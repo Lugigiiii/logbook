@@ -112,7 +112,7 @@
         
         $(document).ready( function () {
             $('#dataTable').DataTable({
-                order: [[0, 'desc']],
+                order: [[0, 'desc'], [1, 'desc']],
                 "language":{
                     "emptyTable": "Keine Daten in der Tabelle vorhanden",
                     "info": "_START_ bis _END_ von _TOTAL_ Einträgen",

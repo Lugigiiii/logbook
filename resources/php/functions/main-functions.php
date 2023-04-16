@@ -1,4 +1,8 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
 // function to authenticate user
 function authUser(){
     include_once('../config.inc.php'); // include the setup script
@@ -16,7 +20,7 @@ function authUser(){
     }
 
     if(!$LDAP_AUTH) { // just use db authentication  
-        $stmt = $conn->prepare("SELECT * FROM user WHERE username=?");
+        $stmt = $conn->prepare("SELECT * FROM user WHERE username=? AND active = 1");
         $stmt->bind_param("s", $inpUsername);
         if($stmt->execute()){
             $result = $stmt->get_result(); // get the mysqli result
@@ -323,6 +327,301 @@ function getRides(){
 }
 
 
+/* function to load cars for page admin-cars */
+function getCarsTable(){
+    // include the setup script
+    include('resources/php/config.inc.php');
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $data = array();
+
+    $result = $conn->query("SELECT * FROM car");
+    $rows = $result->fetch_all();
+    $result->free_result();
+    $conn->close();
+    foreach($rows as $row){ // loop through all rows
+        $res = array(); // array of current row
+        foreach($row as $element){ // loop through current row
+            if(!empty($element)){ // if empty, add "LEER" text, else push into array for current row
+                array_push($res,$element);
+            } else {
+                array_push($res,'LEER');
+            }
+            
+        }
+
+        array_push($data, $res); // push row into full dataset
+    }
+
+    return $data;
+}
+
+/* function to change active element of car -> enable / disable */
+function changeActiveCar($car, $updateVal){
+    $car = intval($car);
+    $updateVal = intval($updateVal);
+
+    // include the setup script
+    include('../config.inc.php');
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // perform statement
+    $stmt = $conn->prepare("UPDATE car SET active = ? WHERE pk_id = ?");
+    $stmt->bind_param('ii', $updateVal, $car);
+    if(!$stmt->execute()){
+        echo 'SQL error at changeActiveCar()';
+        die();
+    }
+    $conn->close();
+}
+
+/* function to insert new car into db received from form on admin-cars */
+function insertNewCar($carName, $carNumberplate, $carYear, $carActive){
+    // include the setup script
+    include('../config.inc.php');
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // perform statement
+    $stmt = $conn->prepare("INSERT INTO car (name, numberplate, year, active) VALUES (?,?,?,?)");
+    $stmt->bind_param('ssii', $carName, $carNumberplate, $carYear, $carActive);
+    if(!$stmt->execute()){
+        echo 'SQL error at insertNewCar()';
+        die();
+    }
+    $conn->close();
+}
+
+
+
+/* function to load users for page admin-users */
+function getUsersTable(){
+    // include the setup script
+    include('resources/php/config.inc.php');
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $data = array();
+
+    $result = $conn->query("SELECT pk_id, first_name, last_name, username, email, created, admin, active FROM user");
+    $rows = $result->fetch_all();
+    $result->free_result();
+    $conn->close();
+    foreach($rows as $row){ // loop through all rows
+        $res = array(); // array of current row
+        foreach($row as $element){ // loop through current row
+            if(!empty($element)){ // if empty, add "LEER" text, else push into array for current row
+                array_push($res,$element);
+            } else {
+                array_push($res,'LEER');
+            }
+            
+        }
+
+        array_push($data, $res); // push row into full dataset
+    }
+
+    return $data;
+}
+
+
+/* add or remove user from admin group via page admin-users */
+function changeAdminUser($user, $updateVal){
+    $user = intval($user);
+    $updateVal = intval($updateVal);
+
+    // include the setup script
+    include('../config.inc.php');
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // perform statement
+    $stmt = $conn->prepare("UPDATE user SET admin = ? WHERE pk_id = ?");
+    $stmt->bind_param('ii', $updateVal, $user);
+    if(!$stmt->execute()){
+        echo 'SQL error at changeAdminUser()';
+        die();
+    }
+    $conn->close();
+}
+
+/* function to insert new user into db received from form on admin-users */
+function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, $newUserAdmin){
+    // include the setup script
+    include('../config.inc.php');
+
+    // include php mailer
+    require '../phpmailer/Exception.php';
+    require '../phpmailer/PHPMailer.php';
+    require '../phpmailer/SMTP.php';
+
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $activation_token = sha1(mt_rand(10000,99999).time().$newUserMail);
+    $url = 'https://'.$SITE_DOMAIN.'/?view=activate-user&token='.$activation_token.'&mail='.$newUserMail;
+
+    // perform statement
+    $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, username, email, admin, activation_token) VALUES (?,?,?,?,?,?)");
+    $stmt->bind_param('ssssis', $newUserFirst, $newUserLast, $newUserName, $newUserMail, $newUserAdmin, $activation_token);
+    if(!$stmt->execute()){
+        echo 'SQL error at insertNewUser()';
+        die();
+    } else {
+        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        try {
+            //Server settings                              // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = $SMTP_HOST;                   // Specify main and backup SMTP servers
+            $mail->SMTPAuth = $SMTP_AUTH;                               // Enable SMTP authentication
+            $mail->Username = $SMTP_USERNAME;              // SMTP username
+            $mail->Password = $SMTP_PASSWORD;                           // SMTP password
+            $mail->SMTPSecure = $SMTP_ENCRYPTION;                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = $SMTP_PORT;                                    // TCP port to connect to
+            
+        
+            //Recipients
+            $mail->setFrom($SMTP_USERNAME, $SITE_NAME);          //This is the email your form sends From
+            $mail->addAddress($newUserMail, $newUserFirst." ".$newUserLast); // Add a recipient address
+        
+            //Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Benutzerkonto aktivieren | '.$SITE_NAME;
+            $mail->CharSet = 'UTF-8';
+        
+            $mail->Body    =
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                                                            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                    <title>Benutzerkonto aktivieren | '.$SITE_NAME.'</title>
+                </head>
+                <body style="margin: 0; padding: 0;">
+                <h1 style="text-align: center;">'.$SITE_NAME.'</h1>
+                <img src="'.$COMPANY_LOGO.'" alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;">
+                <hr />
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td>
+                        <h2 style="margin-top: 20px;">Guten Tag, '.$newUserFirst.' '.$newUserLast.'</h2><br />
+                            <p>Ein Benutzerkonto wurde für Sie auf '.$SITE_DOMAIN.' angelegt.</p><br />
+                            <p>Öffnen Sie den Link, um Ihr Benutzerkonto zu aktivieren: <a href="'.$url.'">'.$url.'</a><p><br />
+                            <p>Die Applikation ermöglicht die Aufzeichnung von Fahrten und die digitale Führung eines Fahrtenbuchs für die Firma '.$COMPANY_NAME.'.</p>
+                            <h5>'.$SITE_NAME.'</h5>
+                            <small>The content of this email is confidential and intended for the recipient specified in message only. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion, so that we can ensure such a mistake does not occur in the future.</small>
+                        </td>
+                    </tr>
+                </table>
+                </body>
+                ';
+            //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        
+            $mail->send();
+        } catch (Exception $e) {
+            die($e);
+        }
+    }
+    $conn->close();
+}
+
+/* function to change active element of user -> enable / disable */
+function changeActiveUser($user, $updateVal){
+    $user = intval($user);
+    $updateVal = intval($updateVal);
+
+    // include the setup script
+    include('../config.inc.php');
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // perform statement
+    $stmt = $conn->prepare("UPDATE user SET active = ? WHERE password <> '' AND pk_id = ?");
+    $stmt->bind_param('ii', $updateVal, $user);
+    if(!$stmt->execute()){
+        echo 'SQL error at changeActiveCar()';
+        die();
+    }
+    $conn->close();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -399,4 +698,60 @@ if(isset($_POST['logout'])){
 
     // Finally, destroy the session.
     session_destroy();
+}
+
+
+// edit data from table
+if(!empty($_GET['edit']) &&  $_GET['edit'] == true){
+
+    // change active bool of car
+    if(!empty($_GET['car']) && isset($_GET['active'])){
+        changeActiveCar($_GET['car'], $_GET['active']);
+        header("Location: /index.php?view=admin-cars");
+    }
+
+    // add or remove user from group admin
+    if(!empty($_GET['user']) && isset($_GET['admin'])){
+        changeAdminUser($_GET['user'], $_GET['admin']);
+        header("Location: /index.php?view=admin-users");
+    }
+
+    // set user active or inactive
+    if(!empty($_GET['user']) && isset($_GET['active'])){
+        changeActiveUser($_GET['user'], $_GET['active']);
+        header("Location: /index.php?view=admin-users");
+    }
+}
+
+
+
+// add new car to database from form on admin-cars
+if(isset($_POST['carName']) && isset($_POST['carNumberplate']) && isset($_POST['carYear'])){
+    $carName = addslashes($_POST['carName']);
+    $carNumberplate = addslashes($_POST['carNumberplate']);
+    $carYear = intval($_POST['carYear']);
+    if(isset($_POST['carActive'])){
+        $carActive = 1;
+    } else {
+        $carActive = 0;
+    }
+
+    insertNewCar($carName, $carNumberplate, $carYear, $carActive);
+    header("Location: /index.php?view=admin-cars");
+}
+
+// add new user to database from form on admin-users
+if(isset($_POST['newUserFirst']) && isset($_POST['newUserLast']) && isset($_POST['newUserName']) && isset($_POST['newUserMail'])){
+    $newUserFirst = addslashes($_POST['newUserFirst']);
+    $newUserLast = addslashes($_POST['newUserLast']);
+    $newUserName = addslashes($_POST['newUserName']);
+    $newUserMail = addslashes($_POST['newUserMail']);
+    if(isset($_POST['newUserAdmin'])){
+        $newUserAdmin = 1;
+    } else {
+        $newUserAdmin = 0;
+    }
+
+    insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, $newUserAdmin);
+    header("Location: /index.php?view=admin-users");
 }

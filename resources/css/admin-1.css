@@ -2,4 +2,33 @@
     padding: 10px;
     white-space:nowrap;
 }
+
+
+/* datatables td element showing true or false values */
+.td-true {
+    background-color: #19361e;
+    text-align: center;
+}
+
+.td-true > a {
+    color: #4bd763;
+    text-decoration: none;
+}
+.td-false {
+    background-color: #361919;
+    text-align: center;
+}
+
+.td-false > a {
+    color: #d74b4b;
+    text-decoration: none;
+}
+
+.td-true > a:hover {
+    text-decoration: underline;
+}
+
+.td-false > a:hover {
+    text-decoration: underline;
+}
     
