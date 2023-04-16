@@ -31,7 +31,19 @@ $tpl->compile_dir = 'tpl/cache/';
 
 // check where to forward to
 if(session_id() === "") session_start(); // starts the session
-if(empty($_GET['view']) || !isset($_SESSION['loggedin'])){
+if($_GET['view'] == 'activate-user' && !empty($_GET['token']) && !empty($_GET['mail'])){ // forward to activation page
+    // include main functions
+    include_once('resources/php/functions/main-functions.php');
+
+    if(checkToken($_GET['token'], $_GET['mail'])){ // this function checks if the token is valid
+        // display tpl
+        $tpl->assign('sitename', $SITE_NAME);
+        if (isset($CLIENT_LOGO)){ // display logo if set
+            $tpl->assign('logo',$COMPANY_LOGO);
+        }
+        $tpl->display('activate-account.tpl'); 
+    } // else {$_GET['view'] = 'login';}
+}elseif(empty($_GET['view']) || !isset($_SESSION['loggedin'])){ // forward to login page
     $_GET['view'] = 'login';
 }
 
@@ -69,6 +81,9 @@ if ($_GET['view']==='mobile') {
 
 
 if ($_GET['view']==='login') {
+    if(isset($_SESSION['loggedin'])){
+        header("Location: /index.php?view=loggedin");
+    }
     // display tpl
     $tpl->assign('sitename', $SITE_NAME);
     if (isset($CLIENT_LOGO)){ // display logo if set

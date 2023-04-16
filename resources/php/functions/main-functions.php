@@ -496,8 +496,19 @@ function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, 
         die("Connection failed: " . $conn->connect_error);
     }
 
+
+    // check if user already exists
+    $stmt = $conn->query("SELECT * FROM user WHERE username = '{$newUserName}' OR email = '{$newUserMail}'");
+    if($stmt->num_rows > 0){
+        return 'Benutzer existiert bereits';
+    }
+    $stmt->close();
+    $conn->close();
+
+
+    // create token
     $activation_token = sha1(mt_rand(10000,99999).time().$newUserMail);
-    $url = 'https://'.$SITE_DOMAIN.'/?view=activate-user&token='.$activation_token.'&mail='.$newUserMail;
+    $url = 'https://'.$SITE_DOMAIN.'/index.php?view=activate-user&token='.$activation_token.'&mail='.$newUserMail;
 
     // perform statement
     $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, username, email, admin, activation_token) VALUES (?,?,?,?,?,?)");
@@ -528,8 +539,7 @@ function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, 
             $mail->CharSet = 'UTF-8';
         
             $mail->Body    =
-                '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-                                                            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                 <head>
                     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -545,7 +555,7 @@ function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, 
                         <td>
                         <h2 style="margin-top: 20px;">Guten Tag, '.$newUserFirst.' '.$newUserLast.'</h2><br />
                             <p>Ein Benutzerkonto wurde für Sie auf '.$SITE_DOMAIN.' angelegt.</p><br />
-                            <p>Öffnen Sie den Link, um Ihr Benutzerkonto zu aktivieren: <a href="'.$url.'">'.$url.'</a><p><br />
+                            <p>Öffnen Sie den Link, um ein Kennwort zu setzen und Ihr Benutzerkonto zu aktivieren: <a href="'.$url.'">'.$url.'</a><p><br />
                             <p>Die Applikation ermöglicht die Aufzeichnung von Fahrten und die digitale Führung eines Fahrtenbuchs für die Firma '.$COMPANY_NAME.'.</p>
                             <h5>'.$SITE_NAME.'</h5>
                             <small>The content of this email is confidential and intended for the recipient specified in message only. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion, so that we can ensure such a mistake does not occur in the future.</small>
@@ -590,6 +600,13 @@ function changeActiveUser($user, $updateVal){
     $conn->close();
 }
 
+
+
+
+/* check if token of newly created user is valid */
+function checkToken($token, $mail){
+
+}
 
 
 
