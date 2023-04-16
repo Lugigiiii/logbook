@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Apr 2023 um 16:06
+-- Erstellungszeit: 16. Apr 2023 um 23:16
 -- Server-Version: 10.4.27-MariaDB
 -- PHP-Version: 8.2.0
 
@@ -58,7 +58,8 @@ CREATE TABLE `ride` (
   `user` int(11) NOT NULL,
   `car` int(11) NOT NULL,
   `kmStart` int(11) NOT NULL,
-  `kmEnd` int(11) NOT NULL
+  `kmEnd` int(11) NOT NULL,
+  `ts` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -99,7 +100,9 @@ CREATE TABLE `user` (
   `email` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created` timestamp NOT NULL DEFAULT current_timestamp(),
-  `admin` tinyint(1) NOT NULL DEFAULT 0
+  `admin` tinyint(1) NOT NULL DEFAULT 0,
+  `active` tinyint(4) NOT NULL DEFAULT 0,
+  `activation_token` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
