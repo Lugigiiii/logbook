@@ -29,6 +29,7 @@ function authUser(){
                 $dbPassword = $user['password'];
                 $dbUID = $user['pk_id'];
                 $dbFirst = $user['first_name'];
+                $mail = $user['email'];
                 $dbAdmin = $user['admin'];
 
                 // close connection
@@ -44,6 +45,7 @@ function authUser(){
                     $_SESSION['user_id'] = $dbUID;
                     $_SESSION['username'] = $dbUsername;
                     $_SESSION['first'] = $dbFirst;
+                    $_SESSION['mail'] = $mail;
                     if($dbAdmin == 1){
                         $_SESSION['admin'] = true;
                     } else {
@@ -532,6 +534,7 @@ function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, 
             //Recipients
             $mail->setFrom($SMTP_USERNAME, $SITE_NAME);          //This is the email your form sends From
             $mail->addAddress($newUserMail, $newUserFirst." ".$newUserLast); // Add a recipient address
+            $mail->addCC($_SESSION['mail'], $_SESSION['first']);
         
             //Content
             $mail->isHTML(true);                                  // Set email format to HTML
@@ -605,7 +608,80 @@ function changeActiveUser($user, $updateVal){
 
 /* check if token of newly created user is valid */
 function checkToken($token, $mail){
+    $token = addslashes($token);
+    $mail = addslashes($mail);
 
+    // include the setup script
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // perform statement
+    $stmt = $conn->prepare("SELECT username FROM user WHERE email = ? AND activation_token = ?");
+    $stmt->bind_param('ss', $mail, $token);
+    $stmt->execute();
+    $data = $stmt->get_result();
+    if($data->num_rows > 0){
+        return true; // url ok
+    } else {
+        return false; // wrong
+    }
+    $stmt->close();
+    $conn->close();
+}
+
+
+/* function to change password  of user */
+function changePasswordUser($token, $mail, $inpPwd1, $inpPwd2){
+    $token = addslashes($token);
+    $mail = addslashes($mail);
+    $inpPwd1 = addslashes($inpPwd1);
+    $inpPwd2 = addslashes($inpPwd2);
+
+
+    // include the setup script
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // check request
+    if(!checkToken($token, $mail)){
+        header('Location: /index.php?view=login');
+        return;
+    }
+
+    // check if passwords match
+    if($inpPwd1 !== $inpPwd2){
+        return '<div class="alert alert-danger" role="alert">Kennwörter stimmen nicht überein!</div>';
+    }
+
+    $hashPwd = password_hash($inpPwd2, PASSWORD_DEFAULT);
+
+    // perform statement
+    $stmt = $conn->prepare("UPDATE user SET password = ?, activation_token = NULL, active = 1 WHERE activation_token = ? AND email = ? AND active = 0");
+    $stmt->bind_param('sss', $hashPwd, $token, $mail);
+    if(!$stmt->execute()){
+        echo 'SQL error at changeActiveCar()';
+        die();
+    }
+    return '<div class="alert alert-success" role="alert">Erfolgreich Gespeichert. <br />Navigiere zur <a href="/index.php?view=login">Login-Seite</a> und melde dich mit Benutzername und Passwort an.</div>'; 
+    $conn->close();
 }
 
 
@@ -660,7 +736,7 @@ if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
     if(authUser()) {
         header('Location: /index.php?view=loggedin');
     } else {
-        echo("Anmeldeinformationen nicht korrekt");
+        echo('<div class="alert alert-danger" role="alert">Anmeldedaten nicht korrekt!</div>');
     }
 }
 
@@ -668,7 +744,7 @@ if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
 
 // check if user is authenticated for the following part
 if(session_id() === "") session_start();
-if($_SESSION['loggedin'] !== true){
+if(!isset($_SESSION) && $_SESSION['loggedin'] !== true && $_GET['view'] !== 'activate-user'){
     header('Location: /index.php?view=login');
     die();
 }
@@ -771,4 +847,10 @@ if(isset($_POST['newUserFirst']) && isset($_POST['newUserLast']) && isset($_POST
 
     insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, $newUserAdmin);
     header("Location: /index.php?view=admin-users");
+}
+
+
+// hook for changePassword()
+if(isset($_POST['changePwd']) && isset($_POST['activation_token']) && isset($_POST['mail']) && isset($_POST['inpPwd1']) && isset($_POST['inpPwd2'])){
+    echo(changePasswordUser($_POST['activation_token'], $_POST['mail'], $_POST['inpPwd1'], $_POST['inpPwd2']));
 }

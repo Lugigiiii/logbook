@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-17 22:52:48
-  from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
+/* Smarty version 4.2.1, created on 2023-04-17 22:51:21
+  from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\activate-account.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_643db1a02b76f2_34208906',
+  'unifunc' => 'content_643db149420618_41531732',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
+    '5d279753399ab3542ae1dc6178dbf5a1a6fb9290' => 
     array (
-      0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1681764763,
+      0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\activate-account.tpl',
+      1 => 1681764680,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_643db1a02b76f2_34208906 (Smarty_Internal_Template $_smarty_tpl) {
+function content_643db149420618_41531732 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -61,30 +61,24 @@ function content_643db1a02b76f2_34208906 (Smarty_Internal_Template $_smarty_tpl)
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Hey! Bitte anmelden</h1>
                                         <?php if ((isset($_smarty_tpl->tpl_vars['logo']->value))) {?><img src="<?php echo $_smarty_tpl->tpl_vars['logo']->value;?>
 " alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;"><?php }?>
+                                        <h1 class="h4 text-gray-900 mb-4"><?php echo $_smarty_tpl->tpl_vars['mail']->value;?>
+ <br />Kennwort setzen</h1>
                                     </div>
-                                    <form class="user" id="loginForm" method="post">
+                                    <form class="user" id="pwdForm" method="post">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                id="inpUsername" aria-describedby="username"
-                                                placeholder="Benutzername" name="inpUsername">
+                                            <input type="password" class="form-control form-control-user" id="inpPwd-1" placeholder="Passwort eingeben" name="inpPwd-1" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="inpPassword" placeholder="Passwort" name="inpPassword">
+                                            <input type="password" class="form-control form-control-user" id="inpPwd-2" placeholder="Erneut eingeben" name="inpPwd-2" required>
                                         </div>
-                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block" onclick="loginUser()">Login</button>
+                                        <button type="submit" name="btnPassword" class="btn btn-primary btn-user btn-block" onclick="changePassword()">Speichern</button>
                                     </form>
                                     <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -119,23 +113,23 @@ function content_643db1a02b76f2_34208906 (Smarty_Internal_Template $_smarty_tpl)
 <?php echo '<script'; ?>
 >
     // jQuery to adjust input format
-    function loginUser(){
-        $uname = document.getElementById('inpUsername').value;
-        $pwd = document.getElementById('inpPassword').value;
-        $form = document.getElementById('loginForm').innerHTML;
+    function changePassword(){
+        $pwd1 = document.getElementById('inpPwd-1').value;
+        $pwd2 = document.getElementById('inpPwd-2').value;
+        $form = document.getElementById('pwdForm').innerHTML;
 
         $.ajax({
             type: 'POST',
             url: 'resources/php/functions/main-functions.php?',      
-            data: "inpUsername="+iname+"&inpPassword="+pwd,  
+            data: "changePwd=true&activation_token=<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
+&mail=<?php echo $_smarty_tpl->tpl_vars['mail']->value;?>
+&inpPwd1="+$pwd1+"&inpPwd2="+$pwd2,  
             success: function (response) {
-                document.getElementById('loginForm').innerHTML = $form + response;
-                location.reload();
+                document.getElementById('pwdForm').innerHTML = $form + response;
                 return;
             },
             error: function () {
-                document.getElementById('loginForm').innerHTML = $form + response;
-                location.reload();
+                document.getElementById('pwdForm').innerHTML = $form + response;
                 return;
 
             }
@@ -143,6 +137,5 @@ function content_643db1a02b76f2_34208906 (Smarty_Internal_Template $_smarty_tpl)
     }
 <?php echo '</script'; ?>
 >
-
 </html><?php }
 }

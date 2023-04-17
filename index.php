@@ -8,7 +8,6 @@
  */
 
 
-
 // define smarty lib directorysmarty
 define('SMARTY_DIR', 'resources/php/smarty-4.2.1/libs/');
 // include the setup script
@@ -31,19 +30,38 @@ $tpl->compile_dir = 'tpl/cache/';
 
 // check where to forward to
 if(session_id() === "") session_start(); // starts the session
-if($_GET['view'] == 'activate-user' && !empty($_GET['token']) && !empty($_GET['mail'])){ // forward to activation page
+
+
+
+// forward to login page if no url given
+if(empty($_GET['view'])){ 
+    header('Location: /index.php?view=login');
+}
+
+
+// check for activation url
+if($_GET['view'] === 'activate-user' && !empty($_GET['token']) && !empty($_GET['mail'])){ // forward to activation page
     // include main functions
     include_once('resources/php/functions/main-functions.php');
 
     if(checkToken($_GET['token'], $_GET['mail'])){ // this function checks if the token is valid
         // display tpl
         $tpl->assign('sitename', $SITE_NAME);
-        if (isset($CLIENT_LOGO)){ // display logo if set
+        $tpl->assign('token', $_GET['token']);
+        $tpl->assign('mail', $_GET['mail']);
+        if(isset($COMPANY_LOGO)){ // display logo if set
             $tpl->assign('logo',$COMPANY_LOGO);
         }
         $tpl->display('activate-account.tpl'); 
-    } // else {$_GET['view'] = 'login';}
-}elseif(empty($_GET['view']) || !isset($_SESSION['loggedin'])){ // forward to login page
+    } else {
+        header('Location: /index.php?view=login');
+    }
+}
+
+
+
+// check if user loggedin
+if(!isset($_SESSION['loggedin']) && $_GET['view'] != 'activate-user'){
     $_GET['view'] = 'login';
 }
 
@@ -86,7 +104,7 @@ if ($_GET['view']==='login') {
     }
     // display tpl
     $tpl->assign('sitename', $SITE_NAME);
-    if (isset($CLIENT_LOGO)){ // display logo if set
+    if (isset($COMPANY_LOGO)){ // display logo if set
         $tpl->assign('logo',$COMPANY_LOGO);
     }
     $tpl->display('login.tpl');

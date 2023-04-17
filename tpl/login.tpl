@@ -44,17 +44,17 @@
                                         <h1 class="h4 text-gray-900 mb-4">Hey! Bitte anmelden</h1>
                                         {if isset($logo)}<img src="{$logo}" alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;">{/if}
                                     </div>
-                                    <form class="user" id="loginForm" method="post" action="../resources/php/functions/main-functions.php">
+                                    <form class="user" id="loginForm" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
-                                                id="" aria-describedby="username"
+                                                id="inpUsername" aria-describedby="username"
                                                 placeholder="Benutzername" name="inpUsername">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Passwort" name="inpPassword">
+                                                id="inpPassword" placeholder="Passwort" name="inpPassword">
                                         </div>
-                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block" onsubmit="logIn()">Login</button>
+                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block" onclick="loginUser()">Login</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -83,5 +83,30 @@
     <script src="../resources/js/sb-admin-2.min.js"></script>
 
 </body>
+<script>
+    // jQuery to adjust input format
+    function loginUser(){
+        $uname = document.getElementById('inpUsername').value;
+        $pwd = document.getElementById('inpPassword').value;
+        $form = document.getElementById('loginForm').innerHTML;
+
+        $.ajax({
+            type: 'POST',
+            url: 'resources/php/functions/main-functions.php?',      
+            data: "inpUsername="+iname+"&inpPassword="+pwd,  
+            success: function (response) {
+                document.getElementById('loginForm').innerHTML = $form + response;
+                location.reload();
+                return;
+            },
+            error: function () {
+                document.getElementById('loginForm').innerHTML = $form + response;
+                location.reload();
+                return;
+
+            }
+        });
+    }
+</script>
 
 </html>

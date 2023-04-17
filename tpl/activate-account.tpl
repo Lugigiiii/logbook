@@ -37,29 +37,22 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Kennwort setzen</h1>
                                         {if isset($logo)}<img src="{$logo}" alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;">{/if}
+                                        <h1 class="h4 text-gray-900 mb-4">{$mail} <br />Kennwort setzen</h1>
                                     </div>
-                                    <form class="user" id="loginForm" method="post" action="../resources/php/functions/main-functions.php">
+                                    <form class="user" id="pwdForm" method="post">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                id="" aria-describedby="username"
-                                                placeholder="Benutzername" name="inpUsername">
+                                            <input type="password" class="form-control form-control-user" id="inpPwd-1" placeholder="Passwort eingeben" name="inpPwd-1" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Passwort" name="inpPassword">
+                                            <input type="password" class="form-control form-control-user" id="inpPwd-2" placeholder="Erneut eingeben" name="inpPwd-2" required>
                                         </div>
-                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block" onsubmit="logIn()">Login</button>
+                                        <button type="submit" name="btnPassword" class="btn btn-primary btn-user btn-block" onclick="changePassword()">Speichern</button>
                                     </form>
                                     <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,5 +76,29 @@
     <script src="../resources/js/sb-admin-2.min.js"></script>
 
 </body>
+<script>
+    // jQuery to adjust input format
+    function changePassword(){
+        $pwd1 = document.getElementById('inpPwd-1').value;
+        $pwd2 = document.getElementById('inpPwd-2').value;
+        $form = document.getElementById('pwdForm').innerHTML;
 
+        $.ajax({
+            type: 'POST',
+            url: 'resources/php/functions/main-functions.php?',      
+            data: "changePwd=true&activation_token={$token}&mail={$mail}&inpPwd1="+$pwd1+"&inpPwd2="+$pwd2,  
+            success: function (response) {
+                document.getElementById('pwdForm').innerHTML = $form + response;
+                location.reload();
+                return;
+            },
+            error: function () {
+                document.getElementById('pwdForm').innerHTML = $form + response;
+                location.reload();
+                return;
+
+            }
+        });
+    }
+</script>
 </html>
