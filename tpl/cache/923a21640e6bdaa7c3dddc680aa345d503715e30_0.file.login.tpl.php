@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-17 22:52:48
+/* Smarty version 4.2.1, created on 2023-04-19 21:17:06
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_643db1a02b76f2_34208906',
+  'unifunc' => 'content_64403e32cc3e11_01191268',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1681764763,
+      1 => 1681931825,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_643db1a02b76f2_34208906 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64403e32cc3e11_01191268 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -69,7 +69,7 @@ function content_643db1a02b76f2_34208906 (Smarty_Internal_Template $_smarty_tpl)
                                         <?php if ((isset($_smarty_tpl->tpl_vars['logo']->value))) {?><img src="<?php echo $_smarty_tpl->tpl_vars['logo']->value;?>
 " alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;"><?php }?>
                                     </div>
-                                    <form class="user" id="loginForm" method="post">
+                                    <form class="user" id="loginForm" method="post" action="resources/php/functions/main-functions.php">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="inpUsername" aria-describedby="username"
@@ -79,11 +79,10 @@ function content_643db1a02b76f2_34208906 (Smarty_Internal_Template $_smarty_tpl)
                                             <input type="password" class="form-control form-control-user"
                                                 id="inpPassword" placeholder="Passwort" name="inpPassword">
                                         </div>
-                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block" onclick="loginUser()">Login</button>
+                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                 </div>
                             </div>
@@ -118,29 +117,30 @@ function content_643db1a02b76f2_34208906 (Smarty_Internal_Template $_smarty_tpl)
 </body>
 <?php echo '<script'; ?>
 >
+    /*
     // jQuery to adjust input format
     function loginUser(){
         $uname = document.getElementById('inpUsername').value;
-        $pwd = document.getElementById('inpPassword').value;
-        $form = document.getElementById('loginForm').innerHTML;
+        $pwd = document.getElementById('inpPassword').value;   
 
         $.ajax({
             type: 'POST',
             url: 'resources/php/functions/main-functions.php?',      
-            data: "inpUsername="+iname+"&inpPassword="+pwd,  
+            data: "inpUsername="+$uname+"&inpPassword="+$pwd,
+            dataType: "html",  
             success: function (response) {
-                document.getElementById('loginForm').innerHTML = $form + response;
-                location.reload();
-                return;
+                if(response.success != true){
+                    alert("Anmeldedaten nicht korrekt");
+                } else if(response.success == true){
+                    window.location.replace("/index.php?view=loggedin");
+                }
             },
             error: function () {
-                document.getElementById('loginForm').innerHTML = $form + response;
-                location.reload();
-                return;
-
+                alert("Unable to perform login");
             }
         });
     }
+    */
 <?php echo '</script'; ?>
 >
 

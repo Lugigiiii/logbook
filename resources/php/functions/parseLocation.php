@@ -1,6 +1,8 @@
 <?php
-// include config
-include('../config.inc.php');
+  // include the setup script
+  $path = $_SERVER['DOCUMENT_ROOT'];
+  $path .= '/resources/php/config.inc.php';
+  include($path);
 
 
 // check if user is authenticated for the following part

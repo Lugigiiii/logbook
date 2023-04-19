@@ -68,6 +68,7 @@ if(!isset($_SESSION['loggedin']) && $_GET['view'] != 'activate-user'){
 
 
 
+
 // if user has permission for admin backend, display selector where he can choose the interface
 if($_GET['view'] === 'loggedin' && $_SESSION['admin']){
     $tpl->display('header-mobile.tpl');

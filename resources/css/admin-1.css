@@ -31,4 +31,18 @@
 .td-false > a:hover {
     text-decoration: underline;
 }
+
+.td-blue {
+    background-color: #203666;
+    text-align: center;
+}
+
+.td-blue > a {
+    color: #667ee9;
+    text-decoration: none;
+}
+
+.td-blue > a:hover {
+    text-decoration: underline;
+}
     

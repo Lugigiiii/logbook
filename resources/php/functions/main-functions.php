@@ -5,7 +5,10 @@ use PHPMailer\PHPMailer\Exception;
 
 // function to authenticate user
 function authUser(){
-    include_once('../config.inc.php'); // include the setup script
+    // include the setup script
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // DB Create connection
 
     $inpUsername = addslashes($_POST['inpUsername']); // get data
@@ -70,7 +73,10 @@ function authUser(){
 
 // load car from array and show html dropdown for mobile selection
 function loadCar() {
-    include('resources/php/config.inc.php'); // include the setup script
+    // include the setup script
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // DB Create connection
 
@@ -109,7 +115,10 @@ function loadCar() {
 
 // function to get last driven km
 function getKM($car){
-    include('../config.inc.php'); // include the setup script
+    // include the setup script
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // DB Create connection
 
@@ -146,7 +155,9 @@ function getKM($car){
 // function for array upload to db
 function multiUpload($prep_st, $ride_id, $array){
     // include the setup script
-    include('../config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -177,7 +188,9 @@ function multiUpload($prep_st, $ride_id, $array){
 // upload ride data
 function uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop){
     // include the setup script
-    include('../config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -225,7 +238,9 @@ function uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop
 // gets startts or stopts
 function getTS($ride_id,$table, $order){
     // include the setup script
-    include('resources/php/config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -252,7 +267,9 @@ function getTS($ride_id,$table, $order){
 // gets location string from db
 function getLocation($ride_id){
     // include the setup script
-    include('resources/php/config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -283,7 +300,9 @@ function getLocation($ride_id){
 // gets data of all rides in db
 function getRides(){
     // include the setup script
-    include('resources/php/config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -332,7 +351,9 @@ function getRides(){
 /* function to load cars for page admin-cars */
 function getCarsTable(){
     // include the setup script
-    include('resources/php/config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -371,7 +392,9 @@ function changeActiveCar($car, $updateVal){
     $updateVal = intval($updateVal);
 
     // include the setup script
-    include('../config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -394,7 +417,9 @@ function changeActiveCar($car, $updateVal){
 /* function to insert new car into db received from form on admin-cars */
 function insertNewCar($carName, $carNumberplate, $carYear, $carActive){
     // include the setup script
-    include('../config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -419,7 +444,9 @@ function insertNewCar($carName, $carNumberplate, $carYear, $carActive){
 /* function to load users for page admin-users */
 function getUsersTable(){
     // include the setup script
-    include('resources/php/config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -459,7 +486,9 @@ function changeAdminUser($user, $updateVal){
     $updateVal = intval($updateVal);
 
     // include the setup script
-    include('../config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -482,7 +511,9 @@ function changeAdminUser($user, $updateVal){
 /* function to insert new user into db received from form on admin-users */
 function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, $newUserAdmin){
     // include the setup script
-    include('../config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // include php mailer
     require '../phpmailer/Exception.php';
@@ -505,7 +536,6 @@ function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, 
         return 'Benutzer existiert bereits';
     }
     $stmt->close();
-    $conn->close();
 
 
     // create token
@@ -583,7 +613,9 @@ function changeActiveUser($user, $updateVal){
     $updateVal = intval($updateVal);
 
     // include the setup script
-    include('../config.inc.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -684,6 +716,111 @@ function changePasswordUser($token, $mail, $inpPwd1, $inpPwd2){
     $conn->close();
 }
 
+function resetUser($uid){
+    $uid = intval($uid);
+
+    // include the setup script
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
+
+    // include php mailer
+    require '../phpmailer/Exception.php';
+    require '../phpmailer/PHPMailer.php';
+    require '../phpmailer/SMTP.php';
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // perform statement
+    $stmt = $conn->prepare("SELECT first_name, last_name, username, email FROM user WHERE pk_id = ?");
+    $stmt->bind_param('i', $uid);
+    if(!$stmt->execute()){
+        echo 'SQL error at resetUser()';
+        die();
+    }
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    
+    // bind to variables
+    $name = $row['first_name'].' '.$row['last_name'];
+    $username = $row['username'];
+    $email = $row['email'];
+    $activation_token = sha1(mt_rand(10000,99999).time().$email);
+    $url = 'https://'.$SITE_DOMAIN.'/index.php?view=activate-user&token='.$activation_token.'&mail='.$email;
+
+    $stmt->close();
+
+    // remove password and set token
+    $stmt = $conn->prepare("UPDATE user SET active = 0, password = '', activation_token = ? WHERE pk_id = ?");
+    $stmt->bind_param('si', $activation_token, $uid);
+    if(!$stmt->execute()){
+        echo 'SQL error at resetUser()';
+        die();
+    }
+
+    // inform user via Mail
+    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+    try {
+        //Server settings                              // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = $SMTP_HOST;                   // Specify main and backup SMTP servers
+        $mail->SMTPAuth = $SMTP_AUTH;                               // Enable SMTP authentication
+        $mail->Username = $SMTP_USERNAME;              // SMTP username
+        $mail->Password = $SMTP_PASSWORD;                           // SMTP password
+        $mail->SMTPSecure = $SMTP_ENCRYPTION;                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = $SMTP_PORT;                                    // TCP port to connect to
+        
+    
+        //Recipients
+        $mail->setFrom($SMTP_USERNAME, $SITE_NAME);          //This is the email your form sends From
+        $mail->addAddress($email, $name); // Add a recipient address
+        $mail->addCC($_SESSION['mail'], $_SESSION['first']);
+    
+        //Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Benutzerkonto aktivieren | '.$SITE_NAME;
+        $mail->CharSet = 'UTF-8';
+    
+        $mail->Body    =
+            '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+            <html xmlns="http://www.w3.org/1999/xhtml">
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Benutzerkonto aktivieren | '.$SITE_NAME.'</title>
+            </head>
+            <body style="margin: 0; padding: 0;">
+            <h1 style="text-align: center;">'.$SITE_NAME.'</h1>
+            <img src="'.$COMPANY_LOGO.'" alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;">
+            <hr />
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td>
+                    <h2 style="margin-top: 20px;">Guten Tag, '.$name.'</h2><br />
+                        <p>Ein Benutzerkonto wurde für Sie auf '.$SITE_DOMAIN.' angelegt.</p><br />
+                        <p>Öffnen Sie den Link, um ein Kennwort zu setzen und Ihr Benutzerkonto zu aktivieren: <a href="'.$url.'">'.$url.'</a><p><br />
+                        <p>Die Applikation ermöglicht die Aufzeichnung von Fahrten und die digitale Führung eines Fahrtenbuchs für die Firma '.$COMPANY_NAME.'.</p>
+                        <h5>'.$SITE_NAME.'</h5>
+                        <small>The content of this email is confidential and intended for the recipient specified in message only. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion, so that we can ensure such a mistake does not occur in the future.</small>
+                    </td>
+                </tr>
+            </table>
+            </body>
+            ';
+        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    
+        $mail->send();
+    } catch (Exception $e) {
+        die($e);
+    }
+}
+
 
 
 
@@ -736,7 +873,7 @@ if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
     if(authUser()) {
         header('Location: /index.php?view=loggedin');
     } else {
-        echo('<div class="alert alert-danger" role="alert">Anmeldedaten nicht korrekt!</div>');
+        header("Location: /index.php?view=login");
     }
 }
 
@@ -791,6 +928,8 @@ if(isset($_POST['logout'])){
 
     // Finally, destroy the session.
     session_destroy();
+
+    header("Location: /index.php?view=login");
 }
 
 
@@ -812,6 +951,12 @@ if(!empty($_GET['edit']) &&  $_GET['edit'] == true){
     // set user active or inactive
     if(!empty($_GET['user']) && isset($_GET['active'])){
         changeActiveUser($_GET['user'], $_GET['active']);
+        header("Location: /index.php?view=admin-users");
+    }
+
+    // reset password
+    if(!empty($_GET['user']) && isset($_GET['reset']) && $_GET['reset'] == true){
+        resetUser($_GET['user']);
         header("Location: /index.php?view=admin-users");
     }
 }

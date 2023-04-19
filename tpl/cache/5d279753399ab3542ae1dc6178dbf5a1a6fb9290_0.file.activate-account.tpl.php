@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-17 22:51:21
+/* Smarty version 4.2.1, created on 2023-04-19 21:52:57
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\activate-account.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_643db149420618_41531732',
+  'unifunc' => 'content_64404699e49776_75525443',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5d279753399ab3542ae1dc6178dbf5a1a6fb9290' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\activate-account.tpl',
-      1 => 1681764680,
+      1 => 1681932444,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_643db149420618_41531732 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64404699e49776_75525443 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 

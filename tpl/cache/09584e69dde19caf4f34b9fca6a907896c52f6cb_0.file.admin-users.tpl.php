@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-16 22:05:49
+/* Smarty version 4.2.1, created on 2023-04-19 21:49:16
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-users.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_643c551d0801a6_33472315',
+  'unifunc' => 'content_644045bc89adb2_41111506',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09584e69dde19caf4f34b9fca6a907896c52f6cb' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-users.tpl',
-      1 => 1681675547,
+      1 => 1681932902,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_643c551d0801a6_33472315 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644045bc89adb2_41111506 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 ?>
 <body id="page-top">
@@ -62,6 +62,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\
                                             <th>Erstellt</th>
                                             <th>Admin</th>
                                             <th>Aktiviert</th>
+                                            <th>Kennwort</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -95,6 +96,8 @@ $_smarty_tpl->tpl_vars['element']->do_else = false;
                                                 <td class="td-false"><a href="/resources/php/functions/main-functions.php?edit=true&user=<?php echo $_smarty_tpl->tpl_vars['element']->value[0];?>
 &active=1">Nein</a></td>
                                             <?php }?>
+                                            <td class="td-blue"><a href="/resources/php/functions/main-functions.php?edit=true&user=<?php echo $_smarty_tpl->tpl_vars['element']->value[0];?>
+&reset=1">Reset</a></td>
                                         </tr>
                                         <?php
 }

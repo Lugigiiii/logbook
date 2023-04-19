@@ -89,12 +89,10 @@
             data: "changePwd=true&activation_token={$token}&mail={$mail}&inpPwd1="+$pwd1+"&inpPwd2="+$pwd2,  
             success: function (response) {
                 document.getElementById('pwdForm').innerHTML = $form + response;
-                location.reload();
                 return;
             },
             error: function () {
                 document.getElementById('pwdForm').innerHTML = $form + response;
-                location.reload();
                 return;
 
             }

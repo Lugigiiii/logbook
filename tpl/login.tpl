@@ -44,7 +44,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">Hey! Bitte anmelden</h1>
                                         {if isset($logo)}<img src="{$logo}" alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;">{/if}
                                     </div>
-                                    <form class="user" id="loginForm" method="post">
+                                    <form class="user" id="loginForm" method="post" action="resources/php/functions/main-functions.php">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="inpUsername" aria-describedby="username"
@@ -54,11 +54,10 @@
                                             <input type="password" class="form-control form-control-user"
                                                 id="inpPassword" placeholder="Passwort" name="inpPassword">
                                         </div>
-                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block" onclick="loginUser()">Login</button>
+                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                 </div>
                             </div>
@@ -84,29 +83,30 @@
 
 </body>
 <script>
+    /*
     // jQuery to adjust input format
     function loginUser(){
         $uname = document.getElementById('inpUsername').value;
-        $pwd = document.getElementById('inpPassword').value;
-        $form = document.getElementById('loginForm').innerHTML;
+        $pwd = document.getElementById('inpPassword').value;   
 
         $.ajax({
             type: 'POST',
             url: 'resources/php/functions/main-functions.php?',      
-            data: "inpUsername="+iname+"&inpPassword="+pwd,  
+            data: "inpUsername="+$uname+"&inpPassword="+$pwd,
+            dataType: "html",  
             success: function (response) {
-                document.getElementById('loginForm').innerHTML = $form + response;
-                location.reload();
-                return;
+                if(response.success != true){
+                    alert("Anmeldedaten nicht korrekt");
+                } else if(response.success == true){
+                    window.location.replace("/index.php?view=loggedin");
+                }
             },
             error: function () {
-                document.getElementById('loginForm').innerHTML = $form + response;
-                location.reload();
-                return;
-
+                alert("Unable to perform login");
             }
         });
     }
+    */
 </script>
 
 </html>

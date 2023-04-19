@@ -33,6 +33,7 @@
                                             <th>Erstellt</th>
                                             <th>Admin</th>
                                             <th>Aktiviert</th>
+                                            <th>Kennwort</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,6 +53,7 @@
                                             {else}
                                                 <td class="td-false"><a href="/resources/php/functions/main-functions.php?edit=true&user={$element[0]}&active=1">Nein</a></td>
                                             {/if}
+                                            <td class="td-blue"><a href="/resources/php/functions/main-functions.php?edit=true&user={$element[0]}&reset=1">Reset</a></td>
                                         </tr>
                                         {/foreach}
                                     </tbody>
