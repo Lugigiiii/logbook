@@ -149,8 +149,7 @@
     <script src="../resources/js/main-functions.js"></script>
 
     {literal}
-    <script>
-        
+    <script>        
         $(document).ready( function () {
             $('#dataTable').DataTable({
                 order: [[3, 'asc']],

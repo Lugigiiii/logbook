@@ -427,20 +427,18 @@ function aj_getKM() {
 
   // log out function after button press
   function logOut(){
-    if(confirm("Wirklich abmelden?")){
-        $.ajax({
-            type: 'POST',
-            url: 'resources/php/functions/main-functions.php?',      
-            data: "logout=True",  
-            success: function (response) {
-                loadDefault(); // delete all cookies
-                return;
-            },
-            error: function () {
-                location.reload(); // reload to get to login page
-                return;
+    $.ajax({
+        type: 'POST',
+        url: 'resources/php/functions/main-functions.php?',      
+        data: "logout=True",  
+        success: function (response) {
+            loadDefault(); // delete all cookies
+            return;
+        },
+        error: function () {
+            location.reload(); // reload to get to login page
+            return;
 
-            }
-        });
-    }
+        }
+    });
   }

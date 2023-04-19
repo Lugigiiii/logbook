@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-09 14:29:30
+/* Smarty version 4.2.1, created on 2023-04-19 22:32:33
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6432afaacf50a9_38065096',
+  'unifunc' => 'content_64404fe1f28895_36683190',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c99a05c7fabaab6a6e32d915015fea65d578aa06' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-sidebar.tpl',
-      1 => 1681043355,
+      1 => 1681936342,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6432afaacf50a9_38065096 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64404fe1f28895_36683190 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center">
         <div class="sidebar-brand-icon">
             <i class="fa-solid fa-car"></i>
         </div>
