@@ -84,28 +84,32 @@
 </body>
 <script>
     /*
-    // jQuery to adjust input format
-    function loginUser(){
-        $uname = document.getElementById('inpUsername').value;
-        $pwd = document.getElementById('inpPassword').value;   
+    $(document).ready(function(){
+        $.ajaxSetup({ cache: false }); // or iPhones don't get fresh data
+    });
+
+    
+    $( "#btnLogin" ).click(function() {
+        var uname = document.getElementById('inpUsername').value;
+        var pwd = document.getElementById('inpPassword').value;  
 
         $.ajax({
             type: 'POST',
             url: 'resources/php/functions/main-functions.php?',      
-            data: "inpUsername="+$uname+"&inpPassword="+$pwd,
-            dataType: "html",  
+            data: "inpUsername="+uname+"&inpPassword="+pwd,
+            dataType: 'HTML',
             success: function (response) {
-                if(response.success != true){
-                    alert("Anmeldedaten nicht korrekt");
-                } else if(response.success == true){
-                    window.location.replace("/index.php?view=loggedin");
-                }
+                console.log("ok");
             },
             error: function () {
+                console.log("error");
                 alert("Unable to perform login");
             }
         });
-    }
+
+        $(location).prop('href', '/index.php?view=loggedin');
+        location.reload();
+    });
     */
 </script>
 

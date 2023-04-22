@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-19 21:52:57
+/* Smarty version 4.2.1, created on 2023-04-22 20:39:11
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\activate-account.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64404699e49776_75525443',
+  'unifunc' => 'content_644429cf814d42_46916919',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5d279753399ab3542ae1dc6178dbf5a1a6fb9290' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\activate-account.tpl',
-      1 => 1681932444,
+      1 => 1682188735,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64404699e49776_75525443 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644429cf814d42_46916919 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -76,7 +76,7 @@ function content_64404699e49776_75525443 (Smarty_Internal_Template $_smarty_tpl)
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" id="inpPwd-2" placeholder="Erneut eingeben" name="inpPwd-2" required>
                                         </div>
-                                        <button type="submit" name="btnPassword" class="btn btn-primary btn-user btn-block" onclick="changePassword()">Speichern</button>
+                                        <button type="submit" name="btnPassword" id="btnPassword" class="btn btn-primary btn-user btn-block">Speichern</button>
                                     </form>
                                     <hr>
                                 </div>
@@ -112,29 +112,39 @@ function content_64404699e49776_75525443 (Smarty_Internal_Template $_smarty_tpl)
 </body>
 <?php echo '<script'; ?>
 >
-    // jQuery to adjust input format
-    function changePassword(){
-        $pwd1 = document.getElementById('inpPwd-1').value;
-        $pwd2 = document.getElementById('inpPwd-2').value;
-        $form = document.getElementById('pwdForm').innerHTML;
+    
+    "use strict";
+
+    $(document).ready(function(){
+        $.ajaxSetup({ cache: false }); // or iPhones don't get fresh data
+    });
+
+    
+    $( "#btnPassword" ).click(function() {
+        var pwd1 = document.getElementById('inpPwd-1').value;
+        var pwd2 = document.getElementById('inpPwd-2').value;
+        var form = document.getElementById('pwdForm').innerHTML;
 
         $.ajax({
             type: 'POST',
             url: 'resources/php/functions/main-functions.php?',      
             data: "changePwd=true&activation_token=<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
 &mail=<?php echo $_smarty_tpl->tpl_vars['mail']->value;?>
-&inpPwd1="+$pwd1+"&inpPwd2="+$pwd2,  
+&inpPwd1="+pwd1+"&inpPwd2="+pwd2,  
             success: function (response) {
-                document.getElementById('pwdForm').innerHTML = $form + response;
+                document.getElementById('pwdForm').innerHTML = form + response;
+                location.reload();
                 return;
             },
             error: function () {
-                document.getElementById('pwdForm').innerHTML = $form + response;
+                document.getElementById('pwdForm').innerHTML = form + response;
+                location.reload();
                 return;
 
             }
         });
-    }
+    });
+    
 <?php echo '</script'; ?>
 >
 </html><?php }

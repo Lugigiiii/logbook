@@ -50,7 +50,7 @@
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" id="inpPwd-2" placeholder="Erneut eingeben" name="inpPwd-2" required>
                                         </div>
-                                        <button type="submit" name="btnPassword" class="btn btn-primary btn-user btn-block" onclick="changePassword()">Speichern</button>
+                                        <button type="submit" name="btnPassword" id="btnPassword" class="btn btn-primary btn-user btn-block">Speichern</button>
                                     </form>
                                     <hr>
                                 </div>
@@ -77,26 +77,36 @@
 
 </body>
 <script>
-    // jQuery to adjust input format
-    function changePassword(){
-        $pwd1 = document.getElementById('inpPwd-1').value;
-        $pwd2 = document.getElementById('inpPwd-2').value;
-        $form = document.getElementById('pwdForm').innerHTML;
+    
+    "use strict";
+
+    $(document).ready(function(){
+        $.ajaxSetup({ cache: false }); // or iPhones don't get fresh data
+    });
+
+    
+    $( "#btnPassword" ).click(function() {
+        var pwd1 = document.getElementById('inpPwd-1').value;
+        var pwd2 = document.getElementById('inpPwd-2').value;
+        var form = document.getElementById('pwdForm').innerHTML;
 
         $.ajax({
             type: 'POST',
             url: 'resources/php/functions/main-functions.php?',      
-            data: "changePwd=true&activation_token={$token}&mail={$mail}&inpPwd1="+$pwd1+"&inpPwd2="+$pwd2,  
+            data: "changePwd=true&activation_token={$token}&mail={$mail}&inpPwd1="+pwd1+"&inpPwd2="+pwd2,  
             success: function (response) {
-                document.getElementById('pwdForm').innerHTML = $form + response;
+                document.getElementById('pwdForm').innerHTML = form + response;
+                location.reload();
                 return;
             },
             error: function () {
-                document.getElementById('pwdForm').innerHTML = $form + response;
+                document.getElementById('pwdForm').innerHTML = form + response;
+                location.reload();
                 return;
 
             }
         });
-    }
+    });
+    
 </script>
 </html>

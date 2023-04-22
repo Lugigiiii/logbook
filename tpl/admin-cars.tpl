@@ -66,11 +66,11 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="carNumberplate">Kontrollschild</label>
-                                  <input type="text" class="form-control" name="carNumberplate" id="carNumberplate" placeholder="Kontrollschild eingeben" required>
+                                  <input type="text" class="form-control" name="carNumberplate" id="carNumberplate" placeholder="Kontrollschild eingeben">
                                 </div>
                                 <div class="form-group">
                                     <label for="carYear">Erstzulassung</label>
-                                    <input type="number" class="form-control" name="carYear" id="carYear" placeholder="Erstzulassung (Jahr) eingeben" required>
+                                    <input type="number" class="form-control" name="carYear" id="carYear" placeholder="Erstzulassung (Jahr) eingeben">
                                   </div>
                                 <div class="form-check">
                                   <input type="checkbox" class="form-check-input" name="carActive" id="carActive" checked>

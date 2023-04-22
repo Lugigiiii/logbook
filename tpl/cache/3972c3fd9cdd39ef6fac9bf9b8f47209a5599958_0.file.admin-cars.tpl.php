@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-16 22:06:19
+/* Smarty version 4.2.1, created on 2023-04-22 20:10:04
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-cars.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_643c553bbd7c93_37815549',
+  'unifunc' => 'content_644422fc98b430_85218809',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3972c3fd9cdd39ef6fac9bf9b8f47209a5599958' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-cars.tpl',
-      1 => 1681673510,
+      1 => 1682021091,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_643c553bbd7c93_37815549 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644422fc98b430_85218809 (Smarty_Internal_Template $_smarty_tpl) {
 ?><body id="page-top">
 
     <!-- Page Wrapper -->
@@ -105,11 +105,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                 </div>
                                 <div class="form-group">
                                   <label for="carNumberplate">Kontrollschild</label>
-                                  <input type="text" class="form-control" name="carNumberplate" id="carNumberplate" placeholder="Kontrollschild eingeben" required>
+                                  <input type="text" class="form-control" name="carNumberplate" id="carNumberplate" placeholder="Kontrollschild eingeben">
                                 </div>
                                 <div class="form-group">
                                     <label for="carYear">Erstzulassung</label>
-                                    <input type="number" class="form-control" name="carYear" id="carYear" placeholder="Erstzulassung (Jahr) eingeben" required>
+                                    <input type="number" class="form-control" name="carYear" id="carYear" placeholder="Erstzulassung (Jahr) eingeben">
                                   </div>
                                 <div class="form-check">
                                   <input type="checkbox" class="form-check-input" name="carActive" id="carActive" checked>

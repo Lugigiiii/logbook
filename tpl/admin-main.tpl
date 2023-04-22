@@ -34,6 +34,7 @@
                                             <th>Kilometer</th>
                                             <th>Strecke</th>
                                             <th>Mitarbeiter</th>
+                                            <th>Löschen</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -46,6 +47,11 @@
                                             <td>{$element[4]}</td>
                                             <td>{$element[5]}</td>
                                             <td>{$element[6]}</td>
+                                            <td>
+                                                <a class="btn btn-danger btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Delete" href="/resources/php/functions/main-functions.php?edit=true&ride={$element[7]}&del=1">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         {/foreach}
                                     </tbody>

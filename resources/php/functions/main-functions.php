@@ -42,7 +42,6 @@ function authUser(){
 
                 // now compare
                 if(password_verify($inpPassword,$dbPassword)){
-                    echo 'auth ok';
                     session_start();
                     $_SESSION['loggedin'] = True;
                     $_SESSION['user_id'] = $dbUID;
@@ -338,7 +337,8 @@ function getRides(){
             $car,
             $km,
             $locations, 
-            $name
+            $name,
+            $ride_id
         );
 
         array_push($data, $res);
@@ -821,7 +821,32 @@ function resetUser($uid){
     }
 }
 
+/* function to delete ride */
+function delRide($ride_id){
+    $ride_id = intval($ride_id);
 
+    // include the setup script
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
+
+    // Create connection
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // perform statement
+    $stmt = $conn->prepare("DELETE FROM ride WHERE pk_id = ?");
+    $stmt->bind_param('i', $ride_id);
+    if(!$stmt->execute()){
+        echo 'SQL error at changeActiveCar()';
+        die();
+    }
+    $conn->close();
+}
 
 
 
@@ -876,6 +901,19 @@ if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
         header("Location: /index.php?view=login");
     }
 }
+/*
+if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
+    if(authUser()) {
+        $response = array('success' => true);
+        header('Content-Type: application/json');
+        die(json_encode($response));
+    } else {
+        $response = array('success' => false);
+        header('Content-Type: application/json');
+        die(json_encode($response));
+    }
+}
+*/
 
 
 
@@ -926,10 +964,9 @@ if(isset($_POST['logout'])){
         );
     }
 
+    header("Location: /index.php?view=login");
     // Finally, destroy the session.
     session_destroy();
-
-    header("Location: /index.php?view=login");
 }
 
 
@@ -958,6 +995,12 @@ if(!empty($_GET['edit']) &&  $_GET['edit'] == true){
     if(!empty($_GET['user']) && isset($_GET['reset']) && $_GET['reset'] == true){
         resetUser($_GET['user']);
         header("Location: /index.php?view=admin-users");
+    }
+
+    // reset password
+    if(!empty($_GET['ride']) && isset($_GET['del']) && $_GET['del'] == true){
+        delRide($_GET['ride']);
+        header("Location: /index.php?view=admin");
     }
 }
 

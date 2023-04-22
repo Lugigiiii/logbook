@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-19 21:17:06
+/* Smarty version 4.2.1, created on 2023-04-22 22:29:29
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64403e32cc3e11_01191268',
+  'unifunc' => 'content_644443a97aaab7_36536696',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1681931825,
+      1 => 1682195296,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64403e32cc3e11_01191268 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644443a97aaab7_36536696 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -118,28 +118,32 @@ function content_64403e32cc3e11_01191268 (Smarty_Internal_Template $_smarty_tpl)
 <?php echo '<script'; ?>
 >
     /*
-    // jQuery to adjust input format
-    function loginUser(){
-        $uname = document.getElementById('inpUsername').value;
-        $pwd = document.getElementById('inpPassword').value;   
+    $(document).ready(function(){
+        $.ajaxSetup({ cache: false }); // or iPhones don't get fresh data
+    });
+
+    
+    $( "#btnLogin" ).click(function() {
+        var uname = document.getElementById('inpUsername').value;
+        var pwd = document.getElementById('inpPassword').value;  
 
         $.ajax({
             type: 'POST',
             url: 'resources/php/functions/main-functions.php?',      
-            data: "inpUsername="+$uname+"&inpPassword="+$pwd,
-            dataType: "html",  
+            data: "inpUsername="+uname+"&inpPassword="+pwd,
+            dataType: 'HTML',
             success: function (response) {
-                if(response.success != true){
-                    alert("Anmeldedaten nicht korrekt");
-                } else if(response.success == true){
-                    window.location.replace("/index.php?view=loggedin");
-                }
+                console.log("ok");
             },
             error: function () {
+                console.log("error");
                 alert("Unable to perform login");
             }
         });
-    }
+
+        $(location).prop('href', '/index.php?view=loggedin');
+        location.reload();
+    });
     */
 <?php echo '</script'; ?>
 >
