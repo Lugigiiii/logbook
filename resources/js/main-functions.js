@@ -378,17 +378,17 @@ function parsePosition(position) {
         data: "lat=" + lat+ "&lon=" +  lon,  
         success: function (response) {
             var response = JSON.parse(response);
-            var village = response.address.village;
-            document.getElementById("input-loc").value = village;
+            var town = response.address.town;
+            document.getElementById("input-loc").value = town;
 
             // debugging stuff
             console.log(response);
 
             // set item to not repeat request
-            localStorage.setItem("apiRequest", village);
+            localStorage.setItem("apiRequest", town);
 
-            if(village != 'undefined'){
-                return village;
+            if(town != 'undefined'){
+                return town;
             }
             
         },
