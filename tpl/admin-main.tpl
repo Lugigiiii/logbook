@@ -369,6 +369,10 @@
         var element = document.getElementById("element1");
         element.classList.add("active");
 
+        if (typeof navigator.serviceWorker !== 'undefined') {
+            navigator.serviceWorker.register('sw.js')
+        }
+
     </script>
     {/literal}
 </body>

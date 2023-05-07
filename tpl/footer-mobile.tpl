@@ -26,6 +26,10 @@
             document.getElementById("input-loc").value = localStorage.getItem("apiRequest");
         }
     })
+
+    if (typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.register('sw.js')
+    }
 </script>
 {/literal}
 </html>
