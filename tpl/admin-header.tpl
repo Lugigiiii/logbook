@@ -24,5 +24,8 @@
 
     <!-- custom fontawesome -->
     <script src="https://kit.fontawesome.com/4cc784d7e8.js" crossorigin="anonymous"></script>
+
+    <!-- Add Manifest -->
+    <link rel="manifest" href="/manifest.json">
     
 </head>

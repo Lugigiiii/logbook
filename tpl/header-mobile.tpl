@@ -9,5 +9,6 @@
     <script src="../resources/js/autonumeric.js"></script>
     <script src="../resources/js/jquery-3.6.4.min.js"></script>
     <script src="https://kit.fontawesome.com/4cc784d7e8.js" crossorigin="anonymous"></script>
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
