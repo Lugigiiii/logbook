@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-19 22:32:33
+/* Smarty version 4.2.1, created on 2023-05-07 21:07:27
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64404fe1f28895_36683190',
+  'unifunc' => 'content_6457f6efcd2059_89640407',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c99a05c7fabaab6a6e32d915015fea65d578aa06' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-sidebar.tpl',
-      1 => 1681936342,
+      1 => 1683486446,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64404fe1f28895_36683190 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6457f6efcd2059_89640407 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -73,15 +73,10 @@ function content_64404fe1f28895_36683190 (Smarty_Internal_Template $_smarty_tpl)
         Menu
     </div>
     <li class="nav-item">
-        <a class="nav-link" href="index.php?view=loggedin">
+        <a class="nav-link" href="index.php?view=mobile">
             <i class="fas fa-solid fa-rotate-left"></i>
-            <span>Zurück zur Auswahl</span></a>
+            <span>Zurück zur Mobile-Seite</span></a>
     </li>
-
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
 
 </ul>
 <!-- End of Sidebar --><?php }

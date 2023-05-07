@@ -19,6 +19,12 @@
     // get km after car ist selected
     $('#car-selector').change(function(){
         aj_getKM();
+        // get location and write to input and localStorage. Get from Storage if already set
+        if(!localStorage.getItem("apiRequest")){     
+            window.onpaint = getLocation();
+        } else {
+            document.getElementById("input-loc").value = localStorage.getItem("apiRequest");
+        }
     })
 </script>
 {/literal}

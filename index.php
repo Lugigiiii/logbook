@@ -39,6 +39,7 @@ if(empty($_GET['view'])){
 }
 
 
+
 // check for activation url
 if($_GET['view'] === 'activate-user' && !empty($_GET['token']) && !empty($_GET['mail'])){ // forward to activation page
     // include main functions
@@ -69,19 +70,6 @@ if(!isset($_SESSION['loggedin']) && $_GET['view'] != 'activate-user'){
 
 
 
-// if user has permission for admin backend, display selector where he can choose the interface
-if($_GET['view'] === 'loggedin' && $_SESSION['admin']){
-    $tpl->assign('sitename', $SITE_NAME);
-    $tpl->display('header-mobile.tpl');
-    $tpl->display('pick-view.tpl'); 
-    $tpl->display('footer-mobile.tpl'); 
-    $_GET['view'] = 'mobile';
-} elseif ($_GET['view'] === 'loggedin' && !$_SESSION['admin']) {
-    header("Location: /index.php?view=mobile");
-}
-
-
-
 
 if ($_GET['view']==='mobile') {
     // include main functions
@@ -95,6 +83,7 @@ if ($_GET['view']==='mobile') {
     $tpl->display('header-mobile.tpl'); 
     $tpl->assign('selector',loadCar());
     $tpl->assign('first',$first);
+    $tpl->assign('admin',$_SESSION['admin']);
     $tpl->display('mobile.tpl'); 
     $tpl->display('footer-mobile.tpl'); 
 }
@@ -102,7 +91,7 @@ if ($_GET['view']==='mobile') {
 
 if ($_GET['view']==='login') {
     if(isset($_SESSION['loggedin'])){
-        header("Location: /index.php?view=loggedin");
+        header("Location: /index.php?view=mobile");
     }
     // display tpl
     $tpl->assign('sitename', $SITE_NAME);
@@ -114,6 +103,10 @@ if ($_GET['view']==='login') {
 
 
 if ($_GET['view']==='admin') {
+    if(!$_SESSION['admin']) {
+        header("Location: /index.php?view=mobile");
+    }
+
     // include main functions
     include_once('resources/php/functions/main-functions.php');
 
@@ -127,6 +120,10 @@ if ($_GET['view']==='admin') {
 }
 
 if ($_GET['view']==='admin-cars') {
+    if(!$_SESSION['admin']) {
+        header("Location: /index.php?view=mobile");
+    }
+
     // include main functions
     include_once('resources/php/functions/main-functions.php');
 
@@ -140,6 +137,10 @@ if ($_GET['view']==='admin-cars') {
 }
 
 if ($_GET['view']==='admin-users') {
+    if(!$_SESSION['admin']) {
+        header("Location: /index.php?view=mobile");
+    }
+
     // include main functions
     include_once('resources/php/functions/main-functions.php');
 

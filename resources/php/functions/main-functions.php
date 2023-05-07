@@ -896,7 +896,7 @@ function delRide($ride_id){
 // authenticate user after form submit
 if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
     if(authUser()) {
-        header('Location: /index.php?view=loggedin');
+        header('Location: /index.php?view=mobile');
     } else {
         header("Location: /index.php?view=login");
     }

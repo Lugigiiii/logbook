@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-05 22:01:30
+/* Smarty version 4.2.1, created on 2023-05-07 21:08:34
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-topbar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_642dd39a10ca35_26495400',
+  'unifunc' => 'content_6457f732e68e86_09270784',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30a5399e875ac2dcd3e678ff26e4ab85763b15c7' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-topbar.tpl',
-      1 => 1680724866,
+      1 => 1683486461,
       2 => 'file',
     ),
   ),
@@ -20,15 +20,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_642dd39a10ca35_26495400 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6457f732e68e86_09270784 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
     <form class="form-inline">
-        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-        </button>
+        <i class="fa fa-bars toggler" id="switchMobile"></i>
     </form>
 
     <!-- Topbar Navbar -->

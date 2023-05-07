@@ -111,7 +111,6 @@
     <script src="../resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdn.datatables.net/datetime/1.4.0/js/dataTables.dateTime.min.js"></script>
-    <script src="../resources/js/main-functions.js"></script>
 
     {literal}
     <script>

@@ -49,15 +49,10 @@
         Menu
     </div>
     <li class="nav-item">
-        <a class="nav-link" href="index.php?view=loggedin">
+        <a class="nav-link" href="index.php?view=mobile">
             <i class="fas fa-solid fa-rotate-left"></i>
-            <span>Zurück zur Auswahl</span></a>
+            <span>Zurück zur Mobile-Seite</span></a>
     </li>
-
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
 
 </ul>
 <!-- End of Sidebar -->

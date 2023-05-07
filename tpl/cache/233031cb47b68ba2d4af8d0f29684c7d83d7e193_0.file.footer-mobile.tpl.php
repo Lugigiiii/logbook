@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-09 13:22:12
+/* Smarty version 4.2.1, created on 2023-05-07 19:23:45
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\footer-mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64329fe4645450_24471946',
+  'unifunc' => 'content_6457dea1b3d5b8_11578287',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '233031cb47b68ba2d4af8d0f29684c7d83d7e193' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\footer-mobile.tpl',
-      1 => 1680896069,
+      1 => 1683480217,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64329fe4645450_24471946 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6457dea1b3d5b8_11578287 (Smarty_Internal_Template $_smarty_tpl) {
 ?></body>
 <?php echo '<script'; ?>
  src="../resources/js/timer.js"><?php echo '</script'; ?>
@@ -47,6 +47,12 @@ function content_64329fe4645450_24471946 (Smarty_Internal_Template $_smarty_tpl)
     // get km after car ist selected
     $('#car-selector').change(function(){
         aj_getKM();
+        // get location and write to input and localStorage. Get from Storage if already set
+        if(!localStorage.getItem("apiRequest")){     
+            window.onpaint = getLocation();
+        } else {
+            document.getElementById("input-loc").value = localStorage.getItem("apiRequest");
+        }
     })
 <?php echo '</script'; ?>
 >

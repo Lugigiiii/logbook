@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-09 14:18:23
+/* Smarty version 4.2.1, created on 2023-05-07 21:03:56
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6432ad0f37cd96_16456326',
+  'unifunc' => 'content_6457f61cd57344_96383651',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '397edd5be03166c46a08604e7a6321a52e7ad874' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\mobile.tpl',
-      1 => 1681042655,
+      1 => 1683486233,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6432ad0f37cd96_16456326 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6457f61cd57344_96383651 (Smarty_Internal_Template $_smarty_tpl) {
 ?>    <div id="main">
         <div id="top">
             <h2 class="top-left">Hallo, <?php echo $_smarty_tpl->tpl_vars['first']->value;?>
 !</h2>
-            <button class="top-right" id="logout" onclick="logOut()">Abmelden</button>
+            <div class="dropdown top-right">
+                <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
+                <div class="dropdown-content">
+                  <?php if ($_smarty_tpl->tpl_vars['admin']->value == true) {?><a href="/index.php?view=admin">Admin</a><?php }?>
+                  <button id="logout" onclick="logOut()">Abmelden</button>
+                </div>
+              </div>
             <h2 id="title-top"></h2>
             <div id="subtitle-top"></div>
         </div>

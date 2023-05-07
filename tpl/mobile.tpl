@@ -1,7 +1,13 @@
     <div id="main">
         <div id="top">
             <h2 class="top-left">Hallo, {$first}!</h2>
-            <button class="top-right" id="logout" onclick="logOut()">Abmelden</button>
+            <div class="dropdown top-right">
+                <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
+                <div class="dropdown-content">
+                  {if $admin eq true}<a href="/index.php?view=admin">Admin</a>{/if}
+                  <button id="logout" onclick="logOut()">Abmelden</button>
+                </div>
+              </div>
             <h2 id="title-top"></h2>
             <div id="subtitle-top"></div>
         </div>

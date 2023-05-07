@@ -85,13 +85,6 @@ function loadView(){
 
     // add default title
     document.getElementById("title-top").textContent= 'Start';
-
-    // get location and write to input and localStorage. Get from Storage if already set
-    if(!localStorage.getItem("apiRequest")){     
-        window.onpaint = getLocation();
-    } else {
-        document.getElementById("input-loc").value = localStorage.getItem("apiRequest");
-    }
     
 
     return;
@@ -379,16 +372,21 @@ function parsePosition(position) {
         success: function (response) {
             var response = JSON.parse(response);
             var town = response.address.town;
-            document.getElementById("input-loc").value = town;
-
+            var village = response.address.village;
             // debugging stuff
             console.log(response);
 
-            // set item to not repeat request
-            localStorage.setItem("apiRequest", town);
-
-            if(town != 'undefined'){
-                return town;
+            console.log(town);
+            console.log(village);
+            
+            if(town){
+                document.getElementById("input-loc").value = town;
+                // set item to not repeat request
+                localStorage.setItem("apiRequest", town);
+            } else if(village){
+                document.getElementById("input-loc").value = village;
+                // set item to not repeat request
+                localStorage.setItem("apiRequest", village);
             }
             
         },
