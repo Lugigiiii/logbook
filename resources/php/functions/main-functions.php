@@ -822,6 +822,7 @@ function resetUser($uid){
 }
 
 /* function to delete ride */
+/*
 function delRide($ride_id){
     $ride_id = intval($ride_id);
 
@@ -848,7 +849,7 @@ function delRide($ride_id){
     $conn->close();
 }
 
-
+*/
 
 
 
@@ -997,11 +998,13 @@ if(!empty($_GET['edit']) &&  $_GET['edit'] == true){
         header("Location: /index.php?view=admin-users");
     }
 
-    // reset password
+    // del ride
+    /*
     if(!empty($_GET['ride']) && isset($_GET['del']) && $_GET['del'] == true){
         delRide($_GET['ride']);
         header("Location: /index.php?view=admin");
     }
+    */
 }
 
 
