@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-05 22:09:44
+/* Smarty version 4.2.1, created on 2023-05-07 22:21:45
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\header-mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_642dd588946546_02954723',
+  'unifunc' => 'content_645808590320a4_03617183',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '56f01dd98b97683426dc799e67aa42bdd3eb4361' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\header-mobile.tpl',
-      1 => 1680725349,
+      1 => 1683488953,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_642dd588946546_02954723 (Smarty_Internal_Template $_smarty_tpl) {
+function content_645808590320a4_03617183 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="device-width">
 <head>
@@ -39,6 +39,7 @@ function content_642dd588946546_02954723 (Smarty_Internal_Template $_smarty_tpl)
     <?php echo '<script'; ?>
  src="https://kit.fontawesome.com/4cc784d7e8.js" crossorigin="anonymous"><?php echo '</script'; ?>
 >
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body><?php }
 }

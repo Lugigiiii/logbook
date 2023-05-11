@@ -22,12 +22,8 @@ function loadView(){
         // show title
         document.getElementById("title-top").textContent= 'Fahrt beendet';
 
-        // get location and write to input and localStorage. Get from Storage if already set
-        if(!localStorage.getItem("apiRequest")){     
-            window.onpaint = getLocation();
-        } else {
-            document.getElementById("input-loc").value = localStorage.getItem("apiRequest");
-        }
+        // get location and write to input and localStorage. Get from Storage if already set   
+        window.onpaint = getLocation();
 
         return;
     }
@@ -120,8 +116,6 @@ function startFunc(){
     localStorage.setItem("locStart", JSON.stringify(ar_locStart));
     localStorage.setItem('kmStart', fKmStart);
 
-    // remove api pause
-    localStorage.removeItem("apiRequest");
 
     location.reload();
     return true;
@@ -233,8 +227,6 @@ function saveFunc() {
     // add new location for array
     ar_locStart.push(locStop); /* adds current ts to array */
 
-    // remove api pause
-    localStorage.removeItem("apiRequest");
     
 
 
@@ -381,12 +373,8 @@ function parsePosition(position) {
             
             if(town){
                 document.getElementById("input-loc").value = town;
-                // set item to not repeat request
-                localStorage.setItem("apiRequest", town);
             } else if(village){
                 document.getElementById("input-loc").value = village;
-                // set item to not repeat request
-                localStorage.setItem("apiRequest", village);
             }
             
         },

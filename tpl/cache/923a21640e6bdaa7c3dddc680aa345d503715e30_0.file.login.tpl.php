@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-22 22:29:29
+/* Smarty version 4.2.1, created on 2023-05-11 11:23:25
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_644443a97aaab7_36536696',
+  'unifunc' => 'content_645cb40d86c029_16462588',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1682195296,
+      1 => 1683490825,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_644443a97aaab7_36536696 (Smarty_Internal_Template $_smarty_tpl) {
+function content_645cb40d86c029_16462588 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -145,6 +145,12 @@ function content_644443a97aaab7_36536696 (Smarty_Internal_Template $_smarty_tpl)
         location.reload();
     });
     */
+
+
+    if (typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.register('/sw.js')
+    }
+
 <?php echo '</script'; ?>
 >
 
