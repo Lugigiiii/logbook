@@ -125,7 +125,7 @@ function getKM($car){
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $stmt = $conn->prepare("SELECT MAX(ride.kmEnd) AS lastKM, car.name FROM ride INNER JOIN car ON ride.car=car.pk_id WHERE car.name=?");
+    $stmt = $conn->prepare("SELECT MAX(ride.kmEnd) AS lastKM, car.name FROM ride INNER JOIN car ON ride.car=car.pk_id WHERE car.name=? AND ride.deleted NOT LIKE 1");
     $stmt->bind_param("s", $car);
     if($stmt->execute()){
         $result = $stmt->get_result(); // get the mysqli result
@@ -213,7 +213,7 @@ function uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop
 
     // first insert main ride, then get id and upload all arrays via foreach loop
     // prepare and bind ride
-    $stmt = $conn->prepare('INSERT INTO ride (user, car, kmStart, kmEnd) VALUES (?, ?, ?, ?)');
+    $stmt = $conn->prepare('INSERT INTO ride (user, car, kmStart, kmEnd, deleted) VALUES (?, ?, ?, ?, 0)');
     $stmt->bind_param("iiii", $_SESSION['user_id'], $carID, $kmStart, $kmStop);
     if(!$stmt->execute()){
         echo 'Error at function uploadData() cannot insert into db';
@@ -313,7 +313,7 @@ function getRides(){
 
     $data = array();
 
-    $result = $conn->query("SELECT ride.pk_id, user.first_name, user.last_name, car.name, ride.kmStart, ride.kmEnd, ride.ts FROM ride INNER JOIN user ON ride.user = user.pk_id INNER JOIN car ON ride.car = car.pk_id ORDER BY ride.ts DESC");
+    $result = $conn->query("SELECT ride.pk_id, user.first_name, user.last_name, car.name, ride.kmStart, ride.kmEnd, ride.deleted FROM ride INNER JOIN user ON ride.user = user.pk_id INNER JOIN car ON ride.car = car.pk_id");
     $rows = $result->fetch_all();
     $result->free_result();
     $conn->close();
@@ -323,6 +323,7 @@ function getRides(){
         $name = $row[1]." ".$row[2];
         $km = $row[5]-$row[4]." km";
         $car = $row[3];
+        $deleted = $row[6];
 
         // query for further data
         $tsstart = intval(getTS($ride_id,'tsstart','ASC') / 1000);
@@ -338,7 +339,8 @@ function getRides(){
             $km,
             $locations, 
             $name,
-            $ride_id
+            $ride_id,
+            $deleted
         );
 
         array_push($data, $res);
@@ -822,7 +824,7 @@ function resetUser($uid){
 }
 
 /* function to delete ride */
-/*
+
 function delRide($ride_id){
     $ride_id = intval($ride_id);
 
@@ -840,16 +842,16 @@ function delRide($ride_id){
     }
 
     // perform statement
-    $stmt = $conn->prepare("DELETE FROM ride WHERE pk_id = ?");
+    $stmt = $conn->prepare("UPDATE ride SET deleted = 1 WHERE pk_id = ?");
     $stmt->bind_param('i', $ride_id);
     if(!$stmt->execute()){
-        echo 'SQL error at changeActiveCar()';
+        echo 'SQL error at delRide()';
         die();
     }
     $conn->close();
 }
 
-*/
+
 
 
 
@@ -999,12 +1001,12 @@ if(!empty($_GET['edit']) &&  $_GET['edit'] == true){
     }
 
     // del ride
-    /*
+    
     if(!empty($_GET['ride']) && isset($_GET['del']) && $_GET['del'] == true){
         delRide($_GET['ride']);
         header("Location: /index.php?view=admin");
     }
-    */
+    
 }
 
 

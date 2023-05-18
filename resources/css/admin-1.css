@@ -45,4 +45,10 @@
 .td-blue > a:hover {
     text-decoration: underline;
 }
+
+.tr-del {
+    color: #d74b4b;
+    background-color: #361919;
+    text-decoration: line-through;
+}
     

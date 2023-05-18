@@ -15,6 +15,8 @@ function loadView(){
         $("#left").hide();
         $("#right").hide();
         $("#btn-pause").hide();
+        $("#manual-view").hide();
+        $("#btn-save-manual").hide();
         $("#stretch").show();
         $("#btn-save").show();
         $("#form").show();
@@ -36,6 +38,8 @@ function loadView(){
         $("#btn-manual").hide();
         $("#form").hide();
         $("#timer").hide();
+        $("#manual-view").hide();
+        $("#btn-save-manual").hide();
         $("#right").show();
         $("#left").show();
         $("#btn-resume").show();
@@ -53,7 +57,9 @@ function loadView(){
         $("#right").hide();
         $("#btn-save").hide();
         $("#btn-back").hide();
+        $("#manual-view").hide();
         $("#form").hide();
+        $("#btn-save-manual").hide();
         $("#timer").show();
         $("#stretch").show();
         $("#pause").show();
@@ -75,6 +81,8 @@ function loadView(){
     $("#btn-back").hide();
     $("#timer").hide();
     $("#pause-view").hide();
+    $("#manual-view").hide();
+    $("#btn-save-manual").hide();
     $("#btn-start").show();
     $("#btn-manual").show();
     $("#form").show();
@@ -143,6 +151,39 @@ function pauseFunc() {
     localStorage.setItem("timestamp_stop", JSON.stringify(ar_tsStop)); /* stores array to browser */
 
     loadView();
+}
+
+function manualFunc(){
+    // check if data present
+    var car = document.forms["meta"]["car"].value;
+    var locStart = document.forms["meta"]["loc"].value;
+    var kmStart = document.forms["meta"]["km"].value;
+    if (car == "") {
+        alert("Bitte Fahrzeug wählen");
+        return false;
+    }
+    if (locStart == "") {
+        alert("Bitte Startort eingeben");
+        return false;
+    }
+    if(kmStart == ""){
+        alert('Bitte KM vor der Fahrt eingeben');
+        return false;
+    }
+    
+    // show and hide some stuff
+    $("#left").hide();
+    $("#pause-view").hide();
+    $("#right").hide();
+    $("#btn-save").hide();
+    $("#btn-back").hide();
+    $("#form").hide();
+    $("#stretch").show();
+    $("#btn-save-manual").show();
+    $("#manual-view").show();
+
+    // add new title
+    document.getElementById("title-top").textContent= 'Manuell';
 }
 
 
@@ -392,6 +433,7 @@ function parsePosition(position) {
 
 function aj_getKM() {
       var car = document.forms["meta"]["car"].value;
+      
       $.ajax({
           type: 'POST',
           url: 'resources/php/functions/main-functions.php?',      

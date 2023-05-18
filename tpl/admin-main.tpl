@@ -34,11 +34,16 @@
                                             <th>Kilometer</th>
                                             <th>Strecke</th>
                                             <th>Mitarbeiter</th>
+                                            <th>Löschen</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {foreach from=$data item=element}
+                                        {if $element[8] == 1}
+                                        <tr class="tr-del">
+                                        {else}
                                         <tr>
+                                        {/if}
                                             <td>{$element[0]|date_format:"%d.%m.%Y"}</td>
                                             <td>{$element[1]|date_format:"%H:%M Uhr"}</td>
                                             <td>{$element[2]|date_format:"%H:%M Uhr"}</td>
@@ -46,6 +51,13 @@
                                             <td>{$element[4]}</td>
                                             <td>{$element[5]}</td>
                                             <td>{$element[6]}</td>
+                                            <td>
+                                                {if $element[8] != 1}
+                                                <a class="btn btn-danger btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Delete" href="/resources/php/functions/main-functions.php?edit=true&ride={$element[7]}&del=1">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                                {/if}
+                                            </td>
                                         </tr>
                                         {/foreach}
                                     </tbody>

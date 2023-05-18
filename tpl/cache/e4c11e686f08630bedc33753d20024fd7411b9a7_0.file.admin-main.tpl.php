@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-05-07 20:13:23
+/* Smarty version 4.2.1, created on 2023-05-18 18:05:09
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-main.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6457ea43323f42_39884029',
+  'unifunc' => 'content_64664cb5dbc191_59832608',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e4c11e686f08630bedc33753d20024fd7411b9a7' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-main.tpl',
-      1 => 1683483201,
+      1 => 1684425907,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_6457ea43323f42_39884029 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64664cb5dbc191_59832608 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 ?>
 <body id="page-top">
@@ -74,7 +74,11 @@ $_smarty_tpl->tpl_vars['element']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['element']->value) {
 $_smarty_tpl->tpl_vars['element']->do_else = false;
 ?>
+                                        <?php if ($_smarty_tpl->tpl_vars['element']->value[8] == 1) {?>
+                                        <tr class="tr-del">
+                                        <?php } else { ?>
                                         <tr>
+                                        <?php }?>
                                             <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[0],"%d.%m.%Y");?>
 </td>
                                             <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[1],"%H:%M Uhr");?>
@@ -90,10 +94,12 @@ $_smarty_tpl->tpl_vars['element']->do_else = false;
                                             <td><?php echo $_smarty_tpl->tpl_vars['element']->value[6];?>
 </td>
                                             <td>
+                                                <?php if ($_smarty_tpl->tpl_vars['element']->value[8] != 1) {?>
                                                 <a class="btn btn-danger btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Delete" href="/resources/php/functions/main-functions.php?edit=true&ride=<?php echo $_smarty_tpl->tpl_vars['element']->value[7];?>
 &del=1">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
+                                                <?php }?>
                                             </td>
                                         </tr>
                                         <?php
@@ -430,6 +436,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         // change active nav to intended element
         var element = document.getElementById("element1");
         element.classList.add("active");
+
+        if (typeof navigator.serviceWorker !== 'undefined') {
+            navigator.serviceWorker.register('/sw.js')
+        }
 
     <?php echo '</script'; ?>
 >

@@ -32,6 +32,10 @@
                     </form>
                 </div>
             </div>
+            <div id="manual-view">
+                <div id="form-manual">
+                </div>
+            </div>
         </div>
         <div id="bottom">
             <div id="buttons">
@@ -40,12 +44,13 @@
                     <button id="btn-resume" onclick="resumeFunc()">Weiter</button>
                 </div>
                 <div id="right">
-                    <button id="btn-manual" onclick="alert('Feature noch nicht programmiert')">Manuell</button>
+                    <button id="btn-manual" onclick="manualFunc()">Manuell</button>
                     <button id="btn-stop" onclick="stopFunc()">Beenden</button>
                 </div>
                 <div id="stretch">
                     <button id="btn-pause" onclick="pauseFunc()">Pause</button>
                     <button id="btn-save" onclick="saveFunc()">Speichern</button>
+                    <button id="btn-save-manual" onclick="saveManualFunc()">Speichern</button>
                     <button id="btn-back" onclick="loadDefault()">Zurück zum Anfang</button>
                 </div>
             </div>

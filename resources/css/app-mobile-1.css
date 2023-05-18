@@ -221,7 +221,7 @@ input::-webkit-inner-spin-button {
     height: 100%;
 }
 
-#btn-start, #btn-resume, #btn-stop, #btn-pause, #btn-manual, #btn-save {
+#btn-start, #btn-resume, #btn-stop, #btn-pause, #btn-manual, #btn-save, #btn-save-manual {
     width: 100%;
     height: 100%;
     text-align: center;
@@ -297,6 +297,18 @@ input::-webkit-inner-spin-button {
 #btn-save:active {
     background: #295330;
     color: #54d66a;
+}
+
+#btn-save-manual {
+    text-decoration: none;
+    background: #192d36;
+    color: #4ba4d7;
+    font-size: 1.5em;
+    border: none;
+}
+#btn-save-manual:active {
+    background: #2b4753;
+    color: #5aabda;
 }
 
 #btn-back {

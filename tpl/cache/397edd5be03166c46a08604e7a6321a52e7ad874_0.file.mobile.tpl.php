@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-05-07 21:03:56
+/* Smarty version 4.2.1, created on 2023-05-18 18:59:43
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6457f61cd57344_96383651',
+  'unifunc' => 'content_6466597f7aef18_06925924',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '397edd5be03166c46a08604e7a6321a52e7ad874' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\mobile.tpl',
-      1 => 1683486233,
+      1 => 1684429181,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6457f61cd57344_96383651 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6466597f7aef18_06925924 (Smarty_Internal_Template $_smarty_tpl) {
 ?>    <div id="main">
         <div id="top">
             <h2 class="top-left">Hallo, <?php echo $_smarty_tpl->tpl_vars['first']->value;?>
@@ -57,6 +57,10 @@ function content_6457f61cd57344_96383651 (Smarty_Internal_Template $_smarty_tpl)
                     </form>
                 </div>
             </div>
+            <div id="manual-view">
+                <div id="form-manual">
+                </div>
+            </div>
         </div>
         <div id="bottom">
             <div id="buttons">
@@ -65,12 +69,13 @@ function content_6457f61cd57344_96383651 (Smarty_Internal_Template $_smarty_tpl)
                     <button id="btn-resume" onclick="resumeFunc()">Weiter</button>
                 </div>
                 <div id="right">
-                    <button id="btn-manual" onclick="alert('Feature noch nicht programmiert')">Manuell</button>
+                    <button id="btn-manual" onclick="manualFunc()">Manuell</button>
                     <button id="btn-stop" onclick="stopFunc()">Beenden</button>
                 </div>
                 <div id="stretch">
                     <button id="btn-pause" onclick="pauseFunc()">Pause</button>
                     <button id="btn-save" onclick="saveFunc()">Speichern</button>
+                    <button id="btn-save-manual" onclick="saveManualFunc()">Speichern</button>
                     <button id="btn-back" onclick="loadDefault()">Zurück zum Anfang</button>
                 </div>
             </div>
