@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-05-07 22:21:45
+/* Smarty version 4.2.1, created on 2023-05-25 15:32:39
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\header-mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_645808590320a4_03617183',
+  'unifunc' => 'content_646f63775faa40_90731042',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '56f01dd98b97683426dc799e67aa42bdd3eb4361' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\header-mobile.tpl',
-      1 => 1683488953,
+      1 => 1685021553,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_645808590320a4_03617183 (Smarty_Internal_Template $_smarty_tpl) {
+function content_646f63775faa40_90731042 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="device-width">
 <head>
@@ -40,6 +40,11 @@ function content_645808590320a4_03617183 (Smarty_Internal_Template $_smarty_tpl)
  src="https://kit.fontawesome.com/4cc784d7e8.js" crossorigin="anonymous"><?php echo '</script'; ?>
 >
     <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    <?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/flatpickr"><?php echo '</script'; ?>
+>
 </head>
 <body><?php }
 }

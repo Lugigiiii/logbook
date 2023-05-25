@@ -470,3 +470,22 @@ function aj_getKM() {
         }
     });
   }
+
+// add new location field
+
+function add(){
+    var formfield = document.getElementById('meta-manual');
+    var newField = document.createElement('input');
+    newField.setAttribute('type','text');
+    newField.setAttribute('name','loc-man');
+    newField.setAttribute('class','inp-fw opt-loc');
+    newField.setAttribute('siz',50);
+    newField.setAttribute('placeholder','Optionaler Zielort');
+    formfield.appendChild(newField);
+}
+
+function remove(){
+    var formfield = document.getElementById('meta-manual');
+    var input_tags = formfield.getElementsByClassName('opt-loc');
+    formfield.removeChild(input_tags[(input_tags.length) - 1]);
+  }

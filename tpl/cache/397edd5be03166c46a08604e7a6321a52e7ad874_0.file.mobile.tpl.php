@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-05-18 18:59:43
+/* Smarty version 4.2.1, created on 2023-05-25 15:31:43
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6466597f7aef18_06925924',
+  'unifunc' => 'content_646f633fd337b9_46952611',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '397edd5be03166c46a08604e7a6321a52e7ad874' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\mobile.tpl',
-      1 => 1684429181,
+      1 => 1685021503,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6466597f7aef18_06925924 (Smarty_Internal_Template $_smarty_tpl) {
+function content_646f633fd337b9_46952611 (Smarty_Internal_Template $_smarty_tpl) {
 ?>    <div id="main">
         <div id="top">
             <h2 class="top-left">Hallo, <?php echo $_smarty_tpl->tpl_vars['first']->value;?>
@@ -59,6 +59,12 @@ function content_6466597f7aef18_06925924 (Smarty_Internal_Template $_smarty_tpl)
             </div>
             <div id="manual-view">
                 <div id="form-manual">
+                    <form id="meta-manual" name="meta-manual" method="post">
+                        <input id="datetime" class="inp-fw datetime" name="date-start" type="text" placeholder="Startzeitpunkt..." value="" data-input> <!-- input is mandatory -->
+                        <input id="datetime" class="inp-fw datetime" name="date-end" type="text" placeholder="Endzeitpunkt..." data-input> <!-- input is mandatory -->
+                        <input id="numeric-2" class="inp-fw" name="km" type="text" placeholder="KM Stand..." value=""/>
+                        <input id="input-loc-end" class="inp-fw" name="loc-man" type="text" placeholder="Zielort..." value=""/>
+                    </form>
                 </div>
             </div>
         </div>

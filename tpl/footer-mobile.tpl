@@ -15,6 +15,9 @@
     $(function() {
         an = new AutoNumeric('#numeric', {currencySymbol :' km', allowDecimalPadding:"false",currencySymbolPlacement:'s',digitGroupSeparator:"'"});
     });
+    $(function() {
+        an2 = new AutoNumeric('#numeric-2', {currencySymbol :' km', allowDecimalPadding:"false",currencySymbolPlacement:'s',digitGroupSeparator:"'"});
+    });
 
     // get km after car ist selected
     $('#car-selector').change(function(){
@@ -30,6 +33,18 @@
     if (typeof navigator.serviceWorker !== 'undefined') {
         navigator.serviceWorker.register('/sw.js')
     }
+
+    // date time picker
+    $(".datetime").flatpickr(
+        {
+            enableTime: true,
+            dateFormat: "d.m.Y H:i",
+            clickOpens: true,
+            parseDate: (datestr, format) => {
+                return new Date(datestr);
+            }
+        }
+    );
 </script>
 {/literal}
 </html>

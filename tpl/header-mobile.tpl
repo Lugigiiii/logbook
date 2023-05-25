@@ -10,5 +10,8 @@
     <script src="../resources/js/jquery-3.6.4.min.js"></script>
     <script src="https://kit.fontawesome.com/4cc784d7e8.js" crossorigin="anonymous"></script>
     <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>

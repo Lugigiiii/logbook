@@ -34,6 +34,12 @@
             </div>
             <div id="manual-view">
                 <div id="form-manual">
+                    <form id="meta-manual" name="meta-manual" method="post">
+                        <input id="datetime" class="inp-fw datetime" name="date-start" type="text" placeholder="Startzeitpunkt..." value="" data-input> <!-- input is mandatory -->
+                        <input id="datetime" class="inp-fw datetime" name="date-end" type="text" placeholder="Endzeitpunkt..." data-input> <!-- input is mandatory -->
+                        <input id="numeric-2" class="inp-fw" name="km" type="text" placeholder="KM Stand..." value=""/>
+                        <input id="input-loc-end" class="inp-fw" name="loc-man" type="text" placeholder="Zielort..." value=""/>
+                    </form>
                 </div>
             </div>
         </div>
