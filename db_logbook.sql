@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 16. Apr 2023 um 23:16
+-- Erstellungszeit: 01. Jun 2023 um 14:54
 -- Server-Version: 10.4.27-MariaDB
 -- PHP-Version: 8.2.0
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `db_logbook`
 --
+CREATE DATABASE IF NOT EXISTS `db_logbook` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `db_logbook`;
 
 -- --------------------------------------------------------
 
@@ -59,7 +61,8 @@ CREATE TABLE `ride` (
   `car` int(11) NOT NULL,
   `kmStart` int(11) NOT NULL,
   `kmEnd` int(11) NOT NULL,
-  `ts` timestamp NOT NULL DEFAULT current_timestamp()
+  `ts` timestamp NOT NULL DEFAULT current_timestamp(),
+  `deleted` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
