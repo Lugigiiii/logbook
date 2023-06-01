@@ -35,16 +35,8 @@
     }
 
     // date time picker
-    $(".datetime").flatpickr(
-        {
-            enableTime: true,
-            dateFormat: "d.m.Y H:i",
-            clickOpens: true,
-            parseDate: (datestr, format) => {
-                return new Date(datestr);
-            }
-        }
-    );
+    const dateInput = document.getElementById("datetime");
+    dateInput.showPicker();
 </script>
 {/literal}
 </html>
