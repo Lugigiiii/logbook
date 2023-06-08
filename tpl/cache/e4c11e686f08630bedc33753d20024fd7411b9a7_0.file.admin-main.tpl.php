@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-06-08 11:20:49
+/* Smarty version 4.2.1, created on 2023-06-08 13:26:15
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-main.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64819d71b1ab46_72544963',
+  'unifunc' => 'content_6481bad7ad1166_41060559',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e4c11e686f08630bedc33753d20024fd7411b9a7' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-main.tpl',
-      1 => 1686216044,
+      1 => 1686223567,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_64819d71b1ab46_72544963 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6481bad7ad1166_41060559 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 ?>
 <body id="page-top">
@@ -185,7 +185,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         
         $(document).ready( function () {
             $('#dataTable').DataTable({
-                order: [[0, 'desc']],
+                columnDefs: [ { type: 'date', 'targets': [1] } ],
+                order: [[ 1, 'desc' ]],
                 "language":{
                     "emptyTable": "Keine Daten in der Tabelle vorhanden",
                     "info": "_START_ bis _END_ von _TOTAL_ Einträgen",

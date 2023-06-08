@@ -123,6 +123,8 @@
         
         $(document).ready( function () {
             $('#dataTable').DataTable({
+                columnDefs: [ { type: 'date', 'targets': [1] } ],
+                order: [[ 1, 'desc' ]],
                 "language":{
                     "emptyTable": "Keine Daten in der Tabelle vorhanden",
                     "info": "_START_ bis _END_ von _TOTAL_ Einträgen",

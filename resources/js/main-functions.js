@@ -242,6 +242,9 @@ function saveManualFunc(){
 
     // add new location
     ar_locations.push(locEnd); /* adds current location to array */
+    $("input[name='man-loc-opt[]']").each(function() {
+        ar_locations.push($(this).val());
+    });
 
     // calc driven km
     var kmDiff = kmEnd - kmStart;
@@ -638,7 +641,7 @@ function add(){
     var formfield = document.getElementById('meta-manual');
     var newField = document.createElement('input');
     newField.setAttribute('type','text');
-    newField.setAttribute('name','loc-man');
+    newField.setAttribute('name','man-loc-opt[]');
     newField.setAttribute('class','inp-fw opt-loc');
     newField.setAttribute('siz',50);
     newField.setAttribute('placeholder','Optionaler Zielort');

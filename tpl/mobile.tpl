@@ -40,6 +40,8 @@
                         <input id="numeric-2" class="inp-fw" name="man-km-end" type="text" placeholder="KM Stand..." value=""/>
                         <input id="man-loc-end" class="inp-fw" name="man-loc-end" type="text" placeholder="Zielort..." value=""/>
                     </form>
+                    <button id="btn-add" onclick="add()"><i class="fa-solid fa-house-circle-check"></i></button>
+                    <button id="btn-remove" onclick="remove()"><i class="fa-solid fa-trash"></i></i></button>
                 </div>
             </div>
         </div>
