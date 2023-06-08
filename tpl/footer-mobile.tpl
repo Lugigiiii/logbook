@@ -35,8 +35,10 @@
     }
 
     // date time picker
-    const dateInput = document.getElementById("datetime");
+    const dateInput = document.getElementById("man-start");
     dateInput.showPicker();
+    const dateInput2 = document.getElementById("man-end");
+    dateInput2.showPicker();
 </script>
 {/literal}
 </html>

@@ -153,7 +153,7 @@ function pauseFunc() {
     loadView();
 }
 
-function manualFunc(){
+function showManualFunc(){
     // check if data present
     var car = document.forms["meta"]["car"].value;
     var locStart = document.forms["meta"]["loc"].value;
@@ -170,6 +170,14 @@ function manualFunc(){
         alert('Bitte KM vor der Fahrt eingeben');
         return false;
     }
+
+    // save data
+    var ar_locStart = [];
+    ar_locStart[0] = locStart;
+    var fKmStart = kmStart.replace(/\D/g, "");
+    localStorage.setItem("man-car", car);
+    localStorage.setItem("man-locStart", JSON.stringify(ar_locStart));
+    localStorage.setItem('man-kmStart', fKmStart);
     
     // show and hide some stuff
     $("#left").hide();
@@ -184,6 +192,157 @@ function manualFunc(){
 
     // add new title
     document.getElementById("title-top").textContent= 'Manuell';
+}
+
+
+// function to save manual data
+function saveManualFunc(){
+    // check if data present
+    var car = localStorage.getItem("man-car");
+    var ar_locations = JSON.parse(localStorage.getItem("man-locStart"));
+    var kmStart = parseInt(localStorage.getItem("man-kmStart"));
+
+    var dateStart = document.forms["meta-manual"]["man-date-start"].value;
+    var dateEnd = document.forms["meta-manual"]["man-date-end"].value;
+    var kmEnd = document.forms["meta-manual"]["man-km-end"].value;
+    var kmEnd = parseInt(kmEnd.replace(/\D/g, ""));
+    var locEnd = document.forms["meta-manual"]["man-loc-end"].value;
+
+    if (dateStart == "") {
+        alert("Bitte Startzeit eingeben");
+        return false;
+    }
+    if (dateEnd == "") {
+        alert("Bitte Endzeit eingeben");
+        return false;
+    }
+    if (kmEnd == "") {
+        alert("Bitte Kilometerstand eingeben");
+        return false;
+    }
+    if (kmEnd <= kmStart){
+        alert("Kilometerstand muss höher als am Anfang sein")
+        return false;
+    }
+    if(locEnd == ""){
+        alert('Bitte Zielort eingeben');
+        return false;
+    }
+
+    // calc timestamps
+    var tsStart = parseInt(new Date(dateStart).getTime());
+    var tsEnd = parseInt(new Date(dateEnd).getTime());
+    var dbTS = new Date(dateStart).toISOString().slice(0, 19).replace('T', ' ');
+
+    // check again if not same time
+    if ((tsEnd - tsStart) <= 0) {
+        alert("Endzeitpunkt darf nicht gleich wie Anfangszeitpunkt sein");
+        return false;
+    }
+
+    // add new location
+    ar_locations.push(locEnd); /* adds current location to array */
+
+    // calc driven km
+    var kmDiff = kmEnd - kmStart;
+    
+
+
+
+    // the following vars are only meant to be displayed to the user
+    // calc total time
+    var sumTS = 0;
+    sumTs = tsEnd - tsStart;
+    totalHours = parseInt(Math.floor((sumTS % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    totalMinutes = parseInt(Math.floor((sumTS % (1000 * 60 * 60)) / (1000 * 60)));
+    totalSeconds = parseInt(Math.floor((sumTS % (1000 * 60)) / 1000));
+
+
+    // get starting time
+    var timeStart = new Date(dateStart);
+    var options = {
+        hour: "2-digit",
+        minute: "2-digit",
+    };
+    strStart = timeStart.toLocaleString("de-DE",options)+" Uhr";
+
+    // end time
+    var timeStop = new Date(dateEnd);
+    strStop = timeStop.toLocaleTimeString("de-DE",options)+" Uhr";
+
+    // loc string
+    var locStr = '';
+    ar_locations.forEach(function callback(value, index) {
+        locStr += `${value}`;
+        if(index !== ar_locations.length-1) {
+            locStr += ' - ';
+        }
+    });
+
+    // generate dashboard -> add button that restart everything
+    document.getElementById("center").innerHTML = `
+        <div id="stats">
+            <ul id="stats-ul" class="fa-ul">
+                <li><span class="fa-li"><i class="fa-solid fa-car"></i></span>${car}</li>
+                <li><span class="fa-li"><i class="fa-solid fa-route"></i></span>${locStr}</li>
+                <li><span class="fa-li"><i class="fa-solid fa-play"></i></span>${strStart}</li>
+                <li><span class="fa-li"><i class="fa-solid fa-flag-checkered"></i></span>${strStop}</li>
+                <!--<li><span class="fa-li"><i class="fa-solid fa-clock"></i></span>${totalHours}h ${totalMinutes}min ${totalSeconds}s</li>-->
+                <li><span class="fa-li"><i class="fa-solid fa-road"></i></span>${kmDiff} km</li>
+            </ul>
+        </div>
+    `;
+
+    $("#btn-save-manual").hide();
+    $("#btn-back").show();
+    // add new title
+    document.getElementById("title-top").textContent= 'Letzte Fahrt';
+    document.getElementById("subtitle-top").innerHTML= 'Wird gespeichert <span><i class="fa-solid fa-loader"></i></span>';
+    // end dashboard stuff
+
+
+
+    /*  call php to upload data
+        including:
+            car
+            ar_locStart
+            ar_tsStart
+            ar_tsStop
+            kmStart
+            kmStop
+    */
+    
+    // send as json string
+    var ar_tsStart = [tsStart];
+    var ar_tsEnd = [tsEnd];
+    ar_locStartUP = JSON.stringify(ar_locations);
+    ar_tsStartUP = JSON.stringify(ar_tsStart);
+    ar_tsStopUP = JSON.stringify(ar_tsEnd);
+    
+
+    // perform ajax call
+    $.ajax({
+        type: 'POST',
+        url: 'resources/php/functions/main-functions.php?',      
+        data: "carUP=" + car + "&ar_locStartUP=" + ar_locStartUP + "&ar_tsStartUP=" + ar_tsStartUP + "&ar_tsStopUP=" + ar_tsStopUP + "&kmStartUP=" + kmStart + "&kmStopUP=" + kmEnd + '&tsUP=' + dbTS,  
+        success: function (response) {
+          document.getElementById("subtitle-top").innerHTML= 'Gespeichert <span><i class="fa-solid fa-check"></i></span>';
+          return;
+        },
+        error: function () {
+            alert("Fehler: Ajax Fehler. Bitte Screenshot machen und manuell nachtragen.");
+            return;
+
+        }
+    });
+    
+
+    
+    
+
+    // restart everything
+    localStorage.setItem("savedComplete", 1);
+    return; 
 }
 
 
@@ -230,6 +389,8 @@ function stopFunc() {
     localStorage.setItem("end", 1);
     loadView();
 }
+
+
 
 // function to stop recording
 function saveFunc() {

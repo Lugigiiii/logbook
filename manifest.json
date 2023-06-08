@@ -3,10 +3,10 @@
   "description": "Applikation zur Führung eines Fahrtenbuches für KMUs.",
   "dir": "ltr",
   "display": "standalone",
-  "name": "Fahrtenbuch",
+  "name": "Driving Logbook",
   "orientation": "portrait",
   "scope": "/",
-  "short_name": "Fahrtenbuch",
+  "short_name": "Logbook",
   "start_url": "/index.php?view=login",
   "theme_color": "#2a2a2a",
   "categories": [

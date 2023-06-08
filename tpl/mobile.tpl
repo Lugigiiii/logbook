@@ -35,10 +35,10 @@
             <div id="manual-view">
                 <div id="form-manual">
                     <form id="meta-manual" name="meta-manual" method="post">
-                        <input id="datetime" class="inp-fw datetime" name="date-start" type="datetime-local" placeholder="Startzeitpunkt..." value="" data-input> <!-- input is mandatory -->
-                        <input id="datetime" class="inp-fw datetime" name="date-end" type="datetime-local" placeholder="Endzeitpunkt..." data-input> <!-- input is mandatory -->
-                        <input id="numeric-2" class="inp-fw" name="km" type="text" placeholder="KM Stand..." value=""/>
-                        <input id="input-loc-end" class="inp-fw" name="loc-man" type="text" placeholder="Zielort..." value=""/>
+                        <input id="man-start" class="inp-fw datetime" name="man-date-start" type="datetime-local" placeholder="Startzeitpunkt..." value="" data-input> <!-- input is mandatory -->
+                        <input id="man-end" class="inp-fw datetime" name="man-date-end" type="datetime-local" placeholder="Endzeitpunkt..." data-input> <!-- input is mandatory -->
+                        <input id="numeric-2" class="inp-fw" name="man-km-end" type="text" placeholder="KM Stand..." value=""/>
+                        <input id="man-loc-end" class="inp-fw" name="man-loc-end" type="text" placeholder="Zielort..." value=""/>
                     </form>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     <button id="btn-resume" onclick="resumeFunc()">Weiter</button>
                 </div>
                 <div id="right">
-                    <button id="btn-manual" onclick="manualFunc()">Manuell</button>
+                    <button id="btn-manual" onclick="showManualFunc()">Manuell</button>
                     <button id="btn-stop" onclick="stopFunc()">Beenden</button>
                 </div>
                 <div id="stretch">

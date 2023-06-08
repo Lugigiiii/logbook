@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-06-01 15:07:21
+/* Smarty version 4.2.1, created on 2023-06-08 09:36:58
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6478980900b3d9_35873622',
+  'unifunc' => 'content_6481851a035692_64353084',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '397edd5be03166c46a08604e7a6321a52e7ad874' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\mobile.tpl',
-      1 => 1685624836,
+      1 => 1686209809,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6478980900b3d9_35873622 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6481851a035692_64353084 (Smarty_Internal_Template $_smarty_tpl) {
 ?>    <div id="main">
         <div id="top">
             <h2 class="top-left">Hallo, <?php echo $_smarty_tpl->tpl_vars['first']->value;?>
@@ -60,10 +60,10 @@ function content_6478980900b3d9_35873622 (Smarty_Internal_Template $_smarty_tpl)
             <div id="manual-view">
                 <div id="form-manual">
                     <form id="meta-manual" name="meta-manual" method="post">
-                        <input id="datetime" class="inp-fw datetime" name="date-start" type="datetime-local" placeholder="Startzeitpunkt..." value="" data-input> <!-- input is mandatory -->
-                        <input id="datetime" class="inp-fw datetime" name="date-end" type="datetime-local" placeholder="Endzeitpunkt..." data-input> <!-- input is mandatory -->
-                        <input id="numeric-2" class="inp-fw" name="km" type="text" placeholder="KM Stand..." value=""/>
-                        <input id="input-loc-end" class="inp-fw" name="loc-man" type="text" placeholder="Zielort..." value=""/>
+                        <input id="man-start" class="inp-fw datetime" name="man-date-start" type="datetime-local" placeholder="Startzeitpunkt..." value="" data-input> <!-- input is mandatory -->
+                        <input id="man-end" class="inp-fw datetime" name="man-date-end" type="datetime-local" placeholder="Endzeitpunkt..." data-input> <!-- input is mandatory -->
+                        <input id="numeric-2" class="inp-fw" name="man-km-end" type="text" placeholder="KM Stand..." value=""/>
+                        <input id="man-loc-end" class="inp-fw" name="man-loc-end" type="text" placeholder="Zielort..." value=""/>
                     </form>
                 </div>
             </div>
@@ -75,7 +75,7 @@ function content_6478980900b3d9_35873622 (Smarty_Internal_Template $_smarty_tpl)
                     <button id="btn-resume" onclick="resumeFunc()">Weiter</button>
                 </div>
                 <div id="right">
-                    <button id="btn-manual" onclick="manualFunc()">Manuell</button>
+                    <button id="btn-manual" onclick="showManualFunc()">Manuell</button>
                     <button id="btn-stop" onclick="stopFunc()">Beenden</button>
                 </div>
                 <div id="stretch">

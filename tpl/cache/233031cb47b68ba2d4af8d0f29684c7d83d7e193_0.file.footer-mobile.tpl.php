@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-06-01 15:07:21
+/* Smarty version 4.2.1, created on 2023-06-08 09:22:52
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\footer-mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_647898090a50a5_23176170',
+  'unifunc' => 'content_648181cc1bd3e3_89137605',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '233031cb47b68ba2d4af8d0f29684c7d83d7e193' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\footer-mobile.tpl',
-      1 => 1685624808,
+      1 => 1686208966,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_647898090a50a5_23176170 (Smarty_Internal_Template $_smarty_tpl) {
+function content_648181cc1bd3e3_89137605 (Smarty_Internal_Template $_smarty_tpl) {
 ?></body>
 <?php echo '<script'; ?>
  src="../resources/js/timer.js"><?php echo '</script'; ?>
@@ -63,8 +63,10 @@ function content_647898090a50a5_23176170 (Smarty_Internal_Template $_smarty_tpl)
     }
 
     // date time picker
-    const dateInput = document.getElementById("datetime");
+    const dateInput = document.getElementById("man-start");
     dateInput.showPicker();
+    const dateInput2 = document.getElementById("man-end");
+    dateInput2.showPicker();
 <?php echo '</script'; ?>
 >
 
