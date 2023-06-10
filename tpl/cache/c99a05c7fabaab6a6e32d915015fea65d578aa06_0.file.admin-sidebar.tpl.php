@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-05-07 21:07:27
+/* Smarty version 4.2.1, created on 2023-06-10 22:04:57
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6457f6efcd2059_89640407',
+  'unifunc' => 'content_6484d769e0b246_35363319',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6457f6efcd2059_89640407 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6484d769e0b246_35363319 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 

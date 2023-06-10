@@ -27,7 +27,6 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Datum</th>
                                             <th>Start</th>
                                             <th>Ende</th>
                                             <th>Fahrzeug</th>
@@ -39,21 +38,20 @@
                                     </thead>
                                     <tbody>
                                         {foreach from=$data item=element}
-                                        {if $element[8] == 1}
+                                        {if $element[7] == 1}
                                         <tr class="tr-del">
                                         {else}
                                         <tr>
                                         {/if}
-                                            <td>{$element[0]|date_format:"%d.%m.%Y"}</td>
-                                            <td>{$element[1]|date_format:"%H:%M Uhr"}</td>
-                                            <td>{$element[2]|date_format:"%H:%M Uhr"}</td>
+                                            <td>{$element[0]|date_format:"%d.%m.%Y, %H:%M Uhr"}</td>
+                                            <td>{$element[1]|date_format:"%d.%m.%Y, %H:%M Uhr"}</td>
+                                            <td>{$element[2]}</td>
                                             <td>{$element[3]}</td>
                                             <td>{$element[4]}</td>
                                             <td>{$element[5]}</td>
-                                            <td>{$element[6]}</td>
                                             <td>
-                                                {if $element[8] != 1}
-                                                <a class="btn btn-danger btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Delete" href="/resources/php/functions/main-functions.php?edit=true&ride={$element[7]}&del=1">
+                                                {if $element[7] != 1}
+                                                <a class="btn btn-danger btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Delete" href="/resources/php/functions/main-functions.php?edit=true&ride={$element[6]}&del=1">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                                 {/if}
@@ -115,16 +113,16 @@
     <!-- Page level plugins -->
     <script src="../resources/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdn.datatables.net/datetime/1.4.0/js/dataTables.dateTime.min.js"></script>
+
+    <script src="https://cdn.datatables.net/plug-ins/1.13.4/sorting/date-eu.js"></script>
 
     {literal}
     <script>
         
         $(document).ready( function () {
             $('#dataTable').DataTable({
-                columnDefs: [ { type: 'date', 'targets': [1] } ],
-                order: [[ 1, 'desc' ]],
+                columnDefs: [ { type: 'date-eu', 'targets': [0] } ],
+                order: [[ 0, 'desc' ]],
                 "language":{
                     "emptyTable": "Keine Daten in der Tabelle vorhanden",
                     "info": "_START_ bis _END_ von _TOTAL_ Einträgen",

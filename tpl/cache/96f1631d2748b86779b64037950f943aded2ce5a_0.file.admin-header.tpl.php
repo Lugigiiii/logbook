@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-05-07 21:49:31
+/* Smarty version 4.2.1, created on 2023-06-10 22:04:57
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_645800cb5ad4b4_78935079',
+  'unifunc' => 'content_6484d769aa01d1_10496437',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '96f1631d2748b86779b64037950f943aded2ce5a' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-header.tpl',
-      1 => 1683488968,
+      1 => 1686427072,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_645800cb5ad4b4_78935079 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6484d769aa01d1_10496437 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -53,6 +53,12 @@ function content_645800cb5ad4b4_78935079 (Smarty_Internal_Template $_smarty_tpl)
 
     <!-- Add Manifest -->
     <link rel="manifest" href="/manifest.json">
+
+    <!-- Add custom functions -->
+    <?php echo '<script'; ?>
+ src="../resources/js/main-functions.js"><?php echo '</script'; ?>
+>
+    
     
 </head><?php }
 }

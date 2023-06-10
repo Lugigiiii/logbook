@@ -27,5 +27,9 @@
 
     <!-- Add Manifest -->
     <link rel="manifest" href="/manifest.json">
+
+    <!-- Add custom functions -->
+    <script src="../resources/js/main-functions.js"></script>
+    
     
 </head>

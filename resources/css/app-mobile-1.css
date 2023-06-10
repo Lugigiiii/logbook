@@ -156,12 +156,14 @@ body{
 }
 
 form {
-    margin: 0;
     padding: 20px;
+    max-width: 940px;
+    margin: 0 auto
 }
 
 #manual-view {
     height: 100%;
+    max-width: 940px;
 }
 
 #form-manual {
@@ -174,18 +176,14 @@ form {
     margin: 10px 0;
     border: 2px solid rgb(255, 255, 255);
     border-radius: 1rem;
-    font-size: 1.4em;
+    font-size: 1.5em;
     color: rgb(255, 255, 255);
     background: transparent;
 }
 
-#numeric-2 {
+.opt-loc {
+    width: 75%;
     float: left;
-    width: 50%;
-}
-
-#man-loc-end {
-    width: 50%;
 }
 
 option {
@@ -218,23 +216,25 @@ input::-webkit-inner-spin-button {
 }
 
 #btn-add {
-    padding: 10px;
+    padding: 20px;
     border: none;
     font-size: 1.5em;
     color: rgb(255, 255, 255);
-    float: left;
-    width: 50%;
+    margin: 20px 0;
+    width: 100%;
     background: #192d36;
     color: #4ba4d7;
 }
 
 #btn-remove {
-    padding: 10px;
+    padding: 20px;
+    margin: 15px 0 15px 5px;
     border: none;
     font-size: 1.5em;
     color: rgb(255, 255, 255);
     float: left;
-    width: 50%;
+    width: 20%;
+    float: right;
     background: #361919;
     color: #d74b4b;
 }

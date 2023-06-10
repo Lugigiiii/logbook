@@ -236,7 +236,7 @@ function saveManualFunc(){
 
     // check again if not same time
     if ((tsEnd - tsStart) <= 0) {
-        alert("Endzeitpunkt darf nicht gleich wie Anfangszeitpunkt sein");
+        alert("Startzeit muss vor der Endzeit liegen");
         return false;
     }
 
@@ -425,7 +425,9 @@ function saveFunc() {
         return false;
     }
     if(kmStop <= kmStart){
-        alert('Aktueller Kilometerstand kleiner als Anfangswert');
+        alert('Kilometerstand muss höher als Startwert liegen');
+        console.log(kmStop);
+        console.log(kmStart);
         return false;
     }
 
@@ -639,17 +641,36 @@ function aj_getKM() {
 
 function add(){
     var formfield = document.getElementById('meta-manual');
+    // delete old button for removal
+    var remove_buttons = document.getElementById('btn-remove');
+    if (typeof(remove_buttons) != 'undefined' && remove_buttons != null)
+    {
+        formfield.removeChild(remove_buttons);
+    }
+
+    // create new input field
     var newField = document.createElement('input');
     newField.setAttribute('type','text');
     newField.setAttribute('name','man-loc-opt[]');
     newField.setAttribute('class','inp-fw opt-loc');
     newField.setAttribute('siz',50);
-    newField.setAttribute('placeholder','Optionaler Zielort');
+    newField.setAttribute('placeholder','Weiterer Zielort');
     formfield.appendChild(newField);
+    // add remove button
+    var button = document.createElement('button');
+    button.setAttribute('id','btn-remove');
+    button.setAttribute('onclick','remove()');
+    button.setAttribute('type','button');
+    button.innerHTML = '<i class="fa-solid fa-trash"></i></i>';
+    formfield.appendChild(button);
 }
 
 function remove(){
     var formfield = document.getElementById('meta-manual');
     var input_tags = formfield.getElementsByClassName('opt-loc');
+    if(input_tags.length <= 1){
+        var remove_buttons = document.getElementById('btn-remove');
+        formfield.removeChild(remove_buttons);
+    }
     formfield.removeChild(input_tags[(input_tags.length) - 1]);
   }

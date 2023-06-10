@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-06-08 09:22:52
+/* Smarty version 4.2.1, created on 2023-06-10 22:06:50
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\footer-mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_648181cc1bd3e3_89137605',
+  'unifunc' => 'content_6484d7da3598b9_28392169',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_648181cc1bd3e3_89137605 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6484d7da3598b9_28392169 (Smarty_Internal_Template $_smarty_tpl) {
 ?></body>
 <?php echo '<script'; ?>
  src="../resources/js/timer.js"><?php echo '</script'; ?>

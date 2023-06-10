@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-06-08 13:26:15
+/* Smarty version 4.2.1, created on 2023-06-10 22:05:27
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-main.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6481bad7ad1166_41060559',
+  'unifunc' => 'content_6484d787c4f227_70159539',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e4c11e686f08630bedc33753d20024fd7411b9a7' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-main.tpl',
-      1 => 1686223567,
+      1 => 1686427525,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_6481bad7ad1166_41060559 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6484d787c4f227_70159539 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 ?>
 <body id="page-top">
@@ -57,7 +57,6 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Datum</th>
                                             <th>Start</th>
                                             <th>Ende</th>
                                             <th>Fahrzeug</th>
@@ -74,16 +73,16 @@ $_smarty_tpl->tpl_vars['element']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['element']->value) {
 $_smarty_tpl->tpl_vars['element']->do_else = false;
 ?>
-                                        <?php if ($_smarty_tpl->tpl_vars['element']->value[8] == 1) {?>
+                                        <?php if ($_smarty_tpl->tpl_vars['element']->value[7] == 1) {?>
                                         <tr class="tr-del">
                                         <?php } else { ?>
                                         <tr>
                                         <?php }?>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[0],"%d.%m.%Y");?>
+                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[0],"%d.%m.%Y, %H:%M Uhr");?>
 </td>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[1],"%H:%M Uhr");?>
+                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[1],"%d.%m.%Y, %H:%M Uhr");?>
 </td>
-                                            <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['element']->value[2],"%H:%M Uhr");?>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[2];?>
 </td>
                                             <td><?php echo $_smarty_tpl->tpl_vars['element']->value[3];?>
 </td>
@@ -91,11 +90,9 @@ $_smarty_tpl->tpl_vars['element']->do_else = false;
 </td>
                                             <td><?php echo $_smarty_tpl->tpl_vars['element']->value[5];?>
 </td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[6];?>
-</td>
                                             <td>
-                                                <?php if ($_smarty_tpl->tpl_vars['element']->value[8] != 1) {?>
-                                                <a class="btn btn-danger btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Delete" href="/resources/php/functions/main-functions.php?edit=true&ride=<?php echo $_smarty_tpl->tpl_vars['element']->value[7];?>
+                                                <?php if ($_smarty_tpl->tpl_vars['element']->value[7] != 1) {?>
+                                                <a class="btn btn-danger btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Delete" href="/resources/php/functions/main-functions.php?edit=true&ride=<?php echo $_smarty_tpl->tpl_vars['element']->value[6];?>
 &del=1">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
@@ -172,11 +169,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     <?php echo '<script'; ?>
  src="../resources/vendor/datatables/dataTables.bootstrap4.min.js"><?php echo '</script'; ?>
 >
+
     <?php echo '<script'; ?>
- src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="https://cdn.datatables.net/datetime/1.4.0/js/dataTables.dateTime.min.js"><?php echo '</script'; ?>
+ src="https://cdn.datatables.net/plug-ins/1.13.4/sorting/date-eu.js"><?php echo '</script'; ?>
 >
 
     
@@ -185,8 +180,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         
         $(document).ready( function () {
             $('#dataTable').DataTable({
-                columnDefs: [ { type: 'date', 'targets': [1] } ],
-                order: [[ 1, 'desc' ]],
+                columnDefs: [ { type: 'date-eu', 'targets': [0] } ],
+                order: [[ 0, 'desc' ]],
                 "language":{
                     "emptyTable": "Keine Daten in der Tabelle vorhanden",
                     "info": "_START_ bis _END_ von _TOTAL_ Einträgen",

@@ -333,7 +333,6 @@ function getRides(){
 
         $res = array(
             $tsstart,
-            $tsstart,
             $tsstop,
             $car,
             $km,

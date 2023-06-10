@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-06-08 14:12:59
+/* Smarty version 4.2.1, created on 2023-06-10 22:06:50
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6481c5cbeb99b4_73115245',
+  'unifunc' => 'content_6484d7da2290e2_34810317',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '397edd5be03166c46a08604e7a6321a52e7ad874' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\mobile.tpl',
-      1 => 1686226298,
+      1 => 1686426217,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6481c5cbeb99b4_73115245 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6484d7da2290e2_34810317 (Smarty_Internal_Template $_smarty_tpl) {
 ?>    <div id="main">
         <div id="top">
             <h2 class="top-left">Hallo, <?php echo $_smarty_tpl->tpl_vars['first']->value;?>
@@ -65,8 +65,7 @@ function content_6481c5cbeb99b4_73115245 (Smarty_Internal_Template $_smarty_tpl)
                         <input id="numeric-2" class="inp-fw" name="man-km-end" type="text" placeholder="KM Stand..." value=""/>
                         <input id="man-loc-end" class="inp-fw" name="man-loc-end" type="text" placeholder="Zielort..." value=""/>
                     </form>
-                    <button id="btn-add" onclick="add()"><i class="fa-solid fa-house-circle-check"></i></button>
-                    <button id="btn-remove" onclick="remove()"><i class="fa-solid fa-trash"></i></i></button>
+                    <button id="btn-add" onclick="add()"><i class="fa-regular fa-square-plus"></i></button>
                 </div>
             </div>
         </div>
