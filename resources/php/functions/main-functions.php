@@ -185,7 +185,7 @@ function multiUpload($prep_st, $ride_id, $array){
 
 
 // upload ride data
-function uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop,$tsUP){
+function uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop,$tsUP,$manual){
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
@@ -213,8 +213,8 @@ function uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop
 
     // first insert main ride, then get id and upload all arrays via foreach loop
     // prepare and bind ride
-    $stmt = $conn->prepare('INSERT INTO ride (user, car, kmStart, kmEnd, deleted, ts) VALUES (?, ?, ?, ?, 0, ?)');
-    $stmt->bind_param("iiiis", $_SESSION['user_id'], $carID, $kmStart, $kmStop, $tsUP);
+    $stmt = $conn->prepare('INSERT INTO ride (user, car, kmStart, kmEnd, deleted, ts, manual) VALUES (?, ?, ?, ?, 0, ?, ?)');
+    $stmt->bind_param("iiiisi", $_SESSION['user_id'], $carID, $kmStart, $kmStop, $tsUP,$manual);
     if(!$stmt->execute()){
         echo 'Error at function uploadData() cannot insert into db';
         return false;
@@ -313,7 +313,7 @@ function getRides(){
 
     $data = array();
 
-    $result = $conn->query("SELECT ride.pk_id, user.first_name, user.last_name, car.name, ride.kmStart, ride.kmEnd, ride.deleted FROM ride INNER JOIN user ON ride.user = user.pk_id INNER JOIN car ON ride.car = car.pk_id ORDER BY ride.ts DESC");
+    $result = $conn->query("SELECT ride.pk_id, user.first_name, user.last_name, car.name, ride.kmStart, ride.kmEnd, ride.deleted, ride.manual FROM ride INNER JOIN user ON ride.user = user.pk_id INNER JOIN car ON ride.car = car.pk_id ORDER BY ride.ts DESC");
     $rows = $result->fetch_all();
     $result->free_result();
     $conn->close();
@@ -324,6 +324,7 @@ function getRides(){
         $km = $row[5]-$row[4]." km";
         $car = $row[3];
         $deleted = $row[6];
+        $manual = $row[7];
 
         // query for further data
         $tsstart = intval(getTS($ride_id,'tsstart','ASC') / 1000);
@@ -339,7 +340,8 @@ function getRides(){
             $locations, 
             $name,
             $ride_id,
-            $deleted
+            $deleted,
+            $manual
         );
 
         array_push($data, $res);
@@ -943,9 +945,14 @@ if(!empty($_POST['carUP']) && !empty($_POST['ar_locStartUP']) && !empty($_POST['
     $kmStart = $_POST['kmStartUP'];
     $kmStop = $_POST['kmStopUP'];
     $tsUP = $_POST['tsUP'];
+    if(empty($_POST['manual'])){
+        $manual = 0;
+    } else {
+        $manual = $_POST['manual'];
+    }
 
     // call function and respond to user
-    if(uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop,$tsUP)){
+    if(uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop,$tsUP, $manual)){
         echo "Daten wurden erfolgreich gespeichert";
     } else {
         echo "Fehler: Daten konnten nicht gespeichert werden. Bitte Screenshot machen und manuell nachtragen.";

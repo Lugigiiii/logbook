@@ -321,13 +321,14 @@ function saveManualFunc(){
     ar_locStartUP = JSON.stringify(ar_locations);
     ar_tsStartUP = JSON.stringify(ar_tsStart);
     ar_tsStopUP = JSON.stringify(ar_tsEnd);
+    var manual = 1;
     
 
     // perform ajax call
     $.ajax({
         type: 'POST',
         url: 'resources/php/functions/main-functions.php?',      
-        data: "carUP=" + car + "&ar_locStartUP=" + ar_locStartUP + "&ar_tsStartUP=" + ar_tsStartUP + "&ar_tsStopUP=" + ar_tsStopUP + "&kmStartUP=" + kmStart + "&kmStopUP=" + kmEnd + '&tsUP=' + dbTS,  
+        data: "carUP=" + car + "&ar_locStartUP=" + ar_locStartUP + "&ar_tsStartUP=" + ar_tsStartUP + "&ar_tsStopUP=" + ar_tsStopUP + "&kmStartUP=" + kmStart + "&kmStopUP=" + kmEnd + '&tsUP=' + dbTS + '&manual=' + manual,  
         success: function (response) {
           document.getElementById("subtitle-top").innerHTML= 'Gespeichert <span><i class="fa-solid fa-check"></i></span>';
           return;

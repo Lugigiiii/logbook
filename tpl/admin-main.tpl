@@ -41,12 +41,18 @@
                                         {foreach from=$data item=element}
                                         {if $element[7] == 1}
                                         <tr class="tr-del">
+                                        {elseif $element[8] == 1}
+                                        <tr class="tr-man">
                                         {else}
                                         <tr>
                                         {/if}
                                             <td>{$element[0]|date_format:"%d.%m.%Y"}</td>
-                                            <td>{$element[0]|date_format:"%H:%M Uhr"}</td>
                                             <td>{$element[1]|date_format:"%H:%M Uhr"}</td>
+                                            {if $element[1] - $element[0] >= 86400}
+                                                <td>{$element[1]|date_format:"%H:%M Uhr"} (+1d)</td>
+                                            {else}
+                                                <td>{$element[1]|date_format:"%H:%M Uhr"}</td>
+                                            {/if}
                                             <td>{$element[2]}</td>
                                             <td>{$element[3]}</td>
                                             <td>{$element[4]}</td>
@@ -124,7 +130,7 @@
         $(document).ready( function () {
             $('#dataTable').DataTable({
                 columnDefs: [ { type: 'date-eu', 'targets': [0] } ],
-                order: [[ 0, 'desc' ]],
+                order: [[ 0, 'desc' ], [1, 'desc']],
                 "language":{
                     "emptyTable": "Keine Daten in der Tabelle vorhanden",
                     "info": "_START_ bis _END_ von _TOTAL_ Einträgen",
