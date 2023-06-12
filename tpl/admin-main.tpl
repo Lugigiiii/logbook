@@ -27,6 +27,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Datum</th>
                                             <th>Start</th>
                                             <th>Ende</th>
                                             <th>Fahrzeug</th>
@@ -43,8 +44,9 @@
                                         {else}
                                         <tr>
                                         {/if}
-                                            <td>{$element[0]|date_format:"%d.%m.%Y, %H:%M Uhr"}</td>
-                                            <td>{$element[1]|date_format:"%d.%m.%Y, %H:%M Uhr"}</td>
+                                            <td>{$element[0]|date_format:"%d.%m.%Y"}</td>
+                                            <td>{$element[0]|date_format:"%H:%M Uhr"}</td>
+                                            <td>{$element[1]|date_format:"%H:%M Uhr"}</td>
                                             <td>{$element[2]}</td>
                                             <td>{$element[3]}</td>
                                             <td>{$element[4]}</td>
