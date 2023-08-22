@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-06-12 21:41:56
+/* Smarty version 4.2.1, created on 2023-08-22 21:05:19
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64877504052027_93997358',
+  'unifunc' => 'content_64e506ef5a1f86_07288397',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1684424783,
+      1 => 1692731118,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64877504052027_93997358 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64e506ef5a1f86_07288397 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -69,7 +69,7 @@ function content_64877504052027_93997358 (Smarty_Internal_Template $_smarty_tpl)
                                         <?php if ((isset($_smarty_tpl->tpl_vars['logo']->value))) {?><img src="<?php echo $_smarty_tpl->tpl_vars['logo']->value;?>
 " alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;"><?php }?>
                                     </div>
-                                    <form class="user" id="loginForm" method="post" action="resources/php/functions/main-functions.php">
+                                    <form class="user" id="loginForm" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="inpUsername" aria-describedby="username"
@@ -79,7 +79,7 @@ function content_64877504052027_93997358 (Smarty_Internal_Template $_smarty_tpl)
                                             <input type="password" class="form-control form-control-user"
                                                 id="inpPassword" placeholder="Passwort" name="inpPassword">
                                         </div>
-                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
+                                        <button type="button" name="btnLogin" id="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -95,11 +95,11 @@ function content_64877504052027_93997358 (Smarty_Internal_Template $_smarty_tpl)
         </div>
 
     </div>
+    <?php echo '<script'; ?>
+ src="https://code.jquery.com/jquery-3.5.1.min.js"><?php echo '</script'; ?>
+>
 
     <!-- Bootstrap core JavaScript-->
-    <?php echo '<script'; ?>
- src="../resources/vendor/jquery/jquery.min.js"><?php echo '</script'; ?>
->
     <?php echo '<script'; ?>
  src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
 >
@@ -114,45 +114,50 @@ function content_64877504052027_93997358 (Smarty_Internal_Template $_smarty_tpl)
  src="../resources/js/sb-admin-2.min.js"><?php echo '</script'; ?>
 >
 
-</body>
-<?php echo '<script'; ?>
+    <?php echo '<script'; ?>
 >
-    /*
-    $(document).ready(function(){
-        $.ajaxSetup({ cache: false }); // or iPhones don't get fresh data
-    });
 
+        $(document).ready(function() {
+            $("#btnLogin").click(function() {
+                console.log('clicked');
+                var uname = document.getElementById('inpUsername').value;
+                var pwd = document.getElementById('inpPassword').value;  
     
-    $( "#btnLogin" ).click(function() {
-        var uname = document.getElementById('inpUsername').value;
-        var pwd = document.getElementById('inpPassword').value;  
-
-        $.ajax({
-            type: 'POST',
-            url: 'resources/php/functions/main-functions.php?',      
-            data: "inpUsername="+uname+"&inpPassword="+pwd,
-            dataType: 'HTML',
-            success: function (response) {
-                console.log("ok");
-            },
-            error: function () {
-                console.log("error");
-                alert("Unable to perform login");
-            }
+                $.ajax({
+                    type: 'POST',
+                    url: 'resources/php/functions/main-functions.php?',      
+                    data: "inpUsername="+uname+"&inpPassword="+pwd,
+                    dataType: 'json',
+                    success: function(xhr, status, error, response) {
+                        console.log('Response received:', response); // Log the entire response
+                        if (response.status === 'success') {
+                            console.log('Authentication successful:', response.message);
+                        } else {
+                            console.log('Authentication failed:', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('AJAX Error:', status); // Log the error status
+                        console.log('Error details:', error); // Log the error details
+                        console.log(xhr);
+                    }
+                });
+    
+                $(location).prop('href', '/index.php?view=loggedin');
+                location.reload();
+            });
         });
-
-        $(location).prop('href', '/index.php?view=loggedin');
-        location.reload();
-    });
-    */
-
-
-    if (typeof navigator.serviceWorker !== 'undefined') {
-        navigator.serviceWorker.register('/sw.js')
-    }
-
-<?php echo '</script'; ?>
+        
+    
+    
+        if (typeof navigator.serviceWorker !== 'undefined') {
+            navigator.serviceWorker.register('/sw.js')
+        }
+    
+    <?php echo '</script'; ?>
 >
 
+
+</body>
 </html><?php }
 }

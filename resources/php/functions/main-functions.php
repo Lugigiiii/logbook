@@ -887,8 +887,6 @@ function delRide($ride_id){
 
 
 
-
-
 /* 
     The following code is required to call the functions above
 
@@ -898,6 +896,7 @@ function delRide($ride_id){
 
 
 // authenticate user after form submit
+/*
 if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
     if(authUser()) {
         header('Location: /index.php?view=mobile');
@@ -905,19 +904,18 @@ if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
         header("Location: /index.php?view=login");
     }
 }
-/*
+*/
+
 if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
     if(authUser()) {
-        $response = array('success' => true);
         header('Content-Type: application/json');
-        die(json_encode($response));
+        print_r json_encode(['status' => 'success', 'message' => 'User authenticated']);
     } else {
-        $response = array('success' => false);
         header('Content-Type: application/json');
-        die(json_encode($response));
+        print_r json_encode(['status' => 'error', 'message' => 'Invalid credentials']);
     }
 }
-*/
+
 
 
 

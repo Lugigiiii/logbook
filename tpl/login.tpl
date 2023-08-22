@@ -44,7 +44,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">Hey! Bitte anmelden</h1>
                                         {if isset($logo)}<img src="{$logo}" alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;">{/if}
                                     </div>
-                                    <form class="user" id="loginForm" method="post" action="resources/php/functions/main-functions.php">
+                                    <form class="user" id="loginForm" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="inpUsername" aria-describedby="username"
@@ -54,7 +54,7 @@
                                             <input type="password" class="form-control form-control-user"
                                                 id="inpPassword" placeholder="Passwort" name="inpPassword">
                                         </div>
-                                        <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
+                                        <button type="button" name="btnLogin" id="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -70,9 +70,9 @@
         </div>
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="../resources/vendor/jquery/jquery.min.js"></script>
     <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -81,42 +81,46 @@
     <!-- Custom scripts for all pages-->
     <script src="../resources/js/sb-admin-2.min.js"></script>
 
-</body>
-<script>
-    /*
-    $(document).ready(function(){
-        $.ajaxSetup({ cache: false }); // or iPhones don't get fresh data
-    });
+    <script>
 
+        $(document).ready(function() {
+            $("#btnLogin").click(function() {
+                console.log('clicked');
+                var uname = document.getElementById('inpUsername').value;
+                var pwd = document.getElementById('inpPassword').value;  
     
-    $( "#btnLogin" ).click(function() {
-        var uname = document.getElementById('inpUsername').value;
-        var pwd = document.getElementById('inpPassword').value;  
-
-        $.ajax({
-            type: 'POST',
-            url: 'resources/php/functions/main-functions.php?',      
-            data: "inpUsername="+uname+"&inpPassword="+pwd,
-            dataType: 'HTML',
-            success: function (response) {
-                console.log("ok");
-            },
-            error: function () {
-                console.log("error");
-                alert("Unable to perform login");
-            }
+                $.ajax({
+                    type: 'POST',
+                    url: 'resources/php/functions/main-functions.php?',      
+                    data: "inpUsername="+uname+"&inpPassword="+pwd,
+                    dataType: 'json',
+                    success: function(xhr, status, error, response) {
+                        console.log('Response received:', response); // Log the entire response
+                        if (response.status === 'success') {
+                            console.log('Authentication successful:', response.message);
+                        } else {
+                            console.log('Authentication failed:', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('AJAX Error:', status); // Log the error status
+                        console.log('Error details:', error); // Log the error details
+                    }
+                });
+    
+                $(location).prop('href', '/index.php?view=loggedin');
+                location.reload();
+            });
         });
+        
+    
+    
+        if (typeof navigator.serviceWorker !== 'undefined') {
+            navigator.serviceWorker.register('/sw.js')
+        }
+    
+    </script>
 
-        $(location).prop('href', '/index.php?view=loggedin');
-        location.reload();
-    });
-    */
 
-
-    if (typeof navigator.serviceWorker !== 'undefined') {
-        navigator.serviceWorker.register('/sw.js')
-    }
-
-</script>
-
+</body>
 </html>
