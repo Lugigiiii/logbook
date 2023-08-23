@@ -909,10 +909,10 @@ if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
 if(!empty($_POST['inpUsername']) && !empty($_POST['inpPassword'])){
     if(authUser()) {
         header('Content-Type: application/json');
-        print_r json_encode(['status' => 'success', 'message' => 'User authenticated']);
+        die(json_encode(['status' => 'success', 'message' => 'User authenticated']));
     } else {
         header('Content-Type: application/json');
-        print_r json_encode(['status' => 'error', 'message' => 'Invalid credentials']);
+        die(json_encode(['status' => 'error', 'message' => 'Invalid credentials']));
     }
 }
 

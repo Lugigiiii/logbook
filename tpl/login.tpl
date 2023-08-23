@@ -93,19 +93,19 @@
                     type: 'POST',
                     url: 'resources/php/functions/main-functions.php?',      
                     data: "inpUsername="+uname+"&inpPassword="+pwd,
-                    dataType: 'json',
-                    success: function(xhr, status, error, response) {
-                        console.log('Response received:', response); // Log the entire response
-                        if (response.status === 'success') {
-                            console.log('Authentication successful:', response.message);
+                    dataType: 'json'
+                })
+                .done(function(data, textStatus, jqXHR){
+                    console.log('Response received:', data); // Log the entire response
+                        if (data.status === 'success') {
+                            console.log('Authentication successful:', data.message);
                         } else {
-                            console.log('Authentication failed:', response.message);
+                            console.log('Authentication failed:', data.message);
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('AJAX Error:', status); // Log the error status
-                        console.log('Error details:', error); // Log the error details
-                    }
+                })
+                .fail(function(jqXHR, textStatus, errorThrown){
+                    console.log('AJAX Error:', textStatus); // Log the error status
+                    console.log('Error details:', errorThrown); // Log the error details
                 });
     
                 $(location).prop('href', '/index.php?view=loggedin');

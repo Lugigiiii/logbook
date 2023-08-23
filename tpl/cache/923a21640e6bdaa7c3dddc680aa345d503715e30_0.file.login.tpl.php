@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-08-22 21:05:19
+/* Smarty version 4.2.1, created on 2023-08-23 19:20:05
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64e506ef5a1f86_07288397',
+  'unifunc' => 'content_64e63fc5af0a33_12968158',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1692731118,
+      1 => 1692811200,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64e506ef5a1f86_07288397 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64e63fc5af0a33_12968158 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -127,20 +127,19 @@ function content_64e506ef5a1f86_07288397 (Smarty_Internal_Template $_smarty_tpl)
                     type: 'POST',
                     url: 'resources/php/functions/main-functions.php?',      
                     data: "inpUsername="+uname+"&inpPassword="+pwd,
-                    dataType: 'json',
-                    success: function(xhr, status, error, response) {
-                        console.log('Response received:', response); // Log the entire response
-                        if (response.status === 'success') {
-                            console.log('Authentication successful:', response.message);
+                    dataType: 'json'
+                })
+                .done(function(data, textStatus, jqXHR){
+                    console.log('Response received:', data); // Log the entire response
+                        if (data.status === 'success') {
+                            console.log('Authentication successful:', data.message);
                         } else {
-                            console.log('Authentication failed:', response.message);
+                            console.log('Authentication failed:', data.message);
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('AJAX Error:', status); // Log the error status
-                        console.log('Error details:', error); // Log the error details
-                        console.log(xhr);
-                    }
+                })
+                .fail(function(jqXHR, textStatus, errorThrown){
+                    console.log('AJAX Error:', textStatus); // Log the error status
+                    console.log('Error details:', errorThrown); // Log the error details
                 });
     
                 $(location).prop('href', '/index.php?view=loggedin');
