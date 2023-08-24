@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-08-23 19:20:05
+/* Smarty version 4.2.1, created on 2023-08-24 23:38:48
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64e63fc5af0a33_12968158',
+  'unifunc' => 'content_64e7cde8825630_46453504',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1692811200,
+      1 => 1692913121,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64e63fc5af0a33_12968158 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64e7cde8825630_46453504 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -119,14 +119,17 @@ function content_64e63fc5af0a33_12968158 (Smarty_Internal_Template $_smarty_tpl)
 
         $(document).ready(function() {
             $("#btnLogin").click(function() {
-                console.log('clicked');
                 var uname = document.getElementById('inpUsername').value;
                 var pwd = document.getElementById('inpPassword').value;  
     
                 $.ajax({
                     type: 'POST',
-                    url: 'resources/php/functions/main-functions.php?',      
-                    data: "inpUsername="+uname+"&inpPassword="+pwd,
+                    url: '../resources/php/functions/main-functions.php?',      
+                    //data: "inpUsername="+uname+"&inpPassword="+pwd,
+                    data : {
+                        inpUsername: uname,
+                        inpPassword: pwd
+                    },
                     dataType: 'json'
                 })
                 .done(function(data, textStatus, jqXHR){
@@ -136,14 +139,13 @@ function content_64e63fc5af0a33_12968158 (Smarty_Internal_Template $_smarty_tpl)
                         } else {
                             console.log('Authentication failed:', data.message);
                         }
+                        location.reload();
                 })
                 .fail(function(jqXHR, textStatus, errorThrown){
                     console.log('AJAX Error:', textStatus); // Log the error status
                     console.log('Error details:', errorThrown); // Log the error details
                 });
     
-                $(location).prop('href', '/index.php?view=loggedin');
-                location.reload();
             });
         });
         

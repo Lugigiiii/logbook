@@ -85,14 +85,17 @@
 
         $(document).ready(function() {
             $("#btnLogin").click(function() {
-                console.log('clicked');
                 var uname = document.getElementById('inpUsername').value;
                 var pwd = document.getElementById('inpPassword').value;  
     
                 $.ajax({
                     type: 'POST',
-                    url: 'resources/php/functions/main-functions.php?',      
-                    data: "inpUsername="+uname+"&inpPassword="+pwd,
+                    url: '../resources/php/functions/main-functions.php?',      
+                    //data: "inpUsername="+uname+"&inpPassword="+pwd,
+                    data : {
+                        inpUsername: uname,
+                        inpPassword: pwd
+                    },
                     dataType: 'json'
                 })
                 .done(function(data, textStatus, jqXHR){
@@ -102,14 +105,13 @@
                         } else {
                             console.log('Authentication failed:', data.message);
                         }
+                        location.reload();
                 })
                 .fail(function(jqXHR, textStatus, errorThrown){
                     console.log('AJAX Error:', textStatus); // Log the error status
                     console.log('Error details:', errorThrown); // Log the error details
                 });
     
-                $(location).prop('href', '/index.php?view=loggedin');
-                location.reload();
             });
         });
         
