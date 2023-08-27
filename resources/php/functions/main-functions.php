@@ -19,7 +19,34 @@ function authUser(){
     }
 
     if($LDAP_AUTH) { // check if site is set to ldap auth
-        return false;
+        // connect to ldap server
+        if($LDAP_SSL){
+            $ldapconn = ldap_connect("ldaps://".$LDAP_SERVER.":".$LDAP_PORT);
+        } else {
+            $ldapconn = ldap_connect("ldap://".$LDAP_SERVER.":".$LDAP_PORT);
+        }
+
+        // necessary settings
+        ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
+        ldap_set_option($ds, LDAP_OPT_NETWORK_TIMEOUT, 10);
+
+        // check if connection successful
+        if($ldapconn){
+            $ldaprdn = "uid=".$inpUsername.",".$LDAP_BASE_DN; // ldap url to lookup user
+            if($ldapbind = ldap_bind($ldapconn, $ldaprdn, $inpPassword)) {
+                // auth successful, now check group
+                // then set session
+                // return true for login
+                return true;
+
+            } else {
+                return false;
+            }
+        } else {
+            // unable to connect to ldap server
+            return false;
+        }
     }
 
     if(!$LDAP_AUTH) { // just use db authentication  

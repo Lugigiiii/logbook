@@ -33,12 +33,6 @@
     if (typeof navigator.serviceWorker !== 'undefined') {
         navigator.serviceWorker.register('/sw.js')
     }
-
-    // date time picker
-    const dateInput = document.getElementById("man-start");
-    dateInput.showPicker();
-    const dateInput2 = document.getElementById("man-end");
-    dateInput2.showPicker();
 </script>
 {/literal}
 </html>

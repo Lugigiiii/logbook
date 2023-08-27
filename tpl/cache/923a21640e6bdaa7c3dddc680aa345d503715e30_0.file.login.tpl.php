@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-08-24 23:38:48
+/* Smarty version 4.2.1, created on 2023-08-27 13:12:42
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64e7cde8825630_46453504',
+  'unifunc' => 'content_64eb2faac54301_50252073',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '923a21640e6bdaa7c3dddc680aa345d503715e30' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\login.tpl',
-      1 => 1692913121,
+      1 => 1693134759,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64e7cde8825630_46453504 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64eb2faac54301_50252073 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="de">
 
@@ -65,9 +65,11 @@ function content_64e7cde8825630_46453504 (Smarty_Internal_Template $_smarty_tpl)
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Hey! Bitte anmelden</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Sign-in <?php echo $_smarty_tpl->tpl_vars['sitename']->value;?>
+</h1>
                                         <?php if ((isset($_smarty_tpl->tpl_vars['logo']->value))) {?><img src="<?php echo $_smarty_tpl->tpl_vars['logo']->value;?>
 " alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;"><?php }?>
+                                        <div id="alert"></div>
                                     </div>
                                     <form class="user" id="loginForm" method="post">
                                         <div class="form-group">
@@ -113,11 +115,14 @@ function content_64e7cde8825630_46453504 (Smarty_Internal_Template $_smarty_tpl)
     <?php echo '<script'; ?>
  src="../resources/js/sb-admin-2.min.js"><?php echo '</script'; ?>
 >
+    
 
     <?php echo '<script'; ?>
 >
 
         $(document).ready(function() {
+            $('#loginForm').keypress(function(e){if(e.which==13){e.preventDefault();$('#loginForm').find('#btnLogin').click();}});
+
             $("#btnLogin").click(function() {
                 var uname = document.getElementById('inpUsername').value;
                 var pwd = document.getElementById('inpPassword').value;  
@@ -133,13 +138,14 @@ function content_64e7cde8825630_46453504 (Smarty_Internal_Template $_smarty_tpl)
                     dataType: 'json'
                 })
                 .done(function(data, textStatus, jqXHR){
-                    console.log('Response received:', data); // Log the entire response
                         if (data.status === 'success') {
-                            console.log('Authentication successful:', data.message);
+                            //console.log('Authentication successful:', data.message);
+                            document.getElementById("alert").innerHTML = '<div class="alert alert-success" role="alert">Anmeldung erfolgreich.</div>';
+                            location.reload();
                         } else {
-                            console.log('Authentication failed:', data.message);
+                            document.getElementById("alert").innerHTML = '<div class="alert alert-danger" role="alert">Benutzername oder Kennwort falsch.</div>';
+                            document.getElementById("loginForm").reset();
                         }
-                        location.reload();
                 })
                 .fail(function(jqXHR, textStatus, errorThrown){
                     console.log('AJAX Error:', textStatus); // Log the error status
@@ -157,7 +163,7 @@ function content_64e7cde8825630_46453504 (Smarty_Internal_Template $_smarty_tpl)
     
     <?php echo '</script'; ?>
 >
-
+    
 
 </body>
 </html><?php }

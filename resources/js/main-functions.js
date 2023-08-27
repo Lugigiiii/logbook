@@ -192,6 +192,12 @@ function showManualFunc(){
 
     // add new title
     document.getElementById("title-top").textContent= 'Manuell';
+
+    // date time picker
+    const dateInput = document.getElementById("man-start");
+    dateInput.showPicker();
+    const dateInput2 = document.getElementById("man-end");
+    dateInput2.showPicker();
 }
 
 
@@ -573,11 +579,6 @@ function parsePosition(position) {
             var response = JSON.parse(response);
             var town = response.address.town;
             var village = response.address.village;
-            // debugging stuff
-            console.log(response);
-
-            console.log(town);
-            console.log(village);
             
             if(town){
                 document.getElementById("input-loc").value = town;

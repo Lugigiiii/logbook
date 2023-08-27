@@ -41,8 +41,9 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Hey! Bitte anmelden</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Sign-in {$sitename}</h1>
                                         {if isset($logo)}<img src="{$logo}" alt="Client Logo" style="margin: 20px; max-width: 200px; max-height: auto;">{/if}
+                                        <div id="alert"></div>
                                     </div>
                                     <form class="user" id="loginForm" method="post">
                                         <div class="form-group">
@@ -80,10 +81,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../resources/js/sb-admin-2.min.js"></script>
+    {literal}
 
     <script>
 
         $(document).ready(function() {
+            $('#loginForm').keypress(function(e){if(e.which==13){e.preventDefault();$('#loginForm').find('#btnLogin').click();}});
+
             $("#btnLogin").click(function() {
                 var uname = document.getElementById('inpUsername').value;
                 var pwd = document.getElementById('inpPassword').value;  
@@ -99,13 +103,14 @@
                     dataType: 'json'
                 })
                 .done(function(data, textStatus, jqXHR){
-                    console.log('Response received:', data); // Log the entire response
                         if (data.status === 'success') {
-                            console.log('Authentication successful:', data.message);
+                            //console.log('Authentication successful:', data.message);
+                            document.getElementById("alert").innerHTML = '<div class="alert alert-success" role="alert">Anmeldung erfolgreich.</div>';
+                            location.reload();
                         } else {
-                            console.log('Authentication failed:', data.message);
+                            document.getElementById("alert").innerHTML = '<div class="alert alert-danger" role="alert">Benutzername oder Kennwort falsch.</div>';
+                            document.getElementById("loginForm").reset();
                         }
-                        location.reload();
                 })
                 .fail(function(jqXHR, textStatus, errorThrown){
                     console.log('AJAX Error:', textStatus); // Log the error status
@@ -122,7 +127,7 @@
         }
     
     </script>
-
+    {/literal}
 
 </body>
 </html>
