@@ -37,11 +37,6 @@ if(session_id() === "") session_start(); // starts the session
 
 
 
-// forward to login page if no url given
-if(empty($_GET['view'])){ 
-    header('Location: /index.php?view=login');
-    die();
-}
 
 
 
@@ -68,8 +63,7 @@ if($_GET['view'] === 'activate-user' && !empty($_GET['token']) && !empty($_GET['
 
 // check if user loggedin
 if(!isset($_SESSION['loggedin']) || !in_array($_GET['view'], $views)){
-    header("Location: /index.php?view=login");
-    die();
+    $_GET['view'] = 'login';
 }
 
 
