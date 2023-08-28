@@ -111,6 +111,7 @@ if ($_GET['view']==='admin') {
     $tpl->assign('sitename', $SITE_NAME);
     $tpl->assign('companyname',$COMPANY_NAME);
     $tpl->assign('data',getRides());
+    $tpl->assign('admin',$_SESSION['admin']);
     $tpl->display('admin-header.tpl');
     $tpl->display('admin-main.tpl');
     $tpl->display('admin-footer.tpl');
@@ -129,6 +130,7 @@ if ($_GET['view']==='admin-cars') {
     $tpl->assign('sitename', $SITE_NAME);
     $tpl->assign('companyname',$COMPANY_NAME);
     $tpl->assign('data',getCarsTable());
+    $tpl->assign('admin',$_SESSION['admin']);
     $tpl->display('admin-header.tpl');
     $tpl->display('admin-cars.tpl');
     $tpl->display('admin-footer.tpl');
@@ -147,6 +149,7 @@ if ($_GET['view']==='admin-users') {
     $tpl->assign('sitename', $SITE_NAME);
     $tpl->assign('companyname',$COMPANY_NAME);
     $tpl->assign('data',getUsersTable());
+    $tpl->assign('admin',$_SESSION['admin']);
     $tpl->display('admin-header.tpl');
     $tpl->display('admin-users.tpl');
     $tpl->display('admin-footer.tpl');
