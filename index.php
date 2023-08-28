@@ -118,6 +118,7 @@ if ($_GET['view']==='admin') {
 if ($_GET['view']==='admin-cars') {
     if(!$_SESSION['admin']) {
         header("Location: /index.php?view=mobile");
+        die("illegal");
     }
 
     // include main functions
@@ -135,6 +136,7 @@ if ($_GET['view']==='admin-cars') {
 if ($_GET['view']==='admin-users') {
     if(!$_SESSION['admin']) {
         header("Location: /index.php?view=mobile");
+        die("illegal");
     }
 
     // include main functions
