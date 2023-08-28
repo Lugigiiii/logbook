@@ -199,6 +199,7 @@ function multiUpload($prep_st, $ride_id, $array){
     foreach ($array as $key => $value) {
         // first insert main ride, then get id and upload all arrays via foreach loop
         // prepare and bind ride
+        $value = addslashes(strip_tags($value));
         $stmt = $conn->prepare($prep_st);
         $stmt->bind_param("is", $ride_id, $value);
         if(!$stmt->execute()){
@@ -912,6 +913,52 @@ function delRide($ride_id){
     $conn->close();
 }
 
+// check if submitted km is larger than stored value
+function checkKmStart($car, $km){
+    // include the setup script
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= '/resources/php/config.inc.php';
+    include($path);
+
+    $car = addslashes(strip_tags($car));
+
+    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // DB Create connection
+
+    if ($conn->connect_error) { // Check connection
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $car = strip_tags(addslashes($car));
+    $km = intval($km);
+
+    $stmt = $conn->prepare("SELECT MAX(ride.kmEnd) AS lastKM, car.name FROM ride INNER JOIN car ON ride.car=car.pk_id WHERE car.name=? AND ride.deleted NOT LIKE 1");
+    $stmt->bind_param("s", $car);
+    if($stmt->execute()){
+        $result = $stmt->get_result(); // get the mysqli result
+        $row = $result->fetch_assoc();
+
+        $stmt->close();
+        $conn->close();
+
+        if(!empty($row['lastKM'])){ // check if data present
+            // check if submitted data is larger than stored data
+            if($km >= $row['lastKM']){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+
+    } else {
+        echo 'unable to get km from database';
+        die();
+    }
+    $conn->close();
+}
+
+
 
 
 
@@ -988,7 +1035,17 @@ if(!isset($_SESSION) && $_SESSION['loggedin'] !== true && $_GET['view'] !== 'act
 
 
 // getKM after ajax call
-if(!empty($_POST['carSelected'])){
+if(!empty($_POST['carSelected']) && !empty($_POST['kmEntered'])){
+    // user submitted km value and wanted to start ride
+    if(checkKmStart($_POST['carSelected'], $_POST['kmEntered'])){
+        header('Content-Type: application/json');
+        die(json_encode(['status' => 'success', 'message' => 'KM ok']));
+    } else {
+        header('Content-Type: application/json');
+        die(json_encode(['status' => 'failure', 'message' => 'KM to small']));
+    }
+} elseif(!empty($_POST['carSelected'])){
+    // user selected car and requests last km value
     echo(getKM($_POST['carSelected']));
 }
 

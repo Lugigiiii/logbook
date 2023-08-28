@@ -100,6 +100,8 @@ function startFunc(){
     var car = document.forms["meta"]["car"].value;
     var locStart = document.forms["meta"]["loc"].value;
     var kmStart = document.forms["meta"]["km"].value;
+    var fKmStart = kmStart.replace(/\D/g, "");
+
     if (car == "") {
         alert("Bitte Fahrzeug wählen");
         return false;
@@ -113,20 +115,41 @@ function startFunc(){
         return false;
     }
 
-    var ts = parseInt(new Date().getTime());
-    var ar_tsStart = [];
-    var ar_locStart = [];
-    ar_tsStart[0] = ts;
-    ar_locStart[0] = locStart;
-    var fKmStart = kmStart.replace(/\D/g, "");
-    localStorage.setItem("timestamp_start", JSON.stringify(ar_tsStart));
-    localStorage.setItem("car", car);
-    localStorage.setItem("locStart", JSON.stringify(ar_locStart));
-    localStorage.setItem('kmStart', fKmStart);
+    $.ajax({
+        type: 'POST',
+        url: '../resources/php/functions/main-functions.php?',      
+        //data: "inpUsername="+uname+"&inpPassword="+pwd,
+        data : {
+            carSelected: car,
+            kmEntered: fKmStart
+        },
+        dataType: 'json'
+    })
+    .done(function(data, textStatus, jqXHR){
+            if (data.status === 'failure') {
+                //console.log('Authentication successful:', data.message);
+                alert("KM Stand muss höher als nach der letzten Fahrt sein.");
+                return false;
+            } else {
+                var ts = parseInt(new Date().getTime());
+                var ar_tsStart = [];
+                var ar_locStart = [];
+                ar_tsStart[0] = ts;
+                ar_locStart[0] = locStart;
+                localStorage.setItem("timestamp_start", JSON.stringify(ar_tsStart));
+                localStorage.setItem("car", car);
+                localStorage.setItem("locStart", JSON.stringify(ar_locStart));
+                localStorage.setItem('kmStart', fKmStart);
 
 
-    location.reload();
-    return true;
+                location.reload();
+                return true;
+            }
+    })
+    .fail(function(jqXHR, textStatus, errorThrown){
+        console.log('AJAX Error:', textStatus); // Log the error status
+        console.log('Error details:', errorThrown); // Log the error details
+    });
 }
 
 
