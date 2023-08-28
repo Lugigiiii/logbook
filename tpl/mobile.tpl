@@ -1,6 +1,6 @@
     <div id="main">
         <div id="top">
-            <h2 class="top-left">Hallo, {$first}!</h2>
+            <h2 class="top-left">Ahoi {$first}!</h2>
             <div class="dropdown top-right">
                 <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
                 <div class="dropdown-content">
