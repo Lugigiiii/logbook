@@ -407,7 +407,7 @@ function saveFunc() {
 
     // get browser data
     var car = localStorage.getItem('car');
-    var kmStart = localStorage.getItem('kmStart');
+    var kmStart = parseInt(localStorage.getItem('kmStart'));
     var ar_tsStop = JSON.parse(localStorage.getItem("timestamp_stop"));
     var ar_tsStart = JSON.parse(localStorage.getItem("timestamp_start"));
     var ar_locStart = JSON.parse(localStorage.getItem("locStart"));
@@ -416,7 +416,7 @@ function saveFunc() {
     var locStop = document.forms["meta"]["loc"].value;
     var locPause = document.forms["meta-pause"]["loc-pause"].value;
     var kmStop = document.forms["meta"]["km"].value;
-    kmStop = kmStop.replace(/\D/g, ""); // remove string stuff
+    kmStop = parseInt(kmStop.replace(/\D/g, "")); // remove string stuff
 
     // check if user fucked up
     if(locStop == "") {
@@ -433,8 +433,6 @@ function saveFunc() {
     }
     if(kmStop <= kmStart){
         alert('Kilometerstand muss höher als Startwert liegen');
-        console.log(kmStop);
-        console.log(kmStart);
         return false;
     }
 

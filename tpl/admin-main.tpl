@@ -31,7 +31,7 @@
                                             <th>Start</th>
                                             <th>Ende</th>
                                             <th>Fahrzeug</th>
-                                            <th>Kilometer</th>
+                                            <th>KM Neu</th>
                                             <th>Strecke</th>
                                             <th>Mitarbeiter</th>
                                             <th>Löschen</th>
@@ -54,8 +54,8 @@
                                                 <td>{$element[1]|date_format:"%H:%M Uhr"}</td>
                                             {/if}
                                             <td>{$element[2]}</td>
-                                            <td>{$element[3]}</td>
-                                            <td>{$element[4]}</td>
+                                            <td>{$element[9]|formatnumch} km</td>
+                                            <td>{$element[4]} ({{$element[9]-$element[3]}|formatnumch} km)</td>
                                             <td>{$element[5]}</td>
                                             <td>
                                                 {if $element[7] != 1}

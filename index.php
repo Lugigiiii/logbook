@@ -23,7 +23,7 @@ $tpl->compile_check = true;
 $tpl->caching = false;
 $tpl->debugging = false;
 $tpl->template_dir = 'tpl/';
-$tpl->compile_dir = 'tpl/cache/'; 
+$tpl->compile_dir = '/tpl/cache/'; 
 
 
 
@@ -36,7 +36,7 @@ if(session_id() === "") session_start(); // starts the session
 // forward to login page if no url given
 if(empty($_GET['view'])){ 
     header('Location: /index.php?view=login');
-    die("illegal");
+    die();
 }
 
 
@@ -120,7 +120,7 @@ if ($_GET['view']==='admin') {
 if ($_GET['view']==='admin-cars') {
     if(!$_SESSION['admin']) {
         header("Location: /index.php?view=mobile");
-        die("illegal");
+        die();
     }
 
     // include main functions
@@ -139,7 +139,7 @@ if ($_GET['view']==='admin-cars') {
 if ($_GET['view']==='admin-users') {
     if(!$_SESSION['admin']) {
         header("Location: /index.php?view=mobile");
-        die("illegal");
+        die();
     }
 
     // include main functions

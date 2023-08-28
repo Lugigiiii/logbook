@@ -11,8 +11,8 @@ function authUser(){
     include($path);
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // DB Create connection
 
-    $inpUsername = addslashes($_POST['inpUsername']); // get data
-    $inpPassword = $_POST['inpPassword']; // get data
+    $inpUsername = strip_tags(addslashes($_POST['inpUsername'])); // get data
+    $inpPassword = strip_tags(addslashes($_POST['inpPassword'])); // get data
 
     if ($conn->connect_error) { // Check connection
         die("Connection failed: " . $conn->connect_error);
@@ -152,6 +152,8 @@ function getKM($car){
         die("Connection failed: " . $conn->connect_error);
     }
 
+    $car = strip_tags(addslashes($car));
+
     $stmt = $conn->prepare("SELECT MAX(ride.kmEnd) AS lastKM, car.name FROM ride INNER JOIN car ON ride.car=car.pk_id WHERE car.name=? AND ride.deleted NOT LIKE 1");
     $stmt->bind_param("s", $car);
     if($stmt->execute()){
@@ -226,6 +228,12 @@ function uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // shell escape for XSS prevention
+    $car = strip_tags(addslashes($car));
+    $kmStart = strip_tags($kmStart);
+    $kmStop = strip_tags($kmStop);
+    $manual = strip_tags($manual);
+
     // get id of car selected
     $stmt = $conn->prepare("SELECT pk_id FROM car WHERE name=?");
     $stmt->bind_param("s", $car);
@@ -276,6 +284,11 @@ function getTS($ride_id,$table, $order){
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // XSS prevention
+    $ride_id = strip_tags(addslashes($ride_id));
+    $table = strip_tags(addslashes($table));
+    $order = strip_tags(addslashes($order));
+
     // get starting timestamp
     $stmt = $conn->query("SELECT timestamp FROM ".$table." WHERE fk_ride_id = {$ride_id} ORDER BY timestamp ".$order." LIMIT 1");
     if($result = $stmt->fetch_assoc()){
@@ -304,6 +317,9 @@ function getLocation($ride_id){
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+
+    // XSS prevention
+    $ride_id = strip_tags(addslashes($ride_id));
 
     // get locations
     $stmt = $conn->query("SELECT location FROM locstart WHERE ride_id = {$ride_id}");
@@ -348,10 +364,11 @@ function getRides(){
         // store current data
         $ride_id = $row[0];
         $name = $row[1]." ".$row[2];
-        $km = $row[5]-$row[4]." km";
+        $kmStart = $row[4];
         $car = $row[3];
         $deleted = $row[6];
         $manual = $row[7];
+        $kmEnd = $row[5];
 
         // query for further data
         $tsstart = intval(getTS($ride_id,'tsstart','ASC') / 1000);
@@ -363,12 +380,13 @@ function getRides(){
             $tsstart,
             $tsstop,
             $car,
-            $km,
+            $kmStart,
             $locations, 
             $name,
             $ride_id,
             $deleted,
-            $manual
+            $manual,
+            $kmEnd
         );
 
         array_push($data, $res);
@@ -418,8 +436,8 @@ function getCarsTable(){
 
 /* function to change active element of car -> enable / disable */
 function changeActiveCar($car, $updateVal){
-    $car = intval($car);
-    $updateVal = intval($updateVal);
+    $car = intval(strip_tags($car));
+    $updateVal = intval(strip_tags($updateVal));
 
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
@@ -450,6 +468,12 @@ function insertNewCar($carName, $carNumberplate, $carYear, $carActive){
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
     include($path);
+
+    // XSS prevention
+    $carName = strip_tags(addslashes($carName));
+    $carNumberplate = strip_tags(addslashes($carNumberplate));
+    $carYear = strip_tags(addslashes($carYear));
+    $carActive = strip_tags(addslashes($carActive));
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -512,8 +536,8 @@ function getUsersTable(){
 
 /* add or remove user from admin group via page admin-users */
 function changeAdminUser($user, $updateVal){
-    $user = intval($user);
-    $updateVal = intval($updateVal);
+    $user = intval(addslashes(strip_tags($user)));
+    $updateVal = intval(addslashes(strip_tags($updateVal)));
 
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
@@ -549,6 +573,15 @@ function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, 
     require '../phpmailer/Exception.php';
     require '../phpmailer/PHPMailer.php';
     require '../phpmailer/SMTP.php';
+
+
+    // XSS prevention
+    $newUserFirst = addslashes(strip_tags($newUserFirst));
+    $newUserLast = addslashes(strip_tags($newUserLast));
+    $newUserName = addslashes(strip_tags($newUserName));
+    $newUserMail = addslashes(strip_tags($newUserMail));
+    $newUserAdmin = addslashes(strip_tags($newUserAdmin));
+    
 
 
     // Create connection
@@ -639,8 +672,8 @@ function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, 
 
 /* function to change active element of user -> enable / disable */
 function changeActiveUser($user, $updateVal){
-    $user = intval($user);
-    $updateVal = intval($updateVal);
+    $user = intval(addslashes(strip_tags($user)));
+    $updateVal = intval(addslashes(strip_tags($updateVal)));
 
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
@@ -670,8 +703,8 @@ function changeActiveUser($user, $updateVal){
 
 /* check if token of newly created user is valid */
 function checkToken($token, $mail){
-    $token = addslashes($token);
-    $mail = addslashes($mail);
+    $token = strip_tags(addslashes($token));
+    $mail = strip_tags(addslashes($mail));
 
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
@@ -703,10 +736,10 @@ function checkToken($token, $mail){
 
 /* function to change password  of user */
 function changePasswordUser($token, $mail, $inpPwd1, $inpPwd2){
-    $token = addslashes($token);
-    $mail = addslashes($mail);
-    $inpPwd1 = addslashes($inpPwd1);
-    $inpPwd2 = addslashes($inpPwd2);
+    $token = strip_tags(addslashes($token));
+    $mail = strip_tags(addslashes($mail));
+    $inpPwd1 = strip_tags(addslashes($inpPwd1));
+    $inpPwd2 = strip_tags(addslashes($inpPwd2));
 
 
     // include the setup script
@@ -747,7 +780,7 @@ function changePasswordUser($token, $mail, $inpPwd1, $inpPwd2){
 }
 
 function resetUser($uid){
-    $uid = intval($uid);
+    $uid = intval(strip_tags($uid));
 
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
@@ -854,7 +887,7 @@ function resetUser($uid){
 /* function to delete ride */
 
 function delRide($ride_id){
-    $ride_id = intval($ride_id);
+    $ride_id = intval(strip_tags($ride_id));
 
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];

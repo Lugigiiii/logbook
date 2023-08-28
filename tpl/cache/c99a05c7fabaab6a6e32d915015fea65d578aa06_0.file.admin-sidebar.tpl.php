@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-06-10 22:04:57
+/* Smarty version 4.2.1, created on 2023-08-28 18:31:21
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6484d769e0b246_35363319',
+  'unifunc' => 'content_64eccbd9dd3cf6_71030524',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c99a05c7fabaab6a6e32d915015fea65d578aa06' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-sidebar.tpl',
-      1 => 1683486446,
+      1 => 1693235954,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6484d769e0b246_35363319 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64eccbd9dd3cf6_71030524 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -32,6 +32,7 @@ function content_6484d769e0b246_35363319 (Smarty_Internal_Template $_smarty_tpl)
         <div class="sidebar-brand-text mx-3"><?php echo $_smarty_tpl->tpl_vars['sitename']->value;?>
 </div>
     </a>
+    <?php if ($_smarty_tpl->tpl_vars['admin']->value == true) {?>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -64,6 +65,7 @@ function content_6484d769e0b246_35363319 (Smarty_Internal_Template $_smarty_tpl)
             <i class="fas fa-fw fa-car"></i>
             <span>Autos</span></a>
     </li>
+    <?php }?>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
@@ -79,5 +81,6 @@ function content_6484d769e0b246_35363319 (Smarty_Internal_Template $_smarty_tpl)
     </li>
 
 </ul>
-<!-- End of Sidebar --><?php }
+<!-- End of Sidebar -->
+<?php }
 }
