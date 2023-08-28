@@ -8,6 +8,7 @@
         </div>
         <div class="sidebar-brand-text mx-3">{$sitename}</div>
     </a>
+    {if $admin eq true}
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -40,6 +41,7 @@
             <i class="fas fa-fw fa-car"></i>
             <span>Autos</span></a>
     </li>
+    {/if}
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

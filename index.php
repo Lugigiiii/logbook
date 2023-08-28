@@ -36,6 +36,7 @@ if(session_id() === "") session_start(); // starts the session
 // forward to login page if no url given
 if(empty($_GET['view'])){ 
     header('Location: /index.php?view=login');
+    die("illegal");
 }
 
 
@@ -103,10 +104,6 @@ if ($_GET['view']==='login') {
 
 
 if ($_GET['view']==='admin') {
-    if(!$_SESSION['admin']) {
-        header("Location: /index.php?view=mobile");
-    }
-
     // include main functions
     include_once('resources/php/functions/main-functions.php');
 
@@ -114,6 +111,7 @@ if ($_GET['view']==='admin') {
     $tpl->assign('sitename', $SITE_NAME);
     $tpl->assign('companyname',$COMPANY_NAME);
     $tpl->assign('data',getRides());
+    $tpl->assign('admin',$_SESSION['admin']);
     $tpl->display('admin-header.tpl');
     $tpl->display('admin-main.tpl');
     $tpl->display('admin-footer.tpl');
@@ -122,6 +120,7 @@ if ($_GET['view']==='admin') {
 if ($_GET['view']==='admin-cars') {
     if(!$_SESSION['admin']) {
         header("Location: /index.php?view=mobile");
+        die("illegal");
     }
 
     // include main functions
@@ -131,6 +130,7 @@ if ($_GET['view']==='admin-cars') {
     $tpl->assign('sitename', $SITE_NAME);
     $tpl->assign('companyname',$COMPANY_NAME);
     $tpl->assign('data',getCarsTable());
+    $tpl->assign('admin',$_SESSION['admin']);
     $tpl->display('admin-header.tpl');
     $tpl->display('admin-cars.tpl');
     $tpl->display('admin-footer.tpl');
@@ -139,6 +139,7 @@ if ($_GET['view']==='admin-cars') {
 if ($_GET['view']==='admin-users') {
     if(!$_SESSION['admin']) {
         header("Location: /index.php?view=mobile");
+        die("illegal");
     }
 
     // include main functions
@@ -148,6 +149,7 @@ if ($_GET['view']==='admin-users') {
     $tpl->assign('sitename', $SITE_NAME);
     $tpl->assign('companyname',$COMPANY_NAME);
     $tpl->assign('data',getUsersTable());
+    $tpl->assign('admin',$_SESSION['admin']);
     $tpl->display('admin-header.tpl');
     $tpl->display('admin-users.tpl');
     $tpl->display('admin-footer.tpl');

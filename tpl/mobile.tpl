@@ -4,7 +4,7 @@
             <div class="dropdown top-right">
                 <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
                 <div class="dropdown-content">
-                  {if $admin eq true}<a href="/index.php?view=admin">Admin</a>{/if}
+                  <a href="/index.php?view=admin">Fahrten</a>
                   <button id="logout" onclick="logOut()">Abmelden</button>
                 </div>
               </div>
