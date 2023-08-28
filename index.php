@@ -23,7 +23,7 @@ $tpl->compile_check = true;
 $tpl->caching = false;
 $tpl->debugging = false;
 $tpl->template_dir = 'tpl/';
-$tpl->compile_dir = '/tpl/cache/'; 
+$tpl->compile_dir = 'tpl/cache/'; 
 
 
 
