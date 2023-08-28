@@ -36,6 +36,7 @@ if(session_id() === "") session_start(); // starts the session
 // forward to login page if no url given
 if(empty($_GET['view'])){ 
     header('Location: /index.php?view=login');
+    die("illegal");
 }
 
 
