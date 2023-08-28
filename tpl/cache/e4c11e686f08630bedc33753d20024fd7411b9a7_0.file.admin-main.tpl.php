@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-08-28 19:13:41
+/* Smarty version 4.2.1, created on 2023-08-28 22:03:02
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\admin-main.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64ecd5c5e51fe9_49570037',
+  'unifunc' => 'content_64ecfd76498e41_47849224',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e4c11e686f08630bedc33753d20024fd7411b9a7' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\admin-main.tpl',
-      1 => 1693242812,
+      1 => 1693243995,
       2 => 'file',
     ),
   ),
@@ -22,8 +22,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:admin-topbar.tpl' => 1,
   ),
 ),false)) {
-function content_64ecd5c5e51fe9_49570037 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
+function content_64ecfd76498e41_47849224 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),1=>array('file'=>'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\resources\\php\\smarty-4.2.1\\libs\\plugins\\modifier.formatnumch.php','function'=>'smarty_modifier_formatnumch',),));
 ?>
 <body id="page-top">
 
@@ -61,7 +61,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\luigi\\OneDrive\\
                                             <th>Start</th>
                                             <th>Ende</th>
                                             <th>Fahrzeug</th>
-                                            <th>KM Stand</th>
+                                            <th>KM Neu</th>
                                             <th>Strecke</th>
                                             <th>Mitarbeiter</th>
                                             <th>Löschen</th>
@@ -94,10 +94,13 @@ $_smarty_tpl->tpl_vars['element']->do_else = false;
                                             <?php }?>
                                             <td><?php echo $_smarty_tpl->tpl_vars['element']->value[2];?>
 </td>
-                                            <td><?php echo $_smarty_tpl->tpl_vars['element']->value[9];?>
+                                            <td><?php echo smarty_modifier_formatnumch($_smarty_tpl->tpl_vars['element']->value[9]);?>
  km</td>
                                             <td><?php echo $_smarty_tpl->tpl_vars['element']->value[4];?>
- (<?php echo $_smarty_tpl->tpl_vars['element']->value[9]-$_smarty_tpl->tpl_vars['element']->value[3];?>
+ (<?php ob_start();
+echo $_smarty_tpl->tpl_vars['element']->value[9]-$_smarty_tpl->tpl_vars['element']->value[3];
+$_prefixVariable1 = ob_get_clean();
+echo smarty_modifier_formatnumch($_prefixVariable1);?>
  km)</td>
                                             <td><?php echo $_smarty_tpl->tpl_vars['element']->value[5];?>
 </td>

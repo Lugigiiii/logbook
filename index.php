@@ -26,6 +26,10 @@ $tpl->template_dir = 'tpl/';
 $tpl->compile_dir = 'tpl/cache/'; 
 
 
+// views
+$views = array("login", "activate-user", "mobile", "admin", "admin-users", "admin-cars");
+
+
 
 
 // check where to forward to
@@ -63,8 +67,9 @@ if($_GET['view'] === 'activate-user' && !empty($_GET['token']) && !empty($_GET['
 
 
 // check if user loggedin
-if(!isset($_SESSION['loggedin']) && $_GET['view'] != 'activate-user'){
-    $_GET['view'] = 'login';
+if(!isset($_SESSION['loggedin']) || !in_array($_GET['view'], $views)){
+    header("Location: /index.php?view=login");
+    die();
 }
 
 
@@ -154,6 +159,4 @@ if ($_GET['view']==='admin-users') {
     $tpl->display('admin-users.tpl');
     $tpl->display('admin-footer.tpl');
 }
-
-
 

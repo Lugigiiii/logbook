@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-08-28 18:30:40
+/* Smarty version 4.2.1, created on 2023-08-28 22:01:35
   from 'C:\Users\luigi\OneDrive\Web\repo_logbook\logbook\tpl\mobile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64eccbb03419a6_65484701',
+  'unifunc' => 'content_64ecfd1f01b942_33727901',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '397edd5be03166c46a08604e7a6321a52e7ad874' => 
     array (
       0 => 'C:\\Users\\luigi\\OneDrive\\Web\\repo_logbook\\logbook\\tpl\\mobile.tpl',
-      1 => 1693235954,
+      1 => 1693245008,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64eccbb03419a6_65484701 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64ecfd1f01b942_33727901 (Smarty_Internal_Template $_smarty_tpl) {
 ?>    <div id="main">
         <div id="top">
-            <h2 class="top-left">Hallo, <?php echo $_smarty_tpl->tpl_vars['first']->value;?>
+            <h2 class="top-left">Ahoi <?php echo $_smarty_tpl->tpl_vars['first']->value;?>
 !</h2>
             <div class="dropdown top-right">
                 <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
