@@ -103,10 +103,6 @@ if ($_GET['view']==='login') {
 
 
 if ($_GET['view']==='admin') {
-    if(!$_SESSION['admin']) {
-        header("Location: /index.php?view=mobile");
-    }
-
     // include main functions
     include_once('resources/php/functions/main-functions.php');
 
