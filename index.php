@@ -41,7 +41,7 @@ if(session_id() === "") session_start(); // starts the session
 
 
 // check for activation url
-if($_GET['view'] === 'activate-user' && !empty($_GET['token']) && !empty($_GET['mail'])){ // forward to activation page
+if(!empty($_GET['view']) && $_GET['view'] === 'activate-user' && !empty($_GET['token']) && !empty($_GET['mail'])){ // forward to activation page
     // include main functions
     include_once('resources/php/functions/main-functions.php');
 
@@ -54,11 +54,11 @@ if($_GET['view'] === 'activate-user' && !empty($_GET['token']) && !empty($_GET['
             $tpl->assign('logo',$COMPANY_LOGO);
         }
         $tpl->display('activate-account.tpl'); 
+        die();
     } else {
         header('Location: /index.php?view=login');
     }
 }
-
 
 
 // check if user loggedin
