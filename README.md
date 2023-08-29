@@ -9,3 +9,8 @@ Installation:
 3. import sql file into your database system (MySQL / MariaDB) and delete from web dir
 4. manually create your first admin user in your database. use php password_hash() for password
 5. reload webserver and feel free to start tracking!
+
+Security improvements:
+Make sure to set the following php options
+session.cookie_httponly -> on
+zend.exception_ignore_args -> 1
