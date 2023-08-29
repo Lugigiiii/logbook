@@ -104,6 +104,11 @@ function loadCar() {
     $path .= '/resources/php/config.inc.php';
     include($path);
 
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // DB Create connection
 
     if ($conn->connect_error) { // Check connection
@@ -146,6 +151,11 @@ function getKM($car){
     $path .= '/resources/php/config.inc.php';
     include($path);
 
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); // DB Create connection
 
     if ($conn->connect_error) { // Check connection
@@ -187,6 +197,11 @@ function multiUpload($prep_st, $ride_id, $array){
     $path .= '/resources/php/config.inc.php';
     include($path);
 
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 
@@ -220,6 +235,11 @@ function uploadData($car,$arr_locStart,$arr_tsStart,$arr_tsStop,$kmStart,$kmStop
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
     include($path);
+
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -277,6 +297,16 @@ function getTS($ride_id,$table, $order){
     $path .= '/resources/php/config.inc.php';
     include($path);
 
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 
@@ -310,6 +340,11 @@ function getLocation($ride_id){
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
     include($path);
+
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -346,6 +381,16 @@ function getRides(){
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
     include($path);
+
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
+    // check if user has permission
+    if(!$_SESSION['admin']) {
+        die();
+    }
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -404,6 +449,15 @@ function getCarsTable(){
     $path .= '/resources/php/config.inc.php';
     include($path);
 
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+    // check if user has permission
+    if(!$_SESSION['admin']) {
+        die();
+    }
+
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 
@@ -445,6 +499,16 @@ function changeActiveCar($car, $updateVal){
     $path .= '/resources/php/config.inc.php';
     include($path);
 
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
+    // check if user has permission
+    if(!$_SESSION['admin']) {
+        die();
+    }
+
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 
@@ -469,6 +533,15 @@ function insertNewCar($carName, $carNumberplate, $carYear, $carActive){
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
     include($path);
+
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+    // check if user has permission
+    if(!$_SESSION['admin']) {
+        die();
+    }
 
     // XSS prevention
     $carName = htmlspecialchars(addslashes($carName));
@@ -502,6 +575,15 @@ function getUsersTable(){
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
     include($path);
+
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+    // check if user has permission
+    if(!$_SESSION['admin']) {
+        die();
+    }
 
     // Create connection
     $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -540,6 +622,16 @@ function changeAdminUser($user, $updateVal){
     $user = intval(addslashes(htmlspecialchars($user)));
     $updateVal = intval(addslashes(htmlspecialchars($updateVal)));
 
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
+    // check if user has permission
+    if(!$_SESSION['admin']) {
+        die();
+    }
+
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
@@ -569,6 +661,16 @@ function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, 
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
     include($path);
+
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
+    // check if user has permission
+    if(!$_SESSION['admin']) {
+        die();
+    }
 
     // include php mailer
     require '../phpmailer/Exception.php';
@@ -675,6 +777,16 @@ function insertNewUser($newUserFirst, $newUserLast, $newUserName, $newUserMail, 
 function changeActiveUser($user, $updateVal){
     $user = intval(addslashes(htmlspecialchars($user)));
     $updateVal = intval(addslashes(htmlspecialchars($updateVal)));
+
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
+    // check if user has permission
+    if(!$_SESSION['admin']) {
+        die();
+    }
 
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
@@ -783,6 +895,16 @@ function changePasswordUser($token, $mail, $inpPwd1, $inpPwd2){
 function resetUser($uid){
     $uid = intval(htmlspecialchars($uid));
 
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
+    // check if user has permission
+    if(!$_SESSION['admin']) {
+        die();
+    }
+
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
@@ -890,6 +1012,11 @@ function resetUser($uid){
 function delRide($ride_id){
     $ride_id = intval(htmlspecialchars($ride_id));
 
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
+
     // include the setup script
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
@@ -919,6 +1046,11 @@ function checkKmStart($car, $km){
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= '/resources/php/config.inc.php';
     include($path);
+
+    // check if authorized
+    if(!isset($_SESSION['loggedin'])){
+        die();
+    }
 
     $car = addslashes(htmlspecialchars($car));
 
@@ -1096,6 +1228,7 @@ if(isset($_POST['logout'])){
     header("Location: /index.php?view=login");
     // Finally, destroy the session.
     session_destroy();
+    die();
 }
 
 
